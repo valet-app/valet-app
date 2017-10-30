@@ -1,15 +1,22 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { getVehiclesAction } from "../../reducers";
 
+class ValetOptions extends Component {
+  constructor(props) {
+    super(props);
 
-class ValetOptions extends Component{
+    this.getVehicles = this.getVehicles.bind(this);
+  }
 
-    render(){
-        return (
-            <div>
-                Valet-Garage Page!
-                </div>
-        )
-    }
+  componentDidMount() {
+    this.props.getVehicles();
+  }
+
+  render() {
+    return <div>Valet-Garage Page!</div>;
+  }
 }
-export default  ValetOptions;
+const mapStateToProps = state => state;
+export default connect(mapStateToProps, { getVehiclesAction })(ValetOptions);
