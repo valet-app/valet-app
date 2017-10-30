@@ -19,7 +19,7 @@ import ChooseValet from './components/chooseValet/chooseValet';
 
 
 
-const createStoreWithMiddelware = applyMiddleware(promise)(createStore);
+const createStoreWithMiddelware = applyMiddleware(promise())(createStore);
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddelware(reducers)}>
