@@ -1,0 +1,1 @@
+SELECT * FROM employee WHERE (id = $1 OR $1 IS NULL) AND (username = $2 OR $2 IS NULL)

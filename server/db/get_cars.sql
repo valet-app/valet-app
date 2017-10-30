@@ -1,0 +1,1 @@
+SELECT * FROM car  WHERE (id = $1 OR $1 IS NULL)
