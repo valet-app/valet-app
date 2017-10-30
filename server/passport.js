@@ -2,13 +2,6 @@
 const passport = require('passport');
 const LocalStrategy   = require('passport-local').Strategy;
 
-// load up the user model
-// var User = require('./db/model');
-
-// load database
-// const { knex } = require('./db/db');
-// const { knex } = require('./db/db.js');
-// const { User } = require('./db/model.js')
 
 // load database
 // const { validPassword, generateHash } = require('./apiCtrl/apiCtrl.js');
@@ -16,8 +9,8 @@ const LocalStrategy   = require('passport-local').Strategy;
 // expose this function to our app using module.exports
 module.exports = function(passport) {   
     
-    passport.use('login', new LocalStrategy( {
-        usernameField: 'localuser', 
+    passport.use('local', new LocalStrategy( {
+        usernameField: 'username', 
         passwordField: 'password',  
         passReqToCallback: true
     }, 
@@ -28,34 +21,43 @@ module.exports = function(passport) {
         console.log('password is ', password);
         let user ={}
         
-        User
-            .where({username: username})
-            .fetch(({withRelated: ['userstatus','usersecuritygroup.userpermission','usergroup']}))
-            .then((user, err) => {
-                    user = (user.toJSON() )
-            
+        const db = req.app.get('db')
+      
+        db.get_employee(null,username)
+            .then(response => {
+                user=response[0];
+                console.log('The response is:')
+                console.log(user);
+                
+                // console.log(res.status(200).json(user))
+                // res.status(200).json(user);
+
                 if (!user) { //No User
                     console.log('NO USER FOUND')
                     return done(null, false);
                 }
                 
-                if (!(validPassword(password, user.password))) {
+                if (!(1==1)) {
                     console.log('BAD PASSWORD')
                     return done(null, false); 
                 }
                 
                 
                 else { //when we find the user, return it
-                    console.log('FOUND USER', user.attributes);
+                    console.log('FOUND USER', user.username);
                     return done(null, user);
                 }
+
             })
-            .catch((err) => {
-                console.log('caught error')
-                console.log(err)
-            });
-    })
-    );
+
+            .catch(  (err) => {
+                    console.log(err, 'Caught Error'); 
+                    res.status(500).send() 
+                });   
+            
+        })
+    )
+        
 
     passport.serializeUser(function(user, done) {
         console.log('serialized user')

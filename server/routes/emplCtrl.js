@@ -1,23 +1,24 @@
 module.exports = {
 
-    getUser: (req,res,next) => {
+    getEmpl: (req,res,next) => {
+        console.log('returning employee id# ', req.query.id);
         const db = req.app.get('db')
-        console.log('returning user id# ', req.query.id);
-        db.get_user(req.query.id)
-            .then(response => { res.status(200).json(response); })
-            .catch( () => res.status(500).send() );
+        db.get_employee(req.query.id, req.query.username)
+            .then(response => {res.status(200).json(response);})
+            .catch(  () => res.status(500).send() );
+    },
+    
+    postEmpl: (req,res,next) => {
     },
 
-    postUser: (req,res,next) => {
+    putEmpl: (req,res,next) => {
     },
 
-    putUser: (req,res,next) => {
-    },
-
-    deleteUser: (req,res,next) => {
+    deleteEmpl: (req,res,next) => {
     }
-
+    
 }
+
 
 
 // const create = (req,res,next) => {
