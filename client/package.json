@@ -22,5 +22,6 @@
   },
   "devDependencies": {
     "semantic-ui": "^2.2.13"
-  }
+  },
+  "proxy": "http://localhost:3001/"
 }
