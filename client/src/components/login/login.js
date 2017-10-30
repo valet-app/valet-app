@@ -1,15 +1,23 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
+//import Action Creators
+import { loginAction } from "../../reducers";
 
-class Login extends Component{
+class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.handleLogin = this.handleLogin.bind(this);
+  }
 
-    render(){
-        return (
-            <div>
-                Login Page!
-                </div>
-        )
-    }
+  handleLogin() {
+    this.props.loginAction(this.state.username, this.state.password);
+  }
+  render() {
+    return <div>Login Page!</div>;
+  }
 }
-export default Login;
+
+const mapStateToProps = state => state;
+export default connect(mapStateToProps, { loginAction })(Login);
