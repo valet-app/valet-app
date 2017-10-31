@@ -4,6 +4,35 @@ Summary of the app...
 
 ***
 
+-- Set Valet Status, boolean column on Employee table called isactive
+   PUT request to http://localhost:3001/api/empl/?id=1     (be sure to set employee id)
+   BODY: { "isactive": "true" }
+
+-- Get Company & Garage for employee
+   GET request to http://localhost:3001/api/emplGarage?id=4    where id = employee id
+
+-- Get all available parking spots for a given garage and parking space type (compact, regular, truck, etc.)
+   GET request to http://localhost:3001/api/parkingspot/?lotid=1&typeid=3  where lotid = parkinglot_id and typeid = parkingspacetype_id
+
+-- Change status of car
+   PUT request to http://localhost:3001/api/cars?id=10    where id = car_id
+   Body to be:  {
+                   "status_id": "3",
+                   "employee_id": "5",      
+                   "parkingspace_id": "2"
+                }
+
+
+
+
+Endpoints to do:
+ 
+ 
+
+ - Add a car
+
+ - Add new employee (valet)
+
 
 
 
