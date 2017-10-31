@@ -60,57 +60,54 @@ export function chooseValetAction(valet) {
 export function loginReducer(state = {}, action) {
   switch (action.type) {
     case LOGIN + "_FULFILLED":
-      return Object.assign({}, state, { username: action.payload.username });
+      return { username: action.payload.username };
     case LOGIN + "_REJECTED":
-      return Object.assign({}, state, {
+      return {
+        username: "",
         error: action.payload.response.status
-      });
+      };
     case LOGIN + "_PENDING":
-      return Object.assign({}, state, { loading: true });
+      return { username: "", loading: true };
     default:
       return state;
   }
 }
 
-export function vehiclesReducer(state = {}, action) {
+export function vehiclesReducer(state = [], action) {
   switch (action.type) {
     case GET_VEHICLES + "_FULFILLED":
-      return Object.assign({}, state, { vehicles: action.payload.data });
+      return action.payload.data;
     case GET_VEHICLES + "_REJECTED":
-      return Object.assign({}, state, {
+      return {
+        vehicles: [],
         error: action.payload.response.status
-      });
+      };
     case GET_VEHICLES + "_PENDING":
-      return Object.assign({}, state, { loading: true });
+      return { vehicles: [], loading: true };
     default:
       return state;
   }
 }
-export function employeesReducer(state = {}, action) {
+export function employeesReducer(state = [], action) {
   switch (action.type) {
     case GET_EMPLOYEES + "_FULFILLED":
-      return  { employees: action.payload.data };
+      return action.payload.data;
     case GET_EMPLOYEES + "_REJECTED":
-      return Object.assign({}, state, {
+      return {
+        employees: [],
         error: action.payload.response.status
-      });
+      };
     case GET_EMPLOYEES + "_PENDING":
-      return Object.assign({}, state, { loading: true });
+      return { employees: [], loading: true };
     default:
       return state;
   }
 }
-export function chooseValetReducer(state = {}, action) {
+export function chooseValetReducer(state = "", action) {
   switch (action.type) {
     case CHOOSE_VALET:
       console.log(action);
-      return Object.assign({}, state, { currentValet: action.payload });
-    case CHOOSE_VALET + "_REJECTED":
-      return Object.assign({}, state, {
-        error: action.payload.response.status
-      });
-    case CHOOSE_VALET + "_PENDING":
-      return Object.assign({}, state, { loading: true });
+      return action.payload;
     default:
       return state;
   }
