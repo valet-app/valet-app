@@ -10,30 +10,28 @@ class ChooseValet extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      chosendValet: ""
+      chosenValet: ""
     };
     this.handleChooseValet = this.handleChooseValet.bind(this);
   }
 
   handleChooseValet(valet) {
     console.log(valet);
-    this.props.chooseValetAction(valet, () =>
-      this.props.history.push("/pacSearch")
-    );
+    this.props.chooseValetAction(valet)
+    this.props.history.push("/pacSearch");
   }
   render() {
-    const valetList = this.props.employees.map(employee => ({
-      text: employee.name,
-      value: employee.id
-    }));
+    const valetList = this.props.employees.map(employee => (<List.Item onClick={ (e, data) => this.setState({chosenValet: employee.id})}>{employee.name}</List.Item>));
     return (
       <div>
-          <Grid>
+          <Grid centered>
               <Grid.Row>
-           <Dropdown placeholder="Choose a Valet" fluid open scrolling selection options={valetList} onChange={(e, data) => {
-               console.log(e, data)
-               this.setState({chosenValet: data.value})
-            }}/>
+           <List 
+           // onItemClick={(e, data) => {
+            //    console.log(e, data)
+            //    this.setState({chosenValet: data.value})
+            // }}
+            >{valetList}</List>
             </Grid.Row>
             <Grid.Row>
            <Button color="yellow" onClick={() => this.handleChooseValet(this.state.chosenValet)}>Go</Button>
