@@ -11,7 +11,7 @@ module.exports = {
         postCars: (req,res,next) => {
             console.log('adding new car id# ', req.body.model);
             const db = req.app.get('db')
-            db.post_cars(req.body.usercar_id,req.body.parkingspacetype_id, req.body.make, req.body.model, req.body.licenseplate, req.body.valettag)
+            db.post_cars(req.body.usercar_id,req.body.parkingspacetype_id, req.body.make, req.body.model, req.body.licenseplate, req.body.valettag, req.body.color)
                 .then(response => {res.status(200).json(response);})
                 .catch(  () => res.status(500).send() );
         },

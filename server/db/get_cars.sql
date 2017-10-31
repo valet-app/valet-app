@@ -1,2 +1,2 @@
-SELECT c.id AS car_id, parkingspacetype_id, make, model, licenseplate, valettag, status_id, parkingspace_id, u.id AS user_id, firstname, lastname, phone 
+SELECT c.id AS car_id, parkingspacetype_id, make, model, licenseplate, valettag, status_id, parkingspace_id, color,  u.id AS user_id, firstname, lastname, phone 
 FROM car c JOIN usercar uc ON c.usercar_id = uc.id JOIN users u ON uc.user_id = u.id WHERE (c.id = $1 OR $1 IS NULL);
