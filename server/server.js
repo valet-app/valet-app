@@ -54,6 +54,7 @@ app.get('/api/emplGarage', emplCtrl.getEmplGarage)
 
 // Car Endpoints
 app.get('/api/cars', carsCtrl.getCars)
+app.put('/api/cars', carsCtrl.updateCarsSpace)
 
 
 // Garage & parking Sport Endpoints
