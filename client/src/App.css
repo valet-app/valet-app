@@ -22,7 +22,16 @@
   padding: 20px;
   box-shadow: #b4b4b4 0 2px 3px
 }
-
+.phonenumber{
+  font-weight: 100;
+  font-size: 1.25em;
+  color:#6B6B6B;
+}
+.carText{
+  font-weight: 200;
+  font-size: 1.5em;
+  color:#6B6B6B;
+}
 .boxshadow{
   box-shadow: #b4b4b4 0 2px 3px
 }

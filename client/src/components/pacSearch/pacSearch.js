@@ -1,15 +1,17 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import NavBar from '../navBar/navBar';
 import { Search, Grid, Button, Segment, Header } from "semantic-ui-react";
 import PropTypes from "prop-types";
 
 import _ from "lodash";
-import { chooseVehicleAction } from "../../reducers";
+import { chooseVehicleAction, setNavTitleAction } from "../../reducers";
 
 class PacSearch extends Component {
   constructor(props) {
     super(props);
+    this.props.setNavTitleAction('Park a Car',()=> this.props.history.goBack());
     this.state = {
       value: ""
     };
@@ -56,6 +58,7 @@ class PacSearch extends Component {
     const { isLoading, value, results } = this.state;
     return (
       <div>
+        <NavBar/>
         <Grid centered padded='vertically'>
             <Grid.Row>
                 <Header as='h2' color='grey'>Search For Car</Header>
@@ -96,4 +99,4 @@ class PacSearch extends Component {
 }
 
 const mapStateToProps = state => state;
-export default connect(mapStateToProps, { chooseVehicleAction })(PacSearch);
+export default connect(mapStateToProps, { chooseVehicleAction, setNavTitleAction })(PacSearch);

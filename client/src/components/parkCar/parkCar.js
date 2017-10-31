@@ -1,51 +1,42 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import NavBar from '../navBar/navBar';
+import { getOpenSpacesAction, setNavTitleAction } from "../../reducers";
 import {
-  Container,
   Grid,
-  Divider,
   Button,
   Select,
   Header,
-  Menu,
-  Icon
 } from "semantic-ui-react";
 
 class ParkCar extends Component {
+ 
   constructor(props) {
     super(props);
+    this.props.getOpenSpacesAction(this.props.chosenVehicle);
+    this.props.setNavTitleAction('Park a Car',()=> this.props.history.goBack())
   }
   render() {
     return (
       <div>
-        <Grid color="grey">
-          <Grid.Row color="grey">
-            <Divider clearing />
-            <Menu secondary inverted>
-              <Menu.Item>
-                <Icon name="arrow left" />
-                <p>Park a Car</p>
-              </Menu.Item>
-            </Menu>
-          </Grid.Row>
-        </Grid>
+        <NavBar/>
         <Grid centered>
           <Grid.Column verticalAlign='middle' width={12}>
             <Header as="h1" color="grey">
               Vehicle {this.props.chosenVehicle.car_id}
             </Header>
-            <Header className='thin' color="grey">
+            <p className='phonenumber'>
               {this.props.chosenVehicle.phone}
-            </Header>
+            </p>
             </Grid.Column>
           <Grid.Row>
             <Button color="yellow"> Add a Red Flag</Button>
           </Grid.Row>
           <Grid.Column width={12} verticalAlign='middle'>
-            <p>Make: {this.props.chosenVehicle.make}</p>
-            <p>Model: {this.props.chosenVehicle.model}</p>
-            <p>Color: {this.props.chosenVehicle.color}</p>
+            <p className='carText'><b>Make:</b> {this.props.chosenVehicle.make}</p>
+            <p className='carText'><b>Model:</b> {this.props.chosenVehicle.model}</p>
+            <p className='carText'><b>Color:</b> {this.props.chosenVehicle.color}</p>
           </Grid.Column>
           <Grid.Row centered columns={2}>
             <Grid.Column
@@ -57,7 +48,7 @@ class ParkCar extends Component {
               <Header as="h3" textAlign="center">
                 Choose a Parking Space
               </Header>
-              <Select placeholder="Parking Spaces" type="number" options="" />
+              <Select placeholder="Parking Spaces" type="number" options={this.props.openSpaces} />
               <Grid.Row />
             </Grid.Column>
           </Grid.Row>
@@ -72,4 +63,4 @@ class ParkCar extends Component {
   }
 }
 const mapStateToProps = state => state;
-export default connect(mapStateToProps)(ParkCar);
+export default connect(mapStateToProps, { getOpenSpacesAction, setNavTitleAction })(ParkCar);

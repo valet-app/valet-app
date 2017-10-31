@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import logo from '../../valet-logo.png';
 import { getVehiclesAction, getEmployeesAction } from "../../reducers";
-import {Header, Button, Grid, Image, Divider} from 'semantic-ui-react'
+import {Header, Button, Grid, Image} from 'semantic-ui-react'
 
 class ValetOptions extends Component {
   constructor(props) {
