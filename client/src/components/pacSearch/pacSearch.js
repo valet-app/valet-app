@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { Search, Grid, Button, Label } from "semantic-ui-react";
+import { Search, Grid, Button, Label, Segment } from "semantic-ui-react";
 import PropTypes from "prop-types";
 
 import _ from "lodash";
