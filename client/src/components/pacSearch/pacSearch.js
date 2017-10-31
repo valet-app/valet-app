@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { Search, Grid, Button, Label, Segment } from "semantic-ui-react";
+import { Search, Grid, Button, Segment } from "semantic-ui-react";
 import PropTypes from "prop-types";
 
 import _ from "lodash";
@@ -36,11 +36,8 @@ class PacSearch extends Component {
     this.setState({ isLoading: true, value });
     const re = new RegExp(_.escapeRegExp(this.state.value), "i");
     const isMatch = result => {
-      console.log(result);
-      console.log(re.test(result.make));
       return re.test(result.make) || re.test(result.licenseplate);
     };
-    console.log(this.props.vehicles, this.state.value);
     this.setState({
       isLoading: false,
       results: _.filter(this.props.vehicles, isMatch)
@@ -58,12 +55,12 @@ class PacSearch extends Component {
               onSearchChange={this.handleSearchChange}
               results={results}
               loading={isLoading}
-              resultRenderer={({ make, licenseplate }) => {
+              resultRenderer={({ make, licenseplate, model }) => {
                 return (
-                  <div>
-                    <span>{make}</span>
-                    <span>{licenseplate}</span>
-                  </div>
+                      <Segment.Group horizontal>
+                    <Segment>{make} {model}<br/><small>{licenseplate}</small></Segment>
+                    <Segment>User Info</Segment>
+                    </Segment.Group>
                 );
               }}
             />
