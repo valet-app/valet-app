@@ -11,8 +11,11 @@ export const GET_VEHICLES = "GET_VEHICLES";
 const ROOT_URL = "";
 
 ///Action creator
-export function loginAction(user) {
-  const request = axios.post(`${ROOT_URL}/auth/login`, user);
+export function loginAction(user, cb) {
+  const request = axios.post(`${ROOT_URL}/auth/login`, user).then(response => {
+    cb();
+    return response;
+  });
 
   return {
     type: LOGIN,
