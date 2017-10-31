@@ -22,6 +22,8 @@ module.exports = {
 
     deleteEmpl: (req,res,next) => {
     },
+
+    
     getEmplGarage: (req,res,next) => {
     console.log('returning employee id# ', req.query.id);
     const db = req.app.get('db')
