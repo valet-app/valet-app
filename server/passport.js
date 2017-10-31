@@ -28,21 +28,17 @@ module.exports = function(passport) {
                 user=response[0];
                 console.log('The response is:')
                 console.log(user);
-                
-                // console.log(res.status(200).json(user))
-                // res.status(200).json(user);
 
                 if (!user) { //No User
                     console.log('NO USER FOUND')
                     return done(null, false);
                 }
                 
-                if (!(1==1)) {
+                if (!(password == user.password)) {  //Bad Password
                     console.log('BAD PASSWORD')
                     return done(null, false); 
                 }
-                
-                
+            
                 else { //when we find the user, return it
                     console.log('FOUND USER', user.username);
                     return done(null, user);

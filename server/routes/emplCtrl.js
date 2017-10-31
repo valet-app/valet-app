@@ -12,9 +12,22 @@ module.exports = {
     },
 
     putEmpl: (req,res,next) => {
+        const db = req.app.get('db')
+        db.update_employee([req.query.id, req.body.isactive])
+            .then(response => {
+                res.status(200).json(response);
+            })
+            .catch(  () => res.status(500).send() );
     },
 
     deleteEmpl: (req,res,next) => {
+    },
+    getEmplGarage: (req,res,next) => {
+    console.log('returning employee id# ', req.query.id);
+    const db = req.app.get('db')
+    db.get_EmplGarage(req.query.id)
+        .then(response => {res.status(200).json(response);})
+        .catch(  () => res.status(500).send() );
     }
     
 }
