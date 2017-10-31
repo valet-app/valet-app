@@ -26,24 +26,26 @@ class ParkCar extends Component {
               <Menu.Item>
                 <Icon name="arrow left" />
                 <p>Park a Car</p>
-                {JSON.stringify(this.props.chosenVehicle)}
               </Menu.Item>
             </Menu>
           </Grid.Row>
         </Grid>
         <Grid centered>
-          <Grid.Row>
+          <Grid.Column verticalAlign='middle' width={12}>
             <Header as="h1" color="grey">
-              Car Name
+              Vehicle {this.props.chosenVehicle.car_id}
             </Header>
-          </Grid.Row>
+            <Header className='thin' color="grey">
+              {this.props.chosenVehicle.phone}
+            </Header>
+            </Grid.Column>
           <Grid.Row>
             <Button color="yellow"> Add a Red Flag</Button>
           </Grid.Row>
-          <Grid.Column>
-            <p>Make:</p>
-            <p>Model:</p>
-            <p>Color:</p>
+          <Grid.Column width={12} verticalAlign='middle'>
+            <p>Make: {this.props.chosenVehicle.make}</p>
+            <p>Model: {this.props.chosenVehicle.model}</p>
+            <p>Color: {this.props.chosenVehicle.color}</p>
           </Grid.Column>
           <Grid.Row centered columns={2}>
             <Grid.Column

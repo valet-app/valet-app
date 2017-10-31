@@ -60,7 +60,6 @@ class PacSearch extends Component {
             <Grid.Row>
                 <Header as='h2' color='grey'>Search For Car</Header>
             </Grid.Row>
-          <Grid.Column verticalAlign='middle' className='white' width={12}>
             <Search
               placeholder="Car, Tag, or Phone #"
               onResultSelect={this.handleResultSelect}
@@ -87,9 +86,8 @@ class PacSearch extends Component {
                 );
               }}
             />
-          </Grid.Column>
           <Grid.Row>
-              <Button size='large' color='grey'>Add a Car</Button>
+              <Button size='large' color='grey'>Add a New Car</Button>
           </Grid.Row>
         </Grid>
       </div>

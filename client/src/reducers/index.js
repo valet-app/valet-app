@@ -85,7 +85,18 @@ export function loginReducer(state = {}, action) {
   }
 }
 
-export function vehiclesReducer(state = [], action) {
+export function vehiclesReducer(
+  state = [
+    {
+      car_id: 0,
+      make: "Dummy",
+      model: "Vehicle",
+      phone: "555-867-5309",
+      licenseplate: "fakecar"
+    }
+  ],
+  action
+)  {
   switch (action.type) {
     case GET_VEHICLES + "_FULFILLED":
       return action.payload.data;
@@ -100,7 +111,7 @@ export function vehiclesReducer(state = [], action) {
       return state;
   }
 }
-export function employeesReducer(state = [], action) {
+export function employeesReducer(state = [{ name: "Fake Valet" }], action) {
   switch (action.type) {
     case GET_EMPLOYEES + "_FULFILLED":
       return action.payload.data;
@@ -124,7 +135,17 @@ export function chooseValetReducer(state = "", action) {
       return state;
   }
 }
-export function chooseVehicleReducer(state = {}, action) {
+export function chooseVehicleReducer(
+  state = {
+    car_id: 0,
+    make: "Dummy",
+    model: "Vehicle",
+    phone: "555-867-5309",
+    licenseplate: "fakecar",
+    color: 'Blue'
+  },
+  action
+) {
   switch (action.type) {
     case CHOOSE_VEHICLE:
       console.log(action);
