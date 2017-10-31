@@ -51,10 +51,12 @@ app.get('/api/user', userCtrl.getUser)
 app.get('/api/empl', emplCtrl.getEmpl)
 app.put('/api/empl', emplCtrl.putEmpl)
 app.get('/api/emplGarage', emplCtrl.getEmplGarage)
+app.post('/api/empl', emplCtrl.postEmpl)
 
 // Car Endpoints
 app.get('/api/cars', carsCtrl.getCars)
 app.put('/api/cars', carsCtrl.updateCarsSpace)
+app.post('/api/cars', carsCtrl.postCars)
 
 
 // Garage & parking Sport Endpoints
