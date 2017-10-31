@@ -11,7 +11,12 @@ module.exports = {
         postCars: (req,res,next) => {
         },
     
-        putCars: (req,res,next) => {
+        updateCarsSpace: (req,res,next) => {
+            console.log('returning update cars id# ', req.query.id, 'and new car', req.body);
+            const db = req.app.get('db')
+            db.updateCarsSpace([req.query.id,req.body.status_id,req.body.employee_id,req.body.parkingspace_id])
+                .then(response => {res.status(200).json(response);})
+                .catch(  () => res.status(500).send() );
         },
     
         deleteCars: (req,res,next) => {
