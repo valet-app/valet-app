@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { Search, Grid, Button, Segment } from "semantic-ui-react";
+import { Search, Grid, Button, Segment, Header } from "semantic-ui-react";
 import PropTypes from "prop-types";
 
 import _ from "lodash";
@@ -48,8 +48,11 @@ class PacSearch extends Component {
     const { isLoading, value, results } = this.state;
     return (
       <div>
-        <Grid centered>
-          <Grid.Row>
+        <Grid centered padded='vertically'>
+            <Grid.Row>
+                <Header as='h2' color='grey'>Search For Car</Header>
+            </Grid.Row>
+          <Grid.Column verticalAlign='middle' className='white' width={12}>
             <Search
               placeholder="Car, Tag, or Phone #"
               onSearchChange={this.handleSearchChange}
@@ -64,6 +67,9 @@ class PacSearch extends Component {
                 );
               }}
             />
+          </Grid.Column>
+          <Grid.Row>
+              <Button size='large' color='grey'>Add a Car</Button>
           </Grid.Row>
         </Grid>
       </div>
