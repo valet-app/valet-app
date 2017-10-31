@@ -13,7 +13,6 @@ import {
   Divider
 } from "semantic-ui-react";
 
-
 //import Action Creators
 import { loginAction } from "../../reducers";
 
@@ -24,10 +23,13 @@ class Login extends Component {
   }
 
   handleLogin() {
-    this.props.loginAction({
-      username: this.state.username,
-      password: this.state.password
-    });
+    this.props.loginAction(
+      {
+        username: this.state.username,
+        password: this.state.password
+      },
+      () => this.props.history.push("/valetGarage")
+    );
   }
   render() {
     return (
@@ -82,7 +84,6 @@ class Login extends Component {
           </Grid.Row>
           <Grid.Row>
             <Button color="grey" basic>
-
               New to Us? Sign Up
             </Button>
           </Grid.Row>
