@@ -42,7 +42,7 @@ ReactDOM.render(
       <Route path="/parkCar" component={ParkCar} />  
       <Route path="/chooseValet" component={ChooseValet} />        
       <Route path="/pacSearch" component={PacSearch} />
-      <Route path="/valetOptions" component={ValetOptions} />
+      <Route path="/valetGarage" component={ValetOptions} />
       <Route path="/login" component={Login} />
         <Route path="/" component={App} />
       </Switch>
