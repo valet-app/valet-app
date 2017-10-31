@@ -12,8 +12,8 @@ const ROOT_URL = "";
 
 ///Action creator
 export function loginAction(user) {
-  const request = axios.post(`${ROOT_URL}/api/login`, user);
-  // const request = axios.get("https://swapi.co/api/people/1");
+  const request = axios.post(`${ROOT_URL}/auth/login`, user);
+
   return {
     type: LOGIN,
     payload: request
