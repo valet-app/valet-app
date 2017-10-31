@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import logo from "../../valet-logo.png";
+
 import {
   Form,
   Button,
@@ -11,6 +12,7 @@ import {
   Image,
   Divider
 } from "semantic-ui-react";
+
 
 //import Action Creators
 import { loginAction } from "../../reducers";
@@ -22,7 +24,10 @@ class Login extends Component {
   }
 
   handleLogin() {
-    this.props.loginAction(this.state.username, this.state.password);
+    this.props.loginAction({
+      username: this.state.username,
+      password: this.state.password
+    });
   }
   render() {
     return (
@@ -77,6 +82,7 @@ class Login extends Component {
           </Grid.Row>
           <Grid.Row>
             <Button color="grey" basic>
+
               New to Us? Sign Up
             </Button>
           </Grid.Row>
