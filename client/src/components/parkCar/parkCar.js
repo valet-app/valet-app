@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import {
   Container,
   Grid,
@@ -12,6 +13,9 @@ import {
 } from "semantic-ui-react";
 
 class ParkCar extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <div>
@@ -22,6 +26,7 @@ class ParkCar extends Component {
               <Menu.Item>
                 <Icon name="arrow left" />
                 <p>Park a Car</p>
+                {JSON.stringify(this.props.chosenVehicle)}
               </Menu.Item>
             </Menu>
           </Grid.Row>
@@ -41,18 +46,28 @@ class ParkCar extends Component {
             <p>Color:</p>
           </Grid.Column>
           <Grid.Row centered columns={2}>
-            <Grid.Column className="white" computer={6} mobile={12} verticalAlign='middle'>
-              <Header as="h3" textAlign='center'>Choose a Parking Space</Header>
-              <Select placeholder='Parking Spaces' type="number" options='' />
+            <Grid.Column
+              className="white"
+              computer={6}
+              mobile={12}
+              verticalAlign="middle"
+            >
+              <Header as="h3" textAlign="center">
+                Choose a Parking Space
+              </Header>
+              <Select placeholder="Parking Spaces" type="number" options="" />
               <Grid.Row />
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
-              <Button size='large' color='grey'>Park This Car</Button>
+            <Button size="large" color="grey">
+              Park This Car
+            </Button>
           </Grid.Row>
         </Grid>
       </div>
     );
   }
 }
-export default ParkCar;
+const mapStateToProps = state => state;
+export default connect(mapStateToProps)(ParkCar);

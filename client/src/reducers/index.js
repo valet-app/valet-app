@@ -5,13 +5,16 @@ const rootReducer = combineReducers({
   login: loginReducer,
   vehicles: vehiclesReducer,
   employees: employeesReducer,
-  currentValet: chooseValetReducer
+  currentValet: chooseValetReducer,
+  chosenVehicle: chooseVehicleReducer
 });
 
 export const LOGIN = "LOGIN";
 export const GET_VEHICLES = "GET_VEHICLES";
 export const GET_EMPLOYEES = "GET_EMPLOYEES";
 export const CHOOSE_VALET = "CHOOSE_VALET";
+export const CHOOSE_VEHICLE = "CHOOSE_VEHICLE";
+
 const ROOT_URL = "";
 
 ///Action creator
@@ -52,6 +55,15 @@ export function chooseValetAction(valet) {
   return {
     type: CHOOSE_VALET,
     payload: valet
+  };
+}
+
+export function chooseVehicleAction(vehicle) {
+  console.log(vehicle);
+
+  return {
+    type: CHOOSE_VEHICLE,
+    payload: vehicle
   };
 }
 
@@ -106,6 +118,15 @@ export function employeesReducer(state = [], action) {
 export function chooseValetReducer(state = "", action) {
   switch (action.type) {
     case CHOOSE_VALET:
+      console.log(action);
+      return action.payload;
+    default:
+      return state;
+  }
+}
+export function chooseVehicleReducer(state = {}, action) {
+  switch (action.type) {
+    case CHOOSE_VEHICLE:
       console.log(action);
       return action.payload;
     default:

@@ -5,7 +5,7 @@ import { Search, Grid, Button, Segment } from "semantic-ui-react";
 import PropTypes from "prop-types";
 
 import _ from "lodash";
-// import { getVehiclesAction, getEmployeesAction } from "../../reducers";
+import { chooseVehicleAction } from "../../reducers";
 
 class PacSearch extends Component {
   constructor(props) {
@@ -31,12 +31,20 @@ class PacSearch extends Component {
   //     description: PropTypes.string,
   //   }
 
+  handleResultSelect = (e, { result }) => {
+    console.log(result);
+    this.props.chooseVehicleAction(result);
+    this.props.history.push("/parkCar");
+  };
+
   handleSearchChange = (e, { value }) => {
     // if (this.state.value.length < 1) return this.resetComponent();
     this.setState({ isLoading: true, value });
     const re = new RegExp(_.escapeRegExp(this.state.value), "i");
     const isMatch = result => {
-      return re.test(result.make) || re.test(result.licenseplate);
+      return re.test(
+        `${result.make}${result.model}${result.licenseplate}${result.phone}`
+      );
     };
     this.setState({
       isLoading: false,
@@ -52,15 +60,27 @@ class PacSearch extends Component {
           <Grid.Row>
             <Search
               placeholder="Car, Tag, or Phone #"
+              onResultSelect={this.handleResultSelect}
               onSearchChange={this.handleSearchChange}
               results={results}
               loading={isLoading}
-              resultRenderer={({ make, licenseplate, model }) => {
+              value={value}
+              resultRenderer={({
+                make,
+                licenseplate,
+                model,
+                car_id,
+                phone
+              }) => {
                 return (
-                      <Segment.Group horizontal>
-                    <Segment>{make} {model}<br/><small>{licenseplate}</small></Segment>
-                    <Segment>User Info</Segment>
-                    </Segment.Group>
+                  <Segment.Group horizontal key={car_id}>
+                    <Segment>
+                      {make} {model}
+                      <br />
+                      <small>{licenseplate}</small>
+                    </Segment>
+                    <Segment>{phone}</Segment>
+                  </Segment.Group>
                 );
               }}
             />
@@ -72,4 +92,4 @@ class PacSearch extends Component {
 }
 
 const mapStateToProps = state => state;
-export default connect(mapStateToProps)(PacSearch);
+export default connect(mapStateToProps, { chooseVehicleAction })(PacSearch);
