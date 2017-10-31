@@ -2,14 +2,16 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { chooseValetAction } from "../../reducers";
+
 import {Grid, Header, Dropdown, Select, Button, List} from 'semantic-ui-react'
+
 
 class ChooseValet extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        chosendValet: ''
-    }
+      chosendValet: ""
+    };
     this.handleChooseValet = this.handleChooseValet.bind(this);
   }
 
@@ -20,7 +22,10 @@ class ChooseValet extends Component {
     );
   }
   render() {
-      const valetList = this.props.employees.employees.map(employee => ({text: employee.name, value: employee.id}))
+    const valetList = this.props.employees.map(employee => ({
+      text: employee.name,
+      value: employee.id
+    }));
     return (
       <div>
           <Grid>
