@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { chooseValetAction } from "../../reducers";
-import {Grid, Header, Dropdown, Select} from 'semantic-ui-react'
+import {Grid, Header, Dropdown, Select, Button, List} from 'semantic-ui-react'
 
 class ChooseValet extends Component {
   constructor(props) {
@@ -23,22 +23,17 @@ class ChooseValet extends Component {
       const valetList = this.props.employees.employees.map(employee => ({text: employee.name, value: employee.id}))
     return (
       <div>
-           <Dropdown placeholder="Choose a Valet" fluid open selection options={valetList} onChange={(e, data) => {
+          <Grid>
+              <Grid.Row>
+           <Dropdown placeholder="Choose a Valet" fluid open scrolling selection options={valetList} onChange={(e, data) => {
                console.log(e, data)
                this.setState({chosenValet: data.value})
             }}/>
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-
-           <button onClick={() => this.handleChooseValet(this.state.chosenValet)}>Go</button>
+            </Grid.Row>
+            <Grid.Row>
+           <Button color="yellow" onClick={() => this.handleChooseValet(this.state.chosenValet)}>Go</Button>
+           </Grid.Row>
+           </Grid>
       </div>
     );
   }
