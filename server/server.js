@@ -48,9 +48,12 @@ app.get('/api/user', userCtrl.getUser)
 
 // Employee Endpoints
 app.get('/api/empl', emplCtrl.getEmpl)
+app.put('/api/empl', emplCtrl.putEmpl)
+app.get('/api/emplGarage', emplCtrl.getEmplGarage)
 
 // Car Endpoints
 app.get('/api/cars', carsCtrl.getCars)
+
 
 // Authentication
 app.post('/auth/login',
