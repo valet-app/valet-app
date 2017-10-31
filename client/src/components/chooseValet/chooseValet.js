@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { chooseValetAction } from "../../reducers";
 
-import {Grid, Header, Dropdown, Select, Button, List} from 'semantic-ui-react'
-
+import { Grid, Header, Segment, Select, Button } from "semantic-ui-react";
 
 class ChooseValet extends Component {
   constructor(props) {
@@ -17,26 +16,35 @@ class ChooseValet extends Component {
 
   handleChooseValet(valet) {
     console.log(valet);
-    this.props.chooseValetAction(valet)
+    this.props.chooseValetAction(valet);
     this.props.history.push("/pacSearch");
   }
   render() {
-    const valetList = this.props.employees.map(employee => (<List.Item onClick={ (e, data) => this.setState({chosenValet: employee.id})}>{employee.name}</List.Item>));
+    const valetList = this.props.employees.map(employee => (
+      <Segment
+        onClick={(e, data) => this.setState({ chosenValet: employee.id })}
+      >
+        {employee.name}
+      </Segment>
+    ));
     return (
       <div>
-          <Grid centered>
-              <Grid.Row>
-           <List 
-           // onItemClick={(e, data) => {
-            //    console.log(e, data)
-            //    this.setState({chosenValet: data.value})
-            // }}
-            >{valetList}</List>
-            </Grid.Row>
-            <Grid.Row>
-           <Button color="yellow" onClick={() => this.handleChooseValet(this.state.chosenValet)}>Go</Button>
-           </Grid.Row>
-           </Grid>
+        <Grid padded="vertically" centered>
+          <Grid.Row>
+            <Header as="h3">Who is Parking this Car?</Header>
+          </Grid.Row>
+          <Grid.Column width={12}>
+            <Segment.Group>{valetList}</Segment.Group>
+          </Grid.Column>
+          <Grid.Row>
+            <Button
+              color="yellow"
+              onClick={() => this.handleChooseValet(this.state.chosenValet)}
+            >
+              Go
+            </Button>
+          </Grid.Row>
+        </Grid>
       </div>
     );
   }

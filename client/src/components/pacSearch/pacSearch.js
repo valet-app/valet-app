@@ -7,13 +7,13 @@ class PacSearch extends Component{
 
     render(){
         return (
-            <div>
-                <Grid centered>
+            
+                <Grid centered padded='vertically'verticalAlign='bottom' stretched>
                     <Grid.Row>
-                        <Search placeholder='Car, Tag, or Phone #' />
+                        <Search size='huge' placeholder='Car, Tag, or Phone #' />
                     </Grid.Row>
                 </Grid>
-                </div>
+                
         )
     }
 }
