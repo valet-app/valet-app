@@ -9,6 +9,11 @@ module.exports = {
     },
     
     postEmpl: (req,res,next) => {
+        console.log('adding new employee id# ', req.body.id);
+        const db = req.app.get('db')
+        db.post_employee(req.body.company_id, req.body.username,req.body.name, req.body.admin, req.body.password)
+            .then(response => {res.status(200).json(response);})
+            .catch(  () => res.status(500).send() );
     },
 
     putEmpl: (req,res,next) => {
