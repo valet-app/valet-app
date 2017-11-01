@@ -21,6 +21,7 @@ import CarParked from "./components/carParked/carParked";
 import GetCar from "./components/getCar/getCar";
 import GetCarSearch from "./components/getCarSearch/getCarSearch";
 import CarDelivered from "./components/carDelivered/carDelivered";
+import InProgress from "./components/inProgress/inProgress";
 
 const createStoreWithMiddelware = applyMiddleware(promise())(createStore);
 
@@ -28,6 +29,7 @@ ReactDOM.render(
   <Provider store={createStoreWithMiddelware(reducers)}>
     <BrowserRouter>
       <Switch>
+      <Route path="/inProgress" component={InProgress} />
         <Route path="/get/complete" component={CarDelivered} />
         <Route path="/get/start" component={ParkCar} />
         <Route path="/park/complete" component={CarParked} />
