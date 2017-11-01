@@ -13,7 +13,10 @@
   padding: 20px;
   color: white;
 }
-
+.blur{
+  filter: blur(1px);
+  border-color: blue;
+}
 .App-title {
   font-size: 1.5em;
 }
