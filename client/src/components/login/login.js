@@ -83,9 +83,11 @@ class Login extends Component {
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
-            <Button color="grey" basic>
-              New to Us? Sign Up
-            </Button>
+            <Link to="/signupCompany">
+              <Button color="grey" basic>
+                New to Us? Sign Up
+              </Button>
+            </Link>
           </Grid.Row>
         </Grid>
       </div>

@@ -21,6 +21,7 @@ import CarParked from "./components/carParked/carParked";
 import GetCar from "./components/getCar/getCar";
 import GetCarSearch from "./components/getCarSearch/getCarSearch";
 import CarDelivered from "./components/carDelivered/carDelivered";
+import SignupCompany from "./components/signupCompany/signupCompany";
 
 const createStoreWithMiddelware = applyMiddleware(promise())(createStore);
 
@@ -38,6 +39,7 @@ ReactDOM.render(
         <Route path="/get/search" component={PacSearch} />
         <Route path="/home" component={ValetOptions} />
         <Route path="/login" component={Login} />
+        <Route path="/signupCompany" component={SignupCompany} />
         <Route path="/" component={App} />
       </Switch>
     </BrowserRouter>
