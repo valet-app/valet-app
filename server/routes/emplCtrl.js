@@ -3,7 +3,7 @@ module.exports = {
     getEmpl: (req,res,next) => {
         console.log('returning employee id# ', req.query.id);
         const db = req.app.get('db')
-        db.get_employee(req.query.id, req.query.username)
+        db.getEmployee(req.query.id, req.query.username)
             .then(response => {res.status(200).json(response);})
             .catch(  () => res.status(500).send() );
     },
@@ -11,14 +11,14 @@ module.exports = {
     postEmpl: (req,res,next) => {
         console.log('adding new employee id# ', req.body.id);
         const db = req.app.get('db')
-        db.post_employee(req.body.company_id, req.body.username,req.body.name, req.body.admin, req.body.password)
+        db.postEmployee(req.body.company_id, req.body.username,req.body.name, req.body.admin, req.body.password)
             .then(response => {res.status(200).json(response);})
             .catch(  () => res.status(500).send() );
     },
 
     putEmpl: (req,res,next) => {
         const db = req.app.get('db')
-        db.update_employee([req.query.id, req.body.isactive])
+        db.updateEmployee([req.query.id, req.body.isactive])
             .then(response => {
                 res.status(200).json(response);
             })
@@ -32,7 +32,7 @@ module.exports = {
     getEmplGarage: (req,res,next) => {
     console.log('returning employee id# ', req.query.id);
     const db = req.app.get('db')
-    db.get_EmplGarage(req.query.id)
+    db.getEmplGarage(req.query.id)
         .then(response => {res.status(200).json(response);})
         .catch(  () => res.status(500).send() );
     }
