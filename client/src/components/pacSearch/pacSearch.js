@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import NavBar from '../navBar/navBar';
+import NavBar from "../navBar/navBar";
 import { Search, Grid, Button, Segment, Header } from "semantic-ui-react";
 import PropTypes from "prop-types";
 
@@ -11,32 +11,22 @@ import { chooseVehicleAction, setNavTitleAction } from "../../reducers";
 class PacSearch extends Component {
   constructor(props) {
     super(props);
-    this.props.setNavTitleAction('Park a Car',()=> this.props.history.goBack());
+    this.props.setNavTitleAction("Park a Car", () =>
+      this.props.history.goBack()
+    );
     this.state = {
       value: ""
     };
-    // this.resultRenderer.propTypes = {
-    //   make: PropTypes.string,
-    //   description: PropTypes.string
-    // };
-    // this.resultRenderer = ({ make }) => {
-    //   return <Label content={make} />;
-    // };
+
+    ///Parking lot id will need to be dynamic instead of hard coded
+    // if (this.props)
+    this.props.vehicles.filter(vehicle => vehicle.parkinglot_id === 1);
   }
-
-  //   resultRenderer({ title }) {
-  //     return <Label content={result.make} />;
-  //   }
-
-  //   resultRenderer.propTypes = {
-  //     title: PropTypes.string,
-  //     description: PropTypes.string,
-  //   }
 
   handleResultSelect = (e, { result }) => {
     console.log(result);
     this.props.chooseVehicleAction(result);
-    this.props.history.push("/parkCar");
+    this.props.history.push("inProgress");
   };
 
   handleSearchChange = (e, { value }) => {
@@ -58,39 +48,37 @@ class PacSearch extends Component {
     const { isLoading, value, results } = this.state;
     return (
       <div>
-        <NavBar/>
-        <Grid centered padded='vertically'>
-            <Grid.Row>
-                <Header as='h2' color='grey'>Search For Car</Header>
-            </Grid.Row>
-            <Search
-              placeholder="Car, Tag, or Phone #"
-              onResultSelect={this.handleResultSelect}
-              onSearchChange={this.handleSearchChange}
-              results={results}
-              loading={isLoading}
-              value={value}
-              resultRenderer={({
-                make,
-                licenseplate,
-                model,
-                car_id,
-                phone
-              }) => {
-                return (
-                  <Segment.Group horizontal key={car_id}>
-                    <Segment>
-                      {make} {model}
-                      <br />
-                      <small>{licenseplate}</small>
-                    </Segment>
-                    <Segment>{phone}</Segment>
-                  </Segment.Group>
-                );
-              }}
-            />
+        <NavBar />
+        <Grid centered padded="vertically">
           <Grid.Row>
-              <Button size='large' color='grey'>Add a New Car</Button>
+            <Header as="h2" color="grey">
+              Search For Car
+            </Header>
+          </Grid.Row>
+          <Search
+            placeholder="Car, Tag, or Phone #"
+            onResultSelect={this.handleResultSelect}
+            onSearchChange={this.handleSearchChange}
+            results={results}
+            loading={isLoading}
+            value={value}
+            resultRenderer={({ make, licenseplate, model, car_id, phone }) => {
+              return (
+                <Segment.Group horizontal key={car_id}>
+                  <Segment>
+                    {make} {model}
+                    <br />
+                    <small>{licenseplate}</small>
+                  </Segment>
+                  <Segment>{phone}</Segment>
+                </Segment.Group>
+              );
+            }}
+          />
+          <Grid.Row>
+            <Button size="large" color="grey">
+              Add a New Car
+            </Button>
           </Grid.Row>
         </Grid>
       </div>
@@ -99,4 +87,7 @@ class PacSearch extends Component {
 }
 
 const mapStateToProps = state => state;
-export default connect(mapStateToProps, { chooseVehicleAction, setNavTitleAction })(PacSearch);
+export default connect(mapStateToProps, {
+  chooseVehicleAction,
+  setNavTitleAction
+})(PacSearch);
