@@ -30,9 +30,9 @@ ReactDOM.render(
     <BrowserRouter>
       <Switch>
         <Route path="/get/complete" component={CarDelivered} />
-        <Route path="/get/inProgress" component={GetCar} />
+        <Route path="/get/start" component={ParkCar} />
         <Route path="/park/complete" component={CarParked} />
-        <Route path="/park/inProgress" component={ParkCar} />
+        <Route path="/park/start" component={ParkCar} />
         <Route path="/get/chooseValet" component={ChooseValet} />
         <Route path="/park/chooseValet" component={ChooseValet} />
         <Route path="/park/search" component={PacSearch} />

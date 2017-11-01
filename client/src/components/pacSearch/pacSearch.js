@@ -35,7 +35,7 @@ class PacSearch extends Component {
   handleResultSelect = (e, { result }) => {
     console.log(result);
     this.props.chooseVehicleAction(result);
-    this.props.history.push("inProgress");
+    this.props.history.push("start");
   };
 
   handleSearchChange = (e, { value }) => {
