@@ -156,19 +156,19 @@ export function chooseVehicleReducer(
   }
 }
 export function getOpenSpacesReducer(
-  state = {
+  state = [{
     id: 0,
     parkinglot_id: 1,
     location1: "Fake Floor",
     location2: "Section None",
     location3: "0"
-  },
+  }],
   action
 ) {
   switch (action.type) {
     case GET_OPEN_SPACES + "_FULFILLED":
       console.log(action);
-      return action.payload;
+      return action.payload.data;
     default:
       return state;
   }

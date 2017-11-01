@@ -8,7 +8,9 @@ import {
   Button,
   Select,
   Header,
+  Dropdown
 } from "semantic-ui-react";
+import axios from 'axios';
 
 class ParkCar extends Component {
  
@@ -18,8 +20,24 @@ class ParkCar extends Component {
     this.props.setNavTitleAction('Park a Car',()=> this.props.history.goBack())
 
     this.state = (this.props.history.location.pathname.substring(1, 4) === "get") ? {get: true} :{get:false}
+    this.handleButtonClick = this.handleButtonClick.bind(this);
+    console.log(this.props)
   }
+
+     handleButtonClick(){
+       axios.put(`/api/cars?id=${this.props.chosenVehicle.car_id}`, {
+         status_id: '2',
+         employee_id: this.props.currentValet,
+         parkingspace_id: this.state.selectedSpace.id
+
+       }).then(response => this.props.history.push("/home"))
+    }
+
+
   render() {
+    console.log(this.props.openSpaces);
+    const spacesJsx = this.props.openSpaces.map( (space) => <Dropdown.Item onClick={() => this.setState({selectedSpace: space})}> {space.location1} {space.location2} {space.location3}  {space.arkinglot_id} {space.parkingspacetype_id} </Dropdown.Item> );
+    
     return (
       <div>
         <NavBar/>
@@ -50,14 +68,18 @@ class ParkCar extends Component {
               <Header as="h3" textAlign="center">
                  Parking Space
               </Header>
-    {!this.state.get && (<Select placeholder="Parking Spaces" type="number" options={this.props.openSpaces} />)}
-    {this.state.get && (<h2>{this.props.chosenVehicle.parkingspace_id}</h2>)}
+    {!this.state.get && (<Dropdown text="choose a space" className="link item">
+    <Dropdown.Menu> 
+      {spacesJsx}
+          
+        </Dropdown.Menu>
+    </Dropdown>)}
     
               <Grid.Row />
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
-            <Button size="large" color="grey">
+            <Button onClick={this.handleButtonClick} size="large" color="grey">
               {this.state.get ? "Get ":"Park "}
               This Car
             </Button>
