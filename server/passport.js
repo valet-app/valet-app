@@ -23,7 +23,7 @@ module.exports = function(passport) {
         
         const db = req.app.get('db')
       
-        db.get_employee(null,username)
+        db.getEmployee(null,username)
             .then(response => {
                 user=response[0];
                 console.log('The response is:')
