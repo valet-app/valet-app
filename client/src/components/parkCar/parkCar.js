@@ -16,6 +16,12 @@ class ParkCar extends Component {
     super(props);
     this.props.getOpenSpacesAction(this.props.chosenVehicle);
     this.props.setNavTitleAction('Park a Car',()=> this.props.history.goBack())
+
+    if (this.props.history.location.pathname.substring(1, 4) === "get") {
+      this.state = {
+       get: true
+      }
+    }
   }
   render() {
     return (
@@ -48,7 +54,9 @@ class ParkCar extends Component {
               <Header as="h3" textAlign="center">
                 Choose a Parking Space
               </Header>
-              <Select placeholder="Parking Spaces" type="number" options={this.props.openSpaces} />
+    {!this.state.get && (<Select placeholder="Parking Spaces" type="number" options={this.props.openSpaces} />)}
+    {this.state.get && (this.props.chosenVehicle.parkingspace_id)}
+    
               <Grid.Row />
             </Grid.Column>
           </Grid.Row>
