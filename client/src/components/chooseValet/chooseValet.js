@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import NavBar from '../navBar/navBar';
+import NavBar from "../navBar/navBar";
 import { chooseValetAction, setNavTitleAction } from "../../reducers";
 
 import { Grid, Header, Segment, Select, Button } from "semantic-ui-react";
@@ -9,7 +9,9 @@ import { Grid, Header, Segment, Select, Button } from "semantic-ui-react";
 class ChooseValet extends Component {
   constructor(props) {
     super(props);
-    this.props.setNavTitleAction('Park a Car',()=> this.props.history.goBack());
+    this.props.setNavTitleAction("Park a Car", () =>
+      this.props.history.goBack()
+    );
     this.state = {
       chosenValet: ""
     };
@@ -19,7 +21,7 @@ class ChooseValet extends Component {
   handleChooseValet(valet) {
     console.log(valet);
     this.props.chooseValetAction(valet);
-    this.props.history.push("/pacSearch");
+    this.props.history.push("search");
   }
   render() {
     const valetList = this.props.employees.map(employee => (
@@ -31,11 +33,13 @@ class ChooseValet extends Component {
     ));
     return (
       <div>
-        <NavBar/>
-        <br/>
+        <NavBar />
+        <br />
         <Grid padded="vertically" centered>
           <Grid.Row>
-            <Header as="h3" color='grey'>Who is Parking this Car?</Header>
+            <Header as="h3" color="grey">
+              Who is Parking this Car?
+            </Header>
           </Grid.Row>
           <Grid.Column width={12}>
             <Segment.Group>{valetList}</Segment.Group>
@@ -54,4 +58,7 @@ class ChooseValet extends Component {
   }
 }
 const mapStateToProps = state => state;
-export default connect(mapStateToProps, { chooseValetAction, setNavTitleAction })(ChooseValet);
+export default connect(mapStateToProps, {
+  chooseValetAction,
+  setNavTitleAction
+})(ChooseValet);
