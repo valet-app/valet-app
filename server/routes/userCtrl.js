@@ -3,7 +3,7 @@ module.exports = {
     getUser: (req,res,next) => {
         const db = req.app.get('db')
         console.log('returning user id# ', req.query.id);
-        db.get_user(req.query.id)
+        db.getUser(req.query.id)
             .then(response => { res.status(200).json(response); })
             .catch( () => res.status(500).send() );
     },
