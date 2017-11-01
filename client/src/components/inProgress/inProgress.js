@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Grid, Icon, Divider, Segment, Item } from "semantic-ui-react";
+import { Grid, Icon } from "semantic-ui-react";
 import NavBar from "../navBar/navBar";
 
 import { connect } from "react-redux";
@@ -17,28 +17,32 @@ class InProgress extends Component {
     return (
       <div>
         <NavBar />
-        <br/>
+        <br />
         <Grid padded="vertically" centered>
-          <Grid.Row className='inprogress'>
+          <Grid.Row className="inprogress">
             <Grid.Column width={4}>
-            <p className='progressText'>Jacob Eason</p>
+              <p className="progressText">Jacob Eason</p>
             </Grid.Column>
             <Grid.Column width={6}>
-            <p className='progressText'>Honda Accord</p>
+              <p className="progressText">Honda Accord</p>
             </Grid.Column>
             <Grid.Column width={4}>
-               <span className='progressText'><Icon name='circle' color='red' className='blur'/>Retrieve</span>
+              <span className="progressText">
+                <Icon name="circle" color="red" className="blur" />Retrieve
+              </span>
             </Grid.Column>
           </Grid.Row>
-          <Grid.Row className='inprogress'>
+          <Grid.Row className="inprogress">
             <Grid.Column width={4}>
-            <p className='progressText'>Jake Fromm</p>
+              <p className="progressText">Jake Fromm</p>
             </Grid.Column>
             <Grid.Column width={6}>
-               <p className='progressText'>Mercedes-Benz E-Class</p>
+              <p className="progressText">Mercedes-Benz E-Class</p>
             </Grid.Column>
             <Grid.Column width={4}>
-               <span className='progressText'><Icon name='circle' color='orange' className='blur'/>Park</span>
+              <span className="progressText">
+                <Icon name="circle" color="orange" className="blur" />Park
+              </span>
             </Grid.Column>
           </Grid.Row>
         </Grid>

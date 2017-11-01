@@ -22,6 +22,7 @@ import GetCar from "./components/getCar/getCar";
 import GetCarSearch from "./components/getCarSearch/getCarSearch";
 import CarDelivered from "./components/carDelivered/carDelivered";
 import InProgress from "./components/inProgress/inProgress";
+import AddCar from "./components/addCar/addCar";
 
 const createStoreWithMiddelware = applyMiddleware(promise())(createStore);
 
