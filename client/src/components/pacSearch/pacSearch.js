@@ -14,13 +14,22 @@ class PacSearch extends Component {
     this.props.setNavTitleAction("Park a Car", () =>
       this.props.history.goBack()
     );
-    this.state = {
-      value: ""
-    };
 
     ///Parking lot id will need to be dynamic instead of hard coded
-    // if (this.props)
-    this.props.vehicles.filter(vehicle => vehicle.parkinglot_id === 1);
+    // if (this.props.history)
+    let parkedVehicles;
+    if (this.props.history.location.pathname.substring(1, 4) === "get") {
+      parkedVehicles = this.props.vehicles.filter(
+        vehicle => vehicle.parkinglot_id === 1
+      );
+    }
+
+    this.state = {
+      value: "",
+      parkedVehicles
+    };
+
+    console.log(this.state.parkedVehicles);
   }
 
   handleResultSelect = (e, { result }) => {
@@ -38,9 +47,13 @@ class PacSearch extends Component {
         `${result.make}${result.model}${result.licenseplate}${result.phone}`
       );
     };
+    let vehicles = this.state.parkedVehicles
+      ? this.state.parkedVehicles
+      : this.props.vehicles;
+
     this.setState({
       isLoading: false,
-      results: _.filter(this.props.vehicles, isMatch)
+      results: _.filter(vehicles, isMatch)
     });
   };
 
