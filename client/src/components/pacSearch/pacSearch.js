@@ -89,9 +89,9 @@ class PacSearch extends Component {
             }}
           />
           <Grid.Row>
-            <Button size="large" color="grey">
+            <Link to='/addCar'><Button size="large" color="grey">
               Add a New Car
-            </Button>
+            </Button></Link>
           </Grid.Row>
         </Grid>
       </div>

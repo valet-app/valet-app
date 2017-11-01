@@ -30,6 +30,7 @@ ReactDOM.render(
   <Provider store={createStoreWithMiddelware(reducers)}>
     <BrowserRouter>
       <Switch>
+      <Route path="/addCar" component={AddCar} />
       <Route path="/inProgress" component={InProgress} />
         <Route path="/get/complete" component={CarDelivered} />
         <Route path="/get/start" component={ParkCar} />
