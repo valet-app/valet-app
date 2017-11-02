@@ -31,7 +31,7 @@ class App extends Component {
             <Route path="/addCar" component={AddCar} />
             <Route path="/get/complete" component={CarDelivered} />
             <Route path="/get/start" component={ParkCar} />
-            <Route path="/park/complete" component={CarParked} />
+            <Route path="/park/complete" component={ParkCar} />
             <Route path="/park/start" component={ParkCar} />
             <Route path="/get/chooseValet" component={ChooseValet} />
             <Route path="/park/chooseValet" component={ChooseValet} />

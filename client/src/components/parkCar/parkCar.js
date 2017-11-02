@@ -20,12 +20,14 @@ class ParkCar extends Component {
     );
 
     const get = this.props.history.location.pathname.substring(1, 4) === "get";
+    const complete = this.props.history.location.pathname.substr(-8) === "complete";
     this.state = {
       get,
+      complete,
       spaces: [],
       parkingspace_id: 0
     }
-    
+    console.log(this.state)
    this.handleButtonClick = this.handleButtonClick.bind(this);
    this.handleSelect = this.handleSelect.bind(this);
    
@@ -40,26 +42,41 @@ class ParkCar extends Component {
   const parkingspace_id = spaces[0].value
 
     this.setState({
-      spaces, parkingspace_id
+      spaces, selectedSpace: parkingspace_id
     })
   }
 
   handleButtonClick() {
-    let newStatus = this.state.get ? 4 : 2;
+    let newStatus;
+    if (this.state.get){
+      if (this.state.complete){
+        newStatus = 5;
+      } else {
+        newStatus = 4
+      }
+    } else {
+      if (this.state.complete){
+        newStatus = 3;
+      } else {
+        newStatus = 2
+      }
+    }
+
     let parkingspace_id = this.state.selectedSpace
-      
+      console.log(newStatus, parkingspace_id, this.props.currentValet, this.props.chosenVehicle)
     axios
       .put(`/api/cars?id=${this.props.chosenVehicle.car_id}`, {
         status_id: newStatus,
-        employee_id: this.props.currentValet,
+        employee_id: this.props.currentValet || this.props.chosenVehicle.employee_id,
         parkingspace_id
       })
       .then(response => this.props.history.push("/home"));
   }
 
   handleSelect(event, data) {
+    console.log(data)
     this.setState({
-      parkingspace_id: data.value
+      selectedSpace: data.value
     })
 
   }
@@ -104,7 +121,7 @@ class ParkCar extends Component {
                 <h3>{this.props.chosenVehicle.parkingspace_id}</h3>
               )}
               {!this.state.get && (
-                <Dropdown value={this.state.parkingspace_id} onChange={this.handleSelect}  fluid selection className="link item" options={this.state.spaces}>
+                <Dropdown selectOnBlur= {true} value={this.props.chosenVehicle.parkingspace_id || this.state.selectedSpace} onChange={this.handleSelect}  fluid selection className="link item active" options={this.state.spaces}>
                   
                 </Dropdown>
               )}
@@ -114,8 +131,9 @@ class ParkCar extends Component {
           </Grid.Row>
           <Grid.Row>
             <Button onClick={this.handleButtonClick} size="large" color="grey">
-              {this.state.get ? "Get " : "Park "}
-              This Car
+            {this.state.complete ? 'Complete' :
+              (this.state.get ? "Get This Car" : "Park This Car")
+            }
             </Button>
           </Grid.Row>
         </Grid>
