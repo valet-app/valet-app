@@ -36,7 +36,7 @@ class ParkCar extends Component {
 
   render() {
     console.log(this.props.openSpaces);
-    const spacesJsx = this.props.openSpaces.map( (space) => <Dropdown.Item onClick={() => this.setState({selectedSpace: space})}> {space.location1} {space.location2} {space.location3}  {space.arkinglot_id} {space.parkingspacetype_id} </Dropdown.Item> );
+    const spacesJsx = this.props.openSpaces.map( (space) => <Dropdown.Item onClick={() => this.setState({selectedSpace: space})}> {space.location1} {space.location2} {space.location3}  {space.parkinglot_id} {space.parkingspacetype_id} </Dropdown.Item> );
     
     return (
       <div>
@@ -68,10 +68,9 @@ class ParkCar extends Component {
               <Header as="h3" textAlign="center">
                  Parking Space
               </Header>
-    {!this.state.get && (<Dropdown text="choose a space" className="link item">
+    {!this.state.get && (<Dropdown selection text="Choose a Space" className="link item">
     <Dropdown.Menu> 
-      {spacesJsx}
-          
+      123
         </Dropdown.Menu>
     </Dropdown>)}
     
