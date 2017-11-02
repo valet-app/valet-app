@@ -15,6 +15,7 @@ import GetCar from "./components/getCar/getCar";
 import GetCarSearch from "./components/getCarSearch/getCarSearch";
 import CarDelivered from "./components/carDelivered/carDelivered";
 import SignupCompany from "./components/signupCompany/signupCompany";
+import InProgress from "./components/inProgress/inProgress";
 
 class App extends Component {
   componentWillMount() {
@@ -39,6 +40,7 @@ class App extends Component {
             <Route path="/get/search" component={PacSearch} />
             <Route path="/home" component={ValetOptions} />
             <Route path="/signupCompany" component={SignupCompany} />
+            <Route path="/inProgress" component={InProgress} />
             <Route path="/" component={ValetOptions} />
             <Route path="/login" component={Login} />
           </Switch>
