@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component} from "react";
 import { connect } from "react-redux";
 import NavBar from "../navBar/navBar";
 import {
@@ -6,7 +6,7 @@ import {
   setNavTitleAction,
   getVehiclesAction
 } from "../../reducers";
-import { Grid, Button, Header, Dropdown } from "semantic-ui-react";
+import { Grid, Button, Header, Dropdown, Form , TextArea, Modal } from "semantic-ui-react";
 import axios from "axios";
 
 
@@ -81,8 +81,13 @@ class ParkCar extends Component {
 
   }
 
-  render() {
+  state = { open: false }
   
+    show = size => () => this.setState({ size, open: true })
+    close = () => this.setState({ open: false })
+
+  render() {
+    const { open, size } = this.state
     return (
       <div>
         <NavBar />
@@ -94,7 +99,19 @@ class ParkCar extends Component {
             <p className="phonenumber">{this.props.chosenVehicle.phone}</p>
           </Grid.Column>
           <Grid.Row>
-            <Button color="yellow"> Add a Red Flag</Button>
+            <Button color="yellow" onClick={this.show('small')}> Add a Red Flag</Button>
+    
+            <Modal size={size} open={open} onClose={this.close}>
+          <Modal.Header>
+            Notes
+          </Modal.Header>
+
+          <Modal.Actions>
+          <Form>
+        <TextArea placeholder='Tell us more' />
+        </Form>
+          </Modal.Actions>
+        </Modal>
           </Grid.Row>
           <Grid.Column width={12} verticalAlign="middle">
             <p className="carText">
