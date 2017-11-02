@@ -31,6 +31,7 @@ class Login extends Component {
       },
       () => this.props.history.push("/home")
     );
+    console.log(this.state)
   }
   render() {
     const loginError = this.props.login.error;
