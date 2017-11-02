@@ -63,11 +63,11 @@ class ParkCar extends Component {
     }
 
     let parkingspace_id = this.state.selectedSpace
-      console.log(newStatus, parkingspace_id, this.props.currentValet)
+      console.log(newStatus, parkingspace_id, this.props.currentValet, this.props.chosenVehicle)
     axios
       .put(`/api/cars?id=${this.props.chosenVehicle.car_id}`, {
         status_id: newStatus,
-        employee_id: this.props.currentValet,
+        employee_id: this.props.currentValet || this.props.chosenVehicle.employee_id,
         parkingspace_id
       })
       .then(response => this.props.history.push("/home"));
@@ -120,13 +120,10 @@ class ParkCar extends Component {
               {this.state.get && (
                 <h3>{this.props.chosenVehicle.parkingspace_id}</h3>
               )}
-              {!this.state.get && !this.state.complete && (
-                <Dropdown value={this.state.selectedSpace} onChange={this.handleSelect}  fluid selection className="link item" options={this.state.spaces}>
+              {!this.state.get && (
+                <Dropdown selectOnBlur= {true} value={this.props.chosenVehicle.parkingspace_id || this.state.selectedSpace} onChange={this.handleSelect}  fluid selection className="link item active" options={this.state.spaces}>
                   
                 </Dropdown>
-              )}
-              {!this.state.get && this.state.complete && (
-                <input value={this.props.chosenVehicle.parkingspace_id} />
               )}
 
               <Grid.Row />
