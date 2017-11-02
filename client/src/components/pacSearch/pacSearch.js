@@ -11,25 +11,25 @@ import { chooseVehicleAction, setNavTitleAction } from "../../reducers";
 class PacSearch extends Component {
   constructor(props) {
     super(props);
+
     this.props.setNavTitleAction("Park a Car", () =>
       this.props.history.goBack()
     );
 
     ///Parking lot id will need to be dynamic instead of hard coded
     // if (this.props.history)
-    let parkedVehicles;
+
     if (this.props.history.location.pathname.substring(1, 4) === "get") {
-      parkedVehicles = this.props.vehicles.filter(
+      const parkedVehicles = this.props.vehicles.filter(
         vehicle => vehicle.parkinglot_id === 1
       );
+      this.state = { value: "", get: true, vehicles: parkedVehicles };
+    } else {
+      const unparkedVehicles = this.props.vehicles.filter(
+        vehicle => !vehicle.parkinglot_id
+      );
+      this.state = { value: "", get: false, vehicles: unparkedVehicles };
     }
-
-    this.state = {
-      value: "",
-      parkedVehicles
-    };
-
-    console.log(this.state.parkedVehicles);
   }
 
   handleResultSelect = (e, { result }) => {
@@ -47,13 +47,10 @@ class PacSearch extends Component {
         `${result.make}${result.model}${result.licenseplate}${result.phone}`
       );
     };
-    let vehicles = this.state.parkedVehicles
-      ? this.state.parkedVehicles
-      : this.props.vehicles;
 
     this.setState({
       isLoading: false,
-      results: _.filter(vehicles, isMatch)
+      results: _.filter(this.state.vehicles, isMatch)
     });
   };
 

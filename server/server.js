@@ -43,6 +43,7 @@ const userCtrl = require ('./routes/userCtrl')
 const emplCtrl = require ('./routes/emplCtrl')
 const carsCtrl = require ('./routes/carsCtrl')
 const garageCtrl = require ('./routes/garageCtrl')
+const companyCtrl = require ('./routes/companyCtrl')
 
 // User Endpoints
 app.get('/api/user', userCtrl.getUser)
@@ -58,10 +59,11 @@ app.get('/api/cars', carsCtrl.getCars)
 app.put('/api/cars', carsCtrl.updateCarsSpace)
 app.post('/api/cars', carsCtrl.postCars)
 
-
-// Garage & parking Sport Endpoints
+// Garage & parking Spot Endpoints
 app.get('/api/parkingspot', garageCtrl.getParkingSpot)
 
+// Company Endpoints
+app.post('/api/company', companyCtrl.postCompany)
 
 // Authentication
 app.post('/auth/login',
