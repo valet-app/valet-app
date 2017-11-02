@@ -8,7 +8,7 @@ import { Grid, Header, Segment,Button } from "semantic-ui-react";
 class ChooseValet extends Component {
   constructor(props) {
     super(props);
-    this.props.setNavTitleAction("Park a Car", () =>
+    this.props.setNavTitleAction("Home", () =>
       this.props.history.goBack()
     );
     this.state = {
@@ -22,6 +22,8 @@ class ChooseValet extends Component {
     this.props.history.push("search");
   }
   render() {
+    console.log('path',this.props.history.location.pathname);
+    const verb = this.props.history.location.pathname
     const valet = this.state.chosenValet;
     const valetList = this.props.employees.map(employee => (
       <Segment
@@ -37,7 +39,7 @@ class ChooseValet extends Component {
         <Grid padded="vertically" centered>
           <Grid.Row>
             <Header as="h3" color="grey">
-              Who is Parking this Car?
+              Who is {verb === '/park/chooseValet'? <span>Parking</span> :<span>Retrieving</span>} this Car?
             </Header>
           </Grid.Row>
           <Grid.Column width={12}>

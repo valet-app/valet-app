@@ -15,7 +15,7 @@ class ParkCar extends Component {
     super(props);
 
     this.props.getOpenSpacesAction(this.props.chosenVehicle);
-    this.props.setNavTitleAction("Park a Car", () =>
+    this.props.setNavTitleAction("Car Search", () =>
       this.props.history.goBack()
     );
 
@@ -23,7 +23,7 @@ class ParkCar extends Component {
     this.state = {
       get,
       spaces: [],
-      parkingspace_id: 0
+      parkingspace_id: 0,
     }
     
    this.handleButtonClick = this.handleButtonClick.bind(this);

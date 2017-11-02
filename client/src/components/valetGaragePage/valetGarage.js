@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import logo from "../../valet-logo.png";
 import { getVehiclesAction, getEmployeesAction } from "../../reducers";
-import { Header, Button, Grid, Image, Sidebar, Icon, Segment, Menu } from "semantic-ui-react";
+import { Header, Button, Grid, Image, Sidebar, Icon, Menu } from "semantic-ui-react";
 
 class ValetOptions extends Component {
  
@@ -19,7 +19,7 @@ class ValetOptions extends Component {
     const { visible } = this.state
     return (
       <div>
-        <Grid.Row centered onClick={this.toggleVisibility}><Icon color='grey' size='large' name='sidebar' className="menubutton"/></Grid.Row>
+        <Grid.Column centered onClick={this.toggleVisibility}><Icon color='grey' size='large' name='sidebar' className="menubutton"/></Grid.Column>
         <br/>
         <Sidebar.Pushable as={Grid}>
           <Sidebar as={Menu} animation='overlay' width='thin' visible={visible} icon='labeled' vertical stretched>
@@ -33,14 +33,14 @@ class ValetOptions extends Component {
               Valet Sign-In/Out
             </Menu.Item></Link>
             <Link to='/login'>
-            <Menu.Item onClick={this.toggleVisibility} name='Garage Log Out'>
+            <Menu.Item  onClick={this.toggleVisibility} name='Garage Log Out'>
               <Icon color='yellow' name='external' />
               Garage Log Out
             </Menu.Item></Link>
           </Sidebar>
           <Sidebar.Pusher style={{'min-height': '100vh'}}>
         <Grid centered stretched verticalAlign="middle">
-          <Grid.Row centered>
+          <Grid.Row centered className='relative'>
             <Image src={logo} style={{ width: "75px", height: "75px" }} />
             <Header size="huge" color="grey">
               Garage Name

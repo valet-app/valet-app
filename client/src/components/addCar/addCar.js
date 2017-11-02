@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Grid, Icon, Form, Header } from "semantic-ui-react";
+import { Grid, Form, Header } from "semantic-ui-react";
 import NavBar from "../navBar/navBar";
 
 import { connect } from "react-redux";
@@ -12,6 +12,18 @@ class AddCar extends Component {
     this.props.setNavTitleAction("Add a Car", () =>
       this.props.history.goBack()
     );
+    this.state = {
+      firstname: "",
+      lastname: "",
+      phone: "",
+      email: "",
+      make: "",
+      model: "",
+      year: "",
+      color: "",
+      license: "",
+      valettag: "",
+    };
   }
   render() {
     return (
@@ -27,8 +39,8 @@ class AddCar extends Component {
             <Form.Input icon='user'iconPosition='left' placeholder="First Name" />
             <Form.Input icon='user circle'iconPosition='left' placeholder="Last Name" />
           </Form.Group>
-          <Form.Input icon='mail'iconPosition='left' placeholder="Email" />
-          <Form.Input icon='phone'iconPosition='left' placeholder="Phone Number" required/>
+          <Form.Input type='email' icon='mail'iconPosition='left' placeholder="Email" />
+          <Form.Input type='tel'pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" icon='phone'iconPosition='left' placeholder="Phone Number" required/>
           <br />
           <Header color="grey">Car Information</Header>
           <Form.Group inline>
@@ -37,6 +49,10 @@ class AddCar extends Component {
           </Form.Group>
           <Form.Group inline>
             <Form.Input icon='calendar'iconPosition='left' placeholder="Year" />
+            <Form.Input icon='drivers license' iconPosition='left' placeholder="License Plate" />
+          </Form.Group>
+          <Form.Group inline>
+            <Form.Input icon='tag'iconPosition='left' placeholder="Valet Tag # (if applicable)" />
             <Form.Input icon='eyedropper' iconPosition='left' placeholder="Color" />
           </Form.Group>
           <Form.Button color="yellow">Submit</Form.Button>

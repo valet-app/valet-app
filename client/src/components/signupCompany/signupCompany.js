@@ -10,7 +10,6 @@ import {
   Image,
   Form,
   Checkbox,
-  Divider,
   Input
 } from "semantic-ui-react";
 
