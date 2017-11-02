@@ -10,39 +10,52 @@ import {
   Image,
   Form,
   Checkbox,
-  Input
+  Input,
+  Message,
+  Divider
 } from "semantic-ui-react";
 
 class SignupCompany extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       newCompanyName: "",
       company_id: "",
       username: "",
       name: "",
       admin: true,
-      password: ""
+      password: "",
+      confirmpassword: ""
     };
     this.handleSignup = this.handleSignup.bind(this);
   }
 
   handleSignup() {
-    //Add the company
-    axios
-      .post(`/api/company`, { name: this.state.newCompanyName })
-      .then(result => {
-        this.setState({ company_id: result.data[0].id });
-        //After company has been added, add the employee
-        const { company_id, username, name, admin, password } = this.state;
-        axios
-          .post(`/api/empl`, { company_id, username, name, admin, password })
+    //
+    this.state.password != this.state.confirmpassword
+      ? console.log("Passwords Do Not Match Error")
+      : axios
+          .post(`/api/company`, { name: this.state.newCompanyName })
           .then(result => {
+            this.setState({ company_id: result.data[0].id });
+            //After company has been added, add the employee
+            const { company_id, username, name, admin, password } = this.state;
+            axios
+              .post(`/api/empl`, {
+                company_id,
+                username,
+                name,
+                admin,
+                password
+              })
+              .then(result => {
+                this.props.history.push("/login");
+              });
           });
-      });
   }
 
   render() {
+    const loginError = true;
     return (
       <div>
         <br />
@@ -53,6 +66,7 @@ class SignupCompany extends Component {
               Company Signup
             </Header>
           </Grid.Row>
+
           <Grid.Row columns={2} stretched centered>
             <p>Add your Company and Create Initial User</p>
 
@@ -97,8 +111,29 @@ class SignupCompany extends Component {
                 </Form.Field>
 
                 <Form.Field>
+                  <Input
+                    placeholder="Confirm Password"
+                    type="password"
+                    iconPosition="left"
+                    icon="lock"
+                    onChange={e =>
+                      this.setState({ confirmpassword: e.target.value })}
+                  />
+                </Form.Field>
+
+                <Form.Field>
                   <Checkbox label="I agree to the Terms and Conditions" />
                 </Form.Field>
+
+                {loginError ? (
+                  <Grid.Row>
+                    <Message floating negative>
+                      <Message.Header>Passwords Do Not Match</Message.Header>
+                      <p>Please reenter passwords.</p>
+                    </Message>
+                    <Divider clearing />
+                  </Grid.Row>
+                ) : null}
 
                 <Button
                   type="submit"
