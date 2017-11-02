@@ -39,6 +39,7 @@ class ParkCar extends Component {
     value: `${space.id}`
     }
   })
+  console.log(spaces);
   const parkingspace_id = spaces[0].value
 
     this.setState({
