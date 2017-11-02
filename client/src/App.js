@@ -16,6 +16,7 @@ import GetCarSearch from "./components/getCarSearch/getCarSearch";
 import CarDelivered from "./components/carDelivered/carDelivered";
 import SignupCompany from "./components/signupCompany/signupCompany";
 import InProgress from "./components/inProgress/inProgress";
+import AddCar from "./components/addCar/addCar";
 
 class App extends Component {
   componentWillMount() {
@@ -30,6 +31,7 @@ class App extends Component {
       <BrowserRouter>
         {this.props.login.username || this.props.session.username ? (
           <Switch>
+            <Route path="/addCar" component={AddCar} />
             <Route path="/get/complete" component={CarDelivered} />
             <Route path="/get/start" component={ParkCar} />
             <Route path="/park/complete" component={CarParked} />
@@ -45,7 +47,10 @@ class App extends Component {
             <Route path="/login" component={Login} />
           </Switch>
         ) : (
+          <Switch>
+          <Route path="/signupCompany" component={SignupCompany} />
           <Route path="/" component={Login} />
+          </Switch>
         )}
       </BrowserRouter>
     );
