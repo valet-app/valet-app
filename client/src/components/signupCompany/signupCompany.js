@@ -25,15 +25,19 @@ class SignupCompany extends Component {
       name: "",
       admin: true,
       password: "",
-      confirmpassword: ""
+      confirmpassword: "",
+      matchpass: true,
+      error: "",
+      accept: false
     };
     this.handleSignup = this.handleSignup.bind(this);
   }
 
   handleSignup() {
-    //
-    this.state.password != this.state.confirmpassword
-      ? console.log("Passwords Do Not Match Error")
+    !this.state.error ? console.log("yes") : console.log("no");
+
+    this.state.password !== this.state.confirmpassword
+      ? this.setState({ matchpass: false })
       : axios
           .post(`/api/company`, { name: this.state.newCompanyName })
           .then(result => {
@@ -54,8 +58,11 @@ class SignupCompany extends Component {
           });
   }
 
+  handleCheck(e) {
+    console.log(e.target.checked);
+  }
+
   render() {
-    const loginError = true;
     return (
       <div>
         <br />
@@ -106,7 +113,11 @@ class SignupCompany extends Component {
                     type="password"
                     iconPosition="left"
                     icon="lock"
-                    onChange={e => this.setState({ password: e.target.value })}
+                    onChange={e =>
+                      this.setState({
+                        password: e.target.value,
+                        matchpass: true
+                      })}
                   />
                 </Form.Field>
 
@@ -117,7 +128,10 @@ class SignupCompany extends Component {
                     iconPosition="left"
                     icon="lock"
                     onChange={e =>
-                      this.setState({ confirmpassword: e.target.value })}
+                      this.setState({
+                        confirmpassword: e.target.value,
+                        matchpass: true
+                      })}
                   />
                 </Form.Field>
 
@@ -125,7 +139,7 @@ class SignupCompany extends Component {
                   <Checkbox label="I agree to the Terms and Conditions" />
                 </Form.Field>
 
-                {loginError ? (
+                {!this.state.matchpass ? (
                   <Grid.Row>
                     <Message floating negative>
                       <Message.Header>Passwords Do Not Match</Message.Header>
