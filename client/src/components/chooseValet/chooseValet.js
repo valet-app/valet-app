@@ -22,9 +22,10 @@ class ChooseValet extends Component {
     this.props.history.push("search");
   }
   render() {
+    const valet = this.state.chosenValet;
     const valetList = this.props.employees.map(employee => (
       <Segment
-        onClick={(e, data) => this.setState({ chosenValet: employee.id })}
+        onClick={(e, data) => this.setState({ chosenValet: employee.id, valetName: employee.name })}
       >
         {employee.name}
       </Segment>
@@ -42,6 +43,12 @@ class ChooseValet extends Component {
           <Grid.Column width={12}>
             <Segment.Group>{valetList}</Segment.Group>
           </Grid.Column>
+          <Grid.Row>
+          {valet 
+          ? 
+          <p>{this.state.valetName}</p>
+          :null}
+          </Grid.Row>
           <Grid.Row>
             <Button
               color="yellow"
