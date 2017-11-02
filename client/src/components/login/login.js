@@ -51,7 +51,7 @@ class Login extends Component {
           <Divider clearing />
         </Grid.Row>
         <Grid centered padded="horizontally">
-          <Grid.Row columns={2}>
+          <Grid.Row>
             <Grid.Column color="grey" width={12}>
               <Form>
                 <Form.Field>

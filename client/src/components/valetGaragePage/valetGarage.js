@@ -41,9 +41,11 @@ class ValetOptions extends Component {
                 </Button>
               </Link>
               <br />
+              <Link to='/inProgress'>
               <Button fluid color="yellow" size="massive">
                 In Progress
               </Button>
+              </Link>
               <br />
               <Button fluid color="yellow" size="massive">
                 Lot Status
