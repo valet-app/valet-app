@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import logo from "../../valet-logo.png";
 import { getVehiclesAction, getEmployeesAction } from "../../reducers";
-import { Header, Button, Grid, Image } from "semantic-ui-react";
+import { Header, Button, Grid, Image, Sidebar, Icon, Segment, Menu } from "semantic-ui-react";
 
 class ValetOptions extends Component {
  
@@ -12,12 +12,34 @@ class ValetOptions extends Component {
     this.props.getVehiclesAction();
     this.props.getEmployeesAction();
   }
-
+  state = { visible: false }
+  
+    toggleVisibility = () => this.setState({ visible: !this.state.visible })
   render() {
+    const { visible } = this.state
     return (
       <div>
-        <br />
-        <Grid centered verticalAlign="middle">
+        <Grid.Row centered onClick={this.toggleVisibility}><Icon color='grey' size='large' name='sidebar' className="menubutton"/></Grid.Row>
+        <br/>
+        <Sidebar.Pushable as={Grid}>
+          <Sidebar as={Menu} animation='overlay' width='thin' visible={visible} icon='labeled' vertical stretched>
+            <Link to='/home'>< Menu.Item onClick={this.toggleVisibility} name='Home' >
+              <Icon color='yellow' name='home' />
+              Home
+            </Menu.Item></Link>
+            <Link to='/home'>
+            <Menu.Item onClick={this.toggleVisibility} name='Valet Sign-In/Out'>
+              <Icon  color='yellow' name='users' />
+              Valet Sign-In/Out
+            </Menu.Item></Link>
+            <Link to='/login'>
+            <Menu.Item onClick={this.toggleVisibility} name='Garage Log Out'>
+              <Icon color='yellow' name='external' />
+              Garage Log Out
+            </Menu.Item></Link>
+          </Sidebar>
+          <Sidebar.Pusher style={{'min-height': '100vh'}}>
+        <Grid centered stretched verticalAlign="middle">
           <Grid.Row centered>
             <Image src={logo} style={{ width: "75px", height: "75px" }} />
             <Header size="huge" color="grey">
@@ -52,6 +74,8 @@ class ValetOptions extends Component {
             </Grid.Column>
           </Grid.Row>
         </Grid>
+          </Sidebar.Pusher>
+        </Sidebar.Pushable>
       </div>
     );
   }

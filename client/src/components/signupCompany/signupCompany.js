@@ -10,51 +10,74 @@ import {
   Image,
   Form,
   Checkbox,
-  Input
+  Input,
+  Message,
+  Divider
 } from "semantic-ui-react";
 
 class SignupCompany extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       newCompanyName: "",
       company_id: "",
       username: "",
       name: "",
       admin: true,
-      password: ""
+      password: "",
+      confirmpassword: "",
+      matchpass: true,
+      error: "",
+      accept: false
     };
     this.handleSignup = this.handleSignup.bind(this);
   }
 
   handleSignup() {
-    //Add the company
-    axios
-      .post(`/api/company`, { name: this.state.newCompanyName })
-      .then(result => {
-        this.setState({ company_id: result.data[0].id });
-        //After company has been added, add the employee
-        const { company_id, username, name, admin, password } = this.state;
-        axios
-          .post(`/api/empl`, { company_id, username, name, admin, password })
+    !this.state.error ? console.log("yes") : console.log("no");
+
+    this.state.password !== this.state.confirmpassword
+      ? this.setState({ matchpass: false })
+      : axios
+          .post(`/api/company`, { name: this.state.newCompanyName })
           .then(result => {
+            this.setState({ company_id: result.data[0].id });
+            //After company has been added, add the employee
+            const { company_id, username, name, admin, password } = this.state;
+            axios
+              .post(`/api/empl`, {
+                company_id,
+                username,
+                name,
+                admin,
+                password
+              })
+              .then(result => {
+                this.props.history.push("/login");
+              });
           });
-      });
+  }
+
+  handleCheck(e) {
+    console.log(e.target.checked);
   }
 
   render() {
     return (
-      <div>
+      <div className="ui grid centered">
         <br />
-        <Grid centered verticalAlign="middle">
+        <Grid centered padding="vertically" verticalAlign="middle">
           <Grid.Row centered>
             <Image src={logo} style={{ width: "75px", height: "75px" }} />
             <Header size="huge" color="grey">
               Company Signup
             </Header>
           </Grid.Row>
+
           <Grid.Row columns={2} stretched centered>
-            <p>Add your Company and Create Initial User</p>
+            <p className="defaultText">
+              Add your Company and Create Initial User
+            </p>
 
             <Grid.Column width={12} verticalAlign="middle" stretched>
               <Form>
@@ -92,13 +115,44 @@ class SignupCompany extends Component {
                     type="password"
                     iconPosition="left"
                     icon="lock"
-                    onChange={e => this.setState({ password: e.target.value })}
+                    onChange={e =>
+                      this.setState({
+                        password: e.target.value,
+                        matchpass: true
+                      })}
                   />
                 </Form.Field>
 
                 <Form.Field>
-                  <Checkbox label="I agree to the Terms and Conditions" />
+                  <Input
+                    placeholder="Confirm Password"
+                    type="password"
+                    iconPosition="left"
+                    icon="lock"
+                    onChange={e =>
+                      this.setState({
+                        confirmpassword: e.target.value,
+                        matchpass: true
+                      })}
+                  />
                 </Form.Field>
+
+                <Form.Field>
+                  <Checkbox
+                    className="defaultText"
+                    label="I agree to the Terms and Conditions"
+                  />
+                </Form.Field>
+
+                {!this.state.matchpass ? (
+                  <Grid.Row>
+                    <Message floating negative>
+                      <Message.Header>Passwords Do Not Match</Message.Header>
+                      <p>Please reenter passwords.</p>
+                    </Message>
+                    <Divider clearing />
+                  </Grid.Row>
+                ) : null}
 
                 <Button
                   type="submit"
