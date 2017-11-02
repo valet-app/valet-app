@@ -2,6 +2,7 @@ import { combineReducers } from "redux";
 import axios from "axios";
 const rootReducer = combineReducers({
   login: loginReducer,
+  session: getUserSessionReducer,
   vehicles: vehiclesReducer,
   employees: employeesReducer,
   currentValet: chooseValetReducer,
@@ -16,9 +17,12 @@ export const CHOOSE_VALET = "CHOOSE_VALET";
 export const CHOOSE_VEHICLE = "CHOOSE_VEHICLE";
 export const GET_OPEN_SPACES = "GET_OPEN_SPACES";
 export const SET_NAV_TITLE = "SET_NAV_TITLE";
+export const GET_USER_SESSION = "GET_USER_SESSION";
+
 const ROOT_URL = "";
 ///Action creator
 export function loginAction(user, cb) {
+  console.log("login");
   const request = axios.post(`${ROOT_URL}/auth/login`, user).then(response => {
     cb();
     return response;
@@ -71,6 +75,14 @@ export function setNavTitleAction(title, cb) {
     payload: { title, cb }
   };
 }
+export function getUserSessionAction() {
+  //the lotid and typeid are hardcoded but will need to be dynamic with vehicle info
+  return {
+    type: GET_USER_SESSION,
+    payload: axios.get("/auth/me")
+  };
+}
+
 ///Reducer
 export function loginReducer(state = {}, action) {
   console.log(action);
@@ -87,18 +99,7 @@ export function loginReducer(state = {}, action) {
       return state;
   }
 }
-export function vehiclesReducer(
-  state = [
-    {
-      car_id: 0,
-      make: "Dummy",
-      model: "Vehicle",
-      phone: "555-867-5309",
-      licenseplate: "fakecar"
-    }
-  ],
-  action
-) {
+export function vehiclesReducer(state = [], action) {
   switch (action.type) {
     case GET_VEHICLES + "_FULFILLED":
       return action.payload.data;
@@ -179,6 +180,14 @@ export function setNavTitleReducer(state = "youcantseeme", action) {
   switch (action.type) {
     case SET_NAV_TITLE:
       return action.payload;
+    default:
+      return state;
+  }
+}
+export function getUserSessionReducer(state = {}, action) {
+  switch (action.type) {
+    case GET_USER_SESSION + "_FULFILLED":
+      return action.payload.data;
     default:
       return state;
   }
