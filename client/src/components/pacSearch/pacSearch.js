@@ -39,7 +39,7 @@ class PacSearch extends Component {
   handleSearchChange = (e, { value }) => {
     // if (this.state.value.length < 1) return this.resetComponent();
     this.setState({ isLoading: true, value });
-    const split = _.escapeRegExp(this.state.value).split(" ");
+    const split = _.escapeRegExp(value).split(" ");
     const regex = split.map(word => (word = "(?:" + word + ")+.*")).join("");
 
     const re = new RegExp(regex, "i");
