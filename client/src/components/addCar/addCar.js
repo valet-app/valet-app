@@ -19,26 +19,30 @@ class AddCar extends Component {
         <NavBar />
         <br />
         <br />
+        <Grid centered verticalAlign='middle' width={12}>
+        <Grid.Row>
         <Form>
           <Header color="grey">Owner Information</Header>
           <Form.Group inline>
-            <Form.Input placeholder="First Name" />
-            <Form.Input placeholder="Last Name" />
+            <Form.Input icon='user'iconPosition='left' placeholder="First Name" />
+            <Form.Input icon='user circle'iconPosition='left' placeholder="Last Name" />
           </Form.Group>
-          <Form.Input placeholder="Email" />
-          <Form.Input placeholder="Phone Number" />
+          <Form.Input icon='mail'iconPosition='left' placeholder="Email" />
+          <Form.Input icon='phone'iconPosition='left' placeholder="Phone Number" required/>
           <br />
           <Header color="grey">Car Information</Header>
           <Form.Group inline>
-            <Form.Input placeholder="Make" />
-            <Form.Input placeholder="Model" />
+            <Form.Input icon='car'iconPosition='left' placeholder="Make" required />
+            <Form.Input icon='car'iconPosition='left' placeholder="Model" required />
           </Form.Group>
           <Form.Group inline>
-            <Form.Input placeholder="Year" />
-            <Form.Input placeholder="Color" />
+            <Form.Input icon='calendar'iconPosition='left' placeholder="Year" />
+            <Form.Input icon='eyedropper' iconPosition='left' placeholder="Color" />
           </Form.Group>
           <Form.Button color="yellow">Submit</Form.Button>
         </Form>
+        </Grid.Row>
+        </Grid>
         <br />
       </div>
     );

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import logo from "../../valet-logo.png";
 import { getVehiclesAction, getEmployeesAction } from "../../reducers";
-import { Header, Button, Grid, Image } from "semantic-ui-react";
+import { Header, Button, Grid, Image, Sidebar, Icon, Segment, Menu } from "semantic-ui-react";
 
 class ValetOptions extends Component {
   constructor(props) {
@@ -14,11 +14,31 @@ class ValetOptions extends Component {
     this.props.getVehiclesAction();
     this.props.getEmployeesAction();
   }
-
+  state = { visible: false }
+  
+    toggleVisibility = () => this.setState({ visible: !this.state.visible })
   render() {
+    const { visible } = this.state
     return (
       <div>
-        <br />
+        <span className="menubutton" onClick={this.toggleVisibility}><Icon color='grey' size='large' name='sidebar'/></span>
+        <br/>
+        <Sidebar.Pushable as={Grid}>
+          <Sidebar as={Menu} animation='overlay' width='thin' visible={visible} icon='labeled' vertical stretched>
+            < Menu.Item name='Home'>
+              <Icon color='yellow' name='home' />
+              Home
+            </Menu.Item>
+            <Menu.Item name='Valet Sign-In/Out'>
+              <Icon  color='yellow' name='users' />
+              Valet Sign-In/Out
+            </Menu.Item>
+            <Menu.Item name='Garage Log Out'>
+              <Icon color='yellow' name='external' />
+              Garage Log Out
+            </Menu.Item>
+          </Sidebar>
+          <Sidebar.Pusher>
         <Grid centered verticalAlign="middle">
           <Grid.Row centered>
             <Image src={logo} style={{ width: "75px", height: "75px" }} />
@@ -54,6 +74,8 @@ class ValetOptions extends Component {
             </Grid.Column>
           </Grid.Row>
         </Grid>
+          </Sidebar.Pusher>
+        </Sidebar.Pushable>
       </div>
     );
   }
