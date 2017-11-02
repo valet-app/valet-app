@@ -19,13 +19,29 @@ class ParkCar extends Component {
       this.props.history.goBack()
     );
 
-    this.state =
-      this.props.history.location.pathname.substring(1, 4) === "get"
-        ? { get: true }
-        : { get: false };
-    this.handleButtonClick = this.handleButtonClick.bind(this);
-    this.handleSelect = this.handleSelect.bind(this);
+    const get = this.props.history.location.pathname.substring(1, 4) === "get";
+    this.state = {
+      get,
+      spaces: [],
+      parkingspace_id: 0
+    }
+    
+   this.handleButtonClick = this.handleButtonClick.bind(this);
+   this.handleSelect = this.handleSelect.bind(this);
    
+  }
+  componentWillReceiveProps(nextProps){
+  const spaces = nextProps.openSpaces.map(space => {
+    return {
+    text: `${space.location1} ${space.location2} ${space.location3}`,
+    value: `${space.id}`
+    }
+  })
+  const parkingspace_id = spaces[0].value
+
+    this.setState({
+      spaces, parkingspace_id
+    })
   }
 
   handleButtonClick() {
@@ -50,13 +66,6 @@ class ParkCar extends Component {
 
   render() {
   
-    const spacesJsx = this.props.openSpaces.map(space => {
-      return {
-      text: `${space.location1} ${space.location2} ${space.location3}`,
-      value: `${space.id}`
-      }
-    })
-
     return (
       <div>
         <NavBar />
@@ -95,7 +104,7 @@ class ParkCar extends Component {
                 <h3>{this.props.chosenVehicle.parkingspace_id}</h3>
               )}
               {!this.state.get && (
-                <Dropdown onChange={this.handleSelect} placeholder="choose a space" fluid selection className="link item" options={spacesJsx}>
+                <Dropdown value={this.state.parkingspace_id} onChange={this.handleSelect}  fluid selection className="link item" options={this.state.spaces}>
                   
                 </Dropdown>
               )}

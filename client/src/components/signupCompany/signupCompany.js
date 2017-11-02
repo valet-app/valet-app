@@ -12,7 +12,9 @@ import {
   Checkbox,
   Input,
   Message,
-  Divider
+  Divider,
+  Input
+
 } from "semantic-ui-react";
 
 class SignupCompany extends Component {
@@ -64,9 +66,9 @@ class SignupCompany extends Component {
 
   render() {
     return (
-      <div>
-        <br />
-        <Grid centered verticalAlign="middle">
+      <div className="ui grid centered">
+        <br/>
+        <Grid centered padding='vertically' verticalAlign="middle">
           <Grid.Row centered>
             <Image src={logo} style={{ width: "75px", height: "75px" }} />
             <Header size="huge" color="grey">
@@ -75,7 +77,7 @@ class SignupCompany extends Component {
           </Grid.Row>
 
           <Grid.Row columns={2} stretched centered>
-            <p>Add your Company and Create Initial User</p>
+            <p className='defaultText'>Add your Company and Create Initial User</p>
 
             <Grid.Column width={12} verticalAlign="middle" stretched>
               <Form>
@@ -136,7 +138,7 @@ class SignupCompany extends Component {
                 </Form.Field>
 
                 <Form.Field>
-                  <Checkbox label="I agree to the Terms and Conditions" />
+                  <Checkbox className='defaultText' label="I agree to the Terms and Conditions"></Checkbox>
                 </Form.Field>
 
                 {!this.state.matchpass ? (
