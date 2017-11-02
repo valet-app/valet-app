@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import NavBar from "../navBar/navBar";
 import { Search, Grid, Button, Segment, Header } from "semantic-ui-react";
 
-
 import _ from "lodash";
 import { chooseVehicleAction, setNavTitleAction } from "../../reducers";
 
@@ -40,10 +39,14 @@ class PacSearch extends Component {
   handleSearchChange = (e, { value }) => {
     // if (this.state.value.length < 1) return this.resetComponent();
     this.setState({ isLoading: true, value });
-    const re = new RegExp(_.escapeRegExp(this.state.value), "i");
+    const split = _.escapeRegExp(this.state.value).split(" ");
+    const regex = split.map(word => (word = "(?:" + word + ")+.*")).join("");
+
+    const re = new RegExp(regex, "i");
+
     const isMatch = result => {
       return re.test(
-        `${result.make}${result.model}${result.licenseplate}${result.phone}`
+        ` ${result.make} ${result.model} ${result.licenseplate} ${result.phone}`
       );
     };
 
