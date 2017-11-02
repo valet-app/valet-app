@@ -38,8 +38,8 @@ class ValetOptions extends Component {
               Garage Log Out
             </Menu.Item></Link>
           </Sidebar>
-          <Sidebar.Pusher>
-        <Grid centered verticalAlign="middle">
+          <Sidebar.Pusher style={{'min-height': '100vh'}}>
+        <Grid centered stretched verticalAlign="middle">
           <Grid.Row centered>
             <Image src={logo} style={{ width: "75px", height: "75px" }} />
             <Header size="huge" color="grey">
