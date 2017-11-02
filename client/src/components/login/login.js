@@ -10,7 +10,8 @@ import {
   Header,
   Grid,
   Image,
-  Divider
+  Divider,
+  Message
 } from "semantic-ui-react";
 
 //import Action Creators
@@ -21,7 +22,7 @@ class Login extends Component {
     super(props);
     this.handleLogin = this.handleLogin.bind(this);
   }
-
+  
   handleLogin() {
     this.props.loginAction(
       {
@@ -32,6 +33,7 @@ class Login extends Component {
     );
   }
   render() {
+    const loginError = this.props.login.error;
     return (
       <div className="ui grid centered">
         <Divider clearing />
@@ -48,8 +50,19 @@ class Login extends Component {
           <Header as="h2" color="grey">
             Log into Your Account
           </Header>
-          <Divider clearing />
         </Grid.Row>
+        { loginError 
+            ? 
+            <Grid.Row>
+              <Message  floating negative >
+              <Message.Header>
+                Login Incorrect
+              </Message.Header>
+              <p>Please check username and password.</p>
+            </Message>
+            <Divider clearing />
+            </Grid.Row>
+            :null}
         <Grid centered padded="horizontally">
           <Grid.Row>
             <Grid.Column color="grey" width={12}>
@@ -82,7 +95,7 @@ class Login extends Component {
               </Form>
             </Grid.Column>
           </Grid.Row>
-          <Grid.Row>
+            <Grid.Row>
             <Link to="/signupCompany">
               <Button color="grey" basic>
                 New to Us? Sign Up
