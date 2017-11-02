@@ -29,7 +29,7 @@ class App extends Component {
         {this.props.login.username || this.props.session.username ? (
           <Switch>
             <Route path="/addCar" component={AddCar} />
-            <Route path="/get/complete" component={CarDelivered} />
+            <Route path="/get/complete" component={ParkCar} />
             <Route path="/get/start" component={ParkCar} />
             <Route path="/park/complete" component={ParkCar} />
             <Route path="/park/start" component={ParkCar} />
@@ -45,8 +45,8 @@ class App extends Component {
           </Switch>
         ) : (
           <Switch>
-          <Route path="/signupCompany" component={SignupCompany} />
-          <Route path="/" component={Login} />
+            <Route path="/signupCompany" component={SignupCompany} />
+            <Route path="/" component={Login} />
           </Switch>
         )}
       </BrowserRouter>
