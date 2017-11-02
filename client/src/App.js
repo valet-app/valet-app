@@ -28,9 +28,9 @@ class App extends Component {
         {this.props.login.username || this.props.session.username ? (
           <Switch>
             <Route path="/inProgress" component={InProgress} />
-            <Route path="/get/complete" component={CarDelivered} />
+            <Route path="/get/complete" component={ParkCar} />
             <Route path="/get/start" component={ParkCar} />
-            <Route path="/park/complete" component={CarParked} />
+            <Route path="/park/complete" component={ParkCar} />
             <Route path="/park/start" component={ParkCar} />
             <Route path="/get/chooseValet" component={ChooseValet} />
             <Route path="/park/chooseValet" component={ChooseValet} />

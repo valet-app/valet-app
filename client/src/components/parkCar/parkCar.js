@@ -20,12 +20,14 @@ class ParkCar extends Component {
     );
 
     const get = this.props.history.location.pathname.substring(1, 4) === "get";
+    const complete = this.props.history.location.pathname.substr(-8) === "complete";
     this.state = {
       get,
+      complete,
       spaces: [],
       parkingspace_id: 0
     }
-    
+    console.log(this.state)
    this.handleButtonClick = this.handleButtonClick.bind(this);
    this.handleSelect = this.handleSelect.bind(this);
    
@@ -45,7 +47,21 @@ class ParkCar extends Component {
   }
 
   handleButtonClick() {
-    let newStatus = this.state.get ? 4 : 2;
+    let newStatus;
+    if (this.state.get){
+      if (this.state.complete){
+        newStatus = 5;
+      } else {
+        newStatus = 4
+      }
+    } else {
+      if (this.state.complete){
+        newStatus = 3;
+      } else {
+        newStatus = 2
+      }
+    }
+
     let parkingspace_id = this.state.selectedSpace
       console.log(newStatus, parkingspace_id, this.props.currentValet)
     axios
@@ -104,10 +120,13 @@ class ParkCar extends Component {
               {this.state.get && (
                 <h3>{this.props.chosenVehicle.parkingspace_id}</h3>
               )}
-              {!this.state.get && (
+              {!this.state.get && !this.state.complete && (
                 <Dropdown value={this.state.selectedSpace} onChange={this.handleSelect}  fluid selection className="link item" options={this.state.spaces}>
                   
                 </Dropdown>
+              )}
+              {!this.state.get && this.state.complete && (
+                <input value={this.props.chosenVehicle.parkingspace_id} />
               )}
 
               <Grid.Row />
@@ -115,8 +134,9 @@ class ParkCar extends Component {
           </Grid.Row>
           <Grid.Row>
             <Button onClick={this.handleButtonClick} size="large" color="grey">
-              {this.state.get ? "Get " : "Park "}
-              This Car
+            {this.state.complete ? 'Complete' :
+              (this.state.get ? "Get This Car" : "Park This Car")
+            }
             </Button>
           </Grid.Row>
         </Grid>
