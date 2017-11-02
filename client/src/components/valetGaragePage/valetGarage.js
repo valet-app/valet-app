@@ -21,7 +21,7 @@ class ValetOptions extends Component {
     const { visible } = this.state
     return (
       <div>
-        <span className="menubutton" onClick={this.toggleVisibility}><Icon color='grey' size='large' name='sidebar'/></span>
+        <Grid.Row centered onClick={this.toggleVisibility}><Icon color='grey' size='large' name='sidebar' className="menubutton"/></Grid.Row>
         <br/>
         <Sidebar.Pushable as={Grid}>
           <Sidebar as={Menu} animation='overlay' width='thin' visible={visible} icon='labeled' vertical stretched>

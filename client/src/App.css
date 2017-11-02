@@ -44,6 +44,7 @@
   position: fixed;
   top: 2px;
   right: 20px;
+  z-index: 3;
 }
 .phonenumber{
   font-weight: 100;
