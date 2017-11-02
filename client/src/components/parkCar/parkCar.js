@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import NavBar from "../navBar/navBar";
 import {
@@ -7,8 +6,9 @@ import {
   setNavTitleAction,
   getVehiclesAction
 } from "../../reducers";
-import { Grid, Button, Select, Header, Dropdown } from "semantic-ui-react";
+import { Grid, Button, Header, Dropdown } from "semantic-ui-react";
 import axios from "axios";
+
 
 class ParkCar extends Component {
   constructor(props) {
@@ -24,14 +24,14 @@ class ParkCar extends Component {
         ? { get: true }
         : { get: false };
     this.handleButtonClick = this.handleButtonClick.bind(this);
-    console.log(this.props);
+    this.handleSelect = this.handleSelect.bind(this);
+   
   }
 
   handleButtonClick() {
     let newStatus = this.state.get ? 4 : 2;
     let parkingspace_id = this.state.selectedSpace
-      ? this.state.selectedSpace.id
-      : null;
+      
     axios
       .put(`/api/cars?id=${this.props.chosenVehicle.car_id}`, {
         status_id: newStatus,
@@ -41,15 +41,21 @@ class ParkCar extends Component {
       .then(response => this.props.history.push("/home"));
   }
 
+  handleSelect(event, data) {
+    this.setState({
+      parkingspace_id: data.value
+    })
+
+  }
+
   render() {
-    console.log(this.props.openSpaces);
-    const spacesJsx = this.props.openSpaces.map(space => (
-      <Dropdown.Item onClick={() => this.setState({ selectedSpace: space })}>
-        {" "}
-        {space.location1} {space.location2} {space.location3}{" "}
-        {space.arkinglot_id} {space.parkingspacetype_id}{" "}
-      </Dropdown.Item>
-    ));
+  
+    const spacesJsx = this.props.openSpaces.map(space => {
+      return {
+      text: `${space.location1} ${space.location2} ${space.location3}`,
+      value: `${space.id}`
+      }
+    })
 
     return (
       <div>
@@ -89,8 +95,8 @@ class ParkCar extends Component {
                 <h3>{this.props.chosenVehicle.parkingspace_id}</h3>
               )}
               {!this.state.get && (
-                <Dropdown text="choose a space" className="link item">
-                  <Dropdown.Menu>{spacesJsx}</Dropdown.Menu>
+                <Dropdown onChange={this.handleSelect} placeholder="choose a space" fluid selection className="link item" options={spacesJsx}>
+                  
                 </Dropdown>
               )}
 

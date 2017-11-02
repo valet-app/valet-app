@@ -22,7 +22,6 @@ export const GET_USER_SESSION = "GET_USER_SESSION";
 const ROOT_URL = "";
 ///Action creator
 export function loginAction(user, cb) {
-  console.log("login");
   const request = axios.post(`${ROOT_URL}/auth/login`, user).then(response => {
     cb();
     return response;
@@ -47,21 +46,18 @@ export function getEmployeesAction() {
   };
 }
 export function chooseValetAction(valet) {
-  console.log(valet);
   return {
     type: CHOOSE_VALET,
     payload: valet
   };
 }
 export function chooseVehicleAction(vehicle) {
-  console.log(vehicle);
   return {
     type: CHOOSE_VEHICLE,
     payload: vehicle
   };
 }
 export function getOpenSpacesAction(vehicle) {
-  console.log("open spaces actoin");
   //the lotid and typeid are hardcoded but will need to be dynamic with vehicle info
   return {
     type: GET_OPEN_SPACES,
@@ -85,7 +81,6 @@ export function getUserSessionAction() {
 
 ///Reducer
 export function loginReducer(state = {}, action) {
-  console.log(action);
   switch (action.type) {
     case LOGIN + "_FULFILLED":
       return action.payload.data;
@@ -132,7 +127,6 @@ export function employeesReducer(state = [{ name: "Fake Valet" }], action) {
 export function chooseValetReducer(state = "", action) {
   switch (action.type) {
     case CHOOSE_VALET:
-      console.log(action);
       return action.payload;
     default:
       return state;
@@ -150,7 +144,6 @@ export function chooseVehicleReducer(
 ) {
   switch (action.type) {
     case CHOOSE_VEHICLE:
-      console.log(action);
       return action.payload;
     default:
       return state;
@@ -170,7 +163,6 @@ export function getOpenSpacesReducer(
 ) {
   switch (action.type) {
     case GET_OPEN_SPACES + "_FULFILLED":
-      console.log(action);
       return action.payload.data;
     default:
       return state;
