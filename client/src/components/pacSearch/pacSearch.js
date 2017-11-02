@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import NavBar from "../navBar/navBar";
 import { Search, Grid, Button, Segment, Header } from "semantic-ui-react";
-import PropTypes from "prop-types";
+
 
 import _ from "lodash";
 import { chooseVehicleAction, setNavTitleAction } from "../../reducers";
@@ -33,7 +33,6 @@ class PacSearch extends Component {
   }
 
   handleResultSelect = (e, { result }) => {
-    console.log(result);
     this.props.chooseVehicleAction(result);
     this.props.history.push("start");
   };

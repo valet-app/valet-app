@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import NavBar from "../navBar/navBar";
 import { chooseValetAction, setNavTitleAction } from "../../reducers";
 
-import { Grid, Header, Segment, Select, Button } from "semantic-ui-react";
+import { Grid, Header, Segment,Button } from "semantic-ui-react";
 
 class ChooseValet extends Component {
   constructor(props) {
@@ -19,7 +18,6 @@ class ChooseValet extends Component {
   }
 
   handleChooseValet(valet) {
-    console.log(valet);
     this.props.chooseValetAction(valet);
     this.props.history.push("search");
   }

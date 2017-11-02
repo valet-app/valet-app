@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import { getUserSessionAction } from "./reducers";
-import logo from "./logo.svg";
 import "./App.css";
 
 import Login from "./components/login/login";
@@ -11,8 +10,6 @@ import PacSearch from "./components/pacSearch/pacSearch";
 import ChooseValet from "./components/chooseValet/chooseValet";
 import ParkCar from "./components/parkCar/parkCar";
 import CarParked from "./components/carParked/carParked";
-import GetCar from "./components/getCar/getCar";
-import GetCarSearch from "./components/getCarSearch/getCarSearch";
 import CarDelivered from "./components/carDelivered/carDelivered";
 import SignupCompany from "./components/signupCompany/signupCompany";
 import InProgress from "./components/inProgress/inProgress";

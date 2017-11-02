@@ -6,9 +6,7 @@ import { getVehiclesAction, getEmployeesAction } from "../../reducers";
 import { Header, Button, Grid, Image, Sidebar, Icon, Segment, Menu } from "semantic-ui-react";
 
 class ValetOptions extends Component {
-  constructor(props) {
-    super(props);
-  }
+ 
 
   componentDidMount() {
     this.props.getVehiclesAction();
@@ -25,18 +23,20 @@ class ValetOptions extends Component {
         <br/>
         <Sidebar.Pushable as={Grid}>
           <Sidebar as={Menu} animation='overlay' width='thin' visible={visible} icon='labeled' vertical stretched>
-            < Menu.Item name='Home'>
+            <Link to='/home'>< Menu.Item onClick={this.toggleVisibility} name='Home' >
               <Icon color='yellow' name='home' />
               Home
-            </Menu.Item>
-            <Menu.Item name='Valet Sign-In/Out'>
+            </Menu.Item></Link>
+            <Link to='/home'>
+            <Menu.Item onClick={this.toggleVisibility} name='Valet Sign-In/Out'>
               <Icon  color='yellow' name='users' />
               Valet Sign-In/Out
-            </Menu.Item>
-            <Menu.Item name='Garage Log Out'>
+            </Menu.Item></Link>
+            <Link to='/login'>
+            <Menu.Item onClick={this.toggleVisibility} name='Garage Log Out'>
               <Icon color='yellow' name='external' />
               Garage Log Out
-            </Menu.Item>
+            </Menu.Item></Link>
           </Sidebar>
           <Sidebar.Pusher>
         <Grid centered verticalAlign="middle">
