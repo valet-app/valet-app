@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import axios from "axios";
 import logo from "../../valet-logo.png";
@@ -39,7 +38,6 @@ class SignupCompany extends Component {
         axios
           .post(`/api/empl`, { company_id, username, name, admin, password })
           .then(result => {
-            console.log("new employee is: ", result);
           });
       });
   }

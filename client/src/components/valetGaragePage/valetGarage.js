@@ -6,9 +6,7 @@ import { getVehiclesAction, getEmployeesAction } from "../../reducers";
 import { Header, Button, Grid, Image } from "semantic-ui-react";
 
 class ValetOptions extends Component {
-  constructor(props) {
-    super(props);
-  }
+ 
 
   componentDidMount() {
     this.props.getVehiclesAction();
