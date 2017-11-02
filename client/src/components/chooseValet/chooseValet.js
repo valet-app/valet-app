@@ -23,7 +23,9 @@ class ChooseValet extends Component {
   }
   render() {
     const valet = this.state.chosenValet;
-    const valetList = this.props.employees.map(employee => (
+    console.log(this.props.employees);
+    const valetList = this.props.employees.filter((employee) => employee.isactive === true)
+    .map(employee => (
       <Segment
         onClick={(e, data) => this.setState({ chosenValet: employee.id, valetName: employee.name })}
       >
