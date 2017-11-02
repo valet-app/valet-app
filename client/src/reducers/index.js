@@ -68,17 +68,17 @@ export function setNavTitleAction(title, cb) {
   //the lotid and typeid are hardcoded but will need to be dynamic with vehicle info
   return {
     type: SET_NAV_TITLE,
-    payload: {title, cb}
+    payload: { title, cb }
   };
 }
 ///Reducer
 export function loginReducer(state = {}, action) {
+  console.log(action);
   switch (action.type) {
     case LOGIN + "_FULFILLED":
-      return { username: action.payload.username };
+      return action.payload.data;
     case LOGIN + "_REJECTED":
       return {
-        username: "",
         error: action.payload.response.status
       };
     case LOGIN + "_PENDING":
@@ -156,13 +156,15 @@ export function chooseVehicleReducer(
   }
 }
 export function getOpenSpacesReducer(
-  state = [{
-    id: 0,
-    parkinglot_id: 1,
-    location1: "Fake Floor",
-    location2: "Section None",
-    location3: "0"
-  }],
+  state = [
+    {
+      id: 0,
+      parkinglot_id: 1,
+      location1: "Fake Floor",
+      location2: "Section None",
+      location3: "0"
+    }
+  ],
   action
 ) {
   switch (action.type) {
