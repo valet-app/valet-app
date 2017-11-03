@@ -43,9 +43,9 @@
 
 .menubutton{
   position: absolute;
-  top: 2px;
-  right: 20px;
-  z-index: 3;
+  top: 10px;
+  left: 40px;
+  z-index: 1;
 }
 
 .relative{

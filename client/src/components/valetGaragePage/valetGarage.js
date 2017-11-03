@@ -22,7 +22,7 @@ class ValetOptions extends Component {
         <Grid.Column centered onClick={this.toggleVisibility}><Icon color='grey' size='large' name='sidebar' className="menubutton"/></Grid.Column>
         <br/>
         <Sidebar.Pushable as={Grid}>
-          <Sidebar as={Menu} animation='overlay' width='thin' visible={visible} icon='labeled' vertical stretched>
+          <Sidebar as={Menu} animation='overlay' width='thin' visible={visible} icon='labeled' direction='right' vertical stretched>
             <Link to='/home'>< Menu.Item onClick={this.toggleVisibility} name='Home' >
               <Icon color='yellow' name='home' />
               Home

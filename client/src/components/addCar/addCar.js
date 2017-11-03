@@ -34,7 +34,11 @@ class AddCar extends Component {
       car_id: ""
     };
     this.handleSignup = this.handleSignup.bind(this);
-    console.log(this.state)
+  }
+  getSpaceTypes(){
+    axios.get(`/api/parkingspottype`).then(res => {
+      console.log(res)
+      })
   }
   handleSignup() {
     axios
@@ -58,9 +62,7 @@ class AddCar extends Component {
           });
           console.log(this.state)
         }
-  onChange(e){
-    console.log(e);
-  }
+
   render() {
     return (
       <div>
@@ -89,7 +91,9 @@ class AddCar extends Component {
           </Form.Group>
           <Form.Group inline>
             <Form.Input icon='tag'iconposition='left' placeholder="Valet Tag # (if applicable)" onChange={e => this.setState({ valettag: e.target.value })} />
-            <Form.Field control={Select} options={options} placeholder="Parking Space Type"   value={options.value} onChange={(data) => {this.setState({ parkingspacetype_id: data.value})}} />
+            <Form.Field control={Select} options={options} placeholder="Parking Space Type"   value={options.value} onChange={(data) => {this.setState({ parkingspacetype_id: data.value})}}  onClick={axios.get(`/api/parkingspottype`).then(res => {
+      console.log(res)
+      })}/>
           </Form.Group>
           <Form.Field label="Add Any Notes About the Car" onChange={e => this.setState({ notes: e.target.value })} control={TextArea}/>
           <Form.Button color="yellow" onClick={this.handleSignup}>Submit</Form.Button>
