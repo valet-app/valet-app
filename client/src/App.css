@@ -1,69 +1,61 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-.blur{
+.blur {
   filter: blur(1.5px);
 }
-.App-title {
-  font-size: 1.5em;
-}
-.white{
+
+.white {
   background: white;
   padding: 20px;
-  box-shadow: #b4b4b4 0 2px 3px
+  box-shadow: #b4b4b4 0 2px 3px;
 }
-.inprogress{
+.inprogress {
   background: white;
   margin: 0 20px;
-  box-shadow: #b4b4b4 0 2px 3px
+  box-shadow: #b4b4b4 0 2px 3px;
 }
 
-.progressText{
+.progressText {
   font-weight: 200;
   font-size: 1em;
-  color: #6B6B6B;
+  color: #6b6b6b;
 }
-.defaultText{
+.defaultText {
   font-size: 1em;
-  color: #6B6B6B;
+  color: #6b6b6b;
 }
 
-.menubutton{
+.menubutton {
   position: fixed;
   top: 2px;
   right: 20px;
   z-index: 3;
 }
-.phonenumber{
+.phonenumber {
   font-weight: 100;
   font-size: 1.25em;
-  color:#6B6B6B;
+  color: #6b6b6b;
 }
-.carText{
+.carText {
   font-weight: 200;
   font-size: 1.5em;
-  color:#6B6B6B;
+  color: #6b6b6b;
 }
-.boxshadow{
-  box-shadow: #b4b4b4 0 2px 3px
+.boxshadow {
+  box-shadow: #b4b4b4 0 2px 3px;
 }
-.App-intro {
-  font-size: large;
+
+.valetList {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0.25em;
+  color: #6b6b6b;
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
