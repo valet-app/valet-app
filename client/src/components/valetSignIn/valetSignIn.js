@@ -28,12 +28,12 @@ class ValetSignIn extends Component {
     return (
       <Grid.Row>
         <Grid.Row>
-          <Header as="h2">{valet}</Header>
-        </Grid.Row>
-        <Grid.Row>
-          <span>
+          <h2 className="valetList">
+            <div>{valet}</div>
+            {/* <div> */}
             <Radio toggle />
-          </span>
+            {/* </div> */}
+          </h2>
         </Grid.Row>
       </Grid.Row>
     );
@@ -48,13 +48,16 @@ class ValetSignIn extends Component {
     console.log("valets", valets);
     return (
       <Grid padded="vertically" centered>
-        <Header as="h1"> Valet Sign-In </Header>
+        <Header as="h1" className="grey">
+          {" "}
+          Valet Sign-In{" "}
+        </Header>
         <Grid.Row>
           <Search placeholder="Search " />
         </Grid.Row>
 
         <Grid.Column width={12}>
-        {valets.map(valet => this.renderValet(valet))}
+          {valets.map(valet => this.renderValet(valet))}
         </Grid.Column>
       </Grid>
     );

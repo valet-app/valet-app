@@ -136,16 +136,7 @@ export function chooseValetReducer(state = "", action) {
       return state;
   }
 }
-export function chooseVehicleReducer(
-  state = {
-    car_id: 0,
-    make: "Dummy",
-    model: "Vehicle",
-    phone: "555-867-5309",
-    licenseplate: "fakecar"
-  },
-  action
-) {
+export function chooseVehicleReducer(state = null, action) {
   switch (action.type) {
     case CHOOSE_VEHICLE:
       return action.payload;

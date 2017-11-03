@@ -31,9 +31,12 @@ class PacSearch extends Component {
     }
   }
 
+  componentDidMount() {
+    if (!this.props.employees) this.props.history.push("/home");
+  }
+
   handleResultSelect = (e, { result }) => {
     this.props.chooseVehicleAction(result);
-    this.props.history.push("start");
   };
 
   handleSearchChange = (e, { value }) => {
@@ -94,6 +97,27 @@ class PacSearch extends Component {
               </Button>
             </Link>
           </Grid.Row>
+          {this.props.chosenVehicle && (
+            <Grid.Row>
+              <Grid.Column width={12} verticalAlign="middle">
+                <p className="carText">
+                  <b>Make:</b> {this.props.chosenVehicle.make}
+                </p>
+                <p className="carText">
+                  <b>Model:</b> {this.props.chosenVehicle.model}
+                </p>
+                <p className="carText">
+                  <b>Color:</b> {this.props.chosenVehicle.color}
+                </p>
+                <p className="carText">
+                  <b>License Plate:</b> {this.props.chosenVehicle.licenseplate}
+                </p>
+                <Button onClick={() => this.props.history.push("start")}>
+                  Confirm
+                </Button>
+              </Grid.Column>
+            </Grid.Row>
+          )}
         </Grid>
       </div>
     );
