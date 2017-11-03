@@ -42,7 +42,7 @@ class ParkCar extends Component {
   componentWillReceiveProps(nextProps) {
     const spaces = nextProps.openSpaces.map(space => {
       return {
-        text: `${space.location1} ${space.location2} ${space.location3}`,
+        text: `${space.location1} ${space.location2} ${space.location3} ${space.location4} ${space.location5} `,
         value: `${space.id}`
       };
     });
