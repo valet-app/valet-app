@@ -100,6 +100,7 @@ export function loginReducer(state = {}, action) {
 export function vehiclesReducer(state = [], action) {
   switch (action.type) {
     case GET_VEHICLES + "_FULFILLED":
+      console.log(action);
       return action.payload.data;
     case GET_VEHICLES + "_REJECTED":
       return {

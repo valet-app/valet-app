@@ -31,7 +31,7 @@ class ParkCar extends Component {
       parkingspace_id: 0
     };
 
-    if (this.state.get) {
+    if (!this.state.get) {
       this.props.getOpenSpacesAction(this.props.chosenVehicle);
     }
 
