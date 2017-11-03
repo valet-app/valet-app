@@ -3,7 +3,7 @@ SELECT c.id AS car_id, c.parkingspacetype_id, make, model, licenseplate, valetta
     ps.location2, ps.location3, ps.location4, ps.location5
 
 FROM car c
-    JOIN usercar uc ON c.usercar_id = uc.id
+    JOIN usercar uc ON c.id = uc.car_id
     JOIN users u ON uc.user_id = u.id
     LEFT JOIN parkingspace ps ON c.parkingspace_id = ps.id
 

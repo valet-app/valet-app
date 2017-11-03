@@ -59,9 +59,12 @@ export function chooseVehicleAction(vehicle) {
 }
 export function getOpenSpacesAction(vehicle) {
   //the lotid and typeid are hardcoded but will need to be dynamic with vehicle info
+  console.log(vehicle);
   return {
     type: GET_OPEN_SPACES,
-    payload: axios.get("/api/parkingspot/?lotid=1&typeid=1")
+    payload: axios.get(
+      `/api/parkingspot/?lotid=1&typeid=${vehicle.parkingspacetype_id}&carid=${vehicle.car_id}`
+    )
   };
 }
 export function setNavTitleAction(title, cb) {
@@ -152,6 +155,7 @@ export function chooseVehicleReducer(
 export function getOpenSpacesReducer(state = [], action) {
   switch (action.type) {
     case GET_OPEN_SPACES + "_FULFILLED":
+      console.log(action);
       return action.payload.data;
     default:
       return state;
