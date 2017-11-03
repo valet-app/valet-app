@@ -61,6 +61,8 @@ app.post("/api/empl", emplCtrl.postEmpl);
 app.get("/api/cars", carsCtrl.getCars);
 app.put("/api/cars", carsCtrl.updateCarsSpace);
 app.post("/api/cars", carsCtrl.postCars);
+app.post("/api/usercar", carsCtrl.postUserCar);
+app.post("/api/carnotes", carsCtrl.postCarNotes);
 
 // Garage & parking Spot Endpoints
 app.get("/api/parkingspot", garageCtrl.getParkingSpot);
