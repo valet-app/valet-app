@@ -27,7 +27,7 @@ class ValetOptions extends Component {
               <Icon color='yellow' name='home' />
               Home
             </Menu.Item></Link>
-            <Link to='/home'>
+            <Link to='/valetSignIn'>
             <Menu.Item onClick={this.toggleVisibility} name='Valet Sign-In/Out'>
               <Icon  color='yellow' name='users' />
               Valet Sign-In/Out

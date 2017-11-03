@@ -21,11 +21,6 @@ class ParkCar extends Component {
   constructor(props) {
     super(props);
 
-    this.props.getOpenSpacesAction(this.props.chosenVehicle);
-    this.props.setNavTitleAction("Car Search", () =>
-      this.props.history.goBack()
-    );
-
     const get = this.props.history.location.pathname.substring(1, 4) === "get";
     const complete =
       this.props.history.location.pathname.substr(-8) === "complete";
@@ -35,23 +30,46 @@ class ParkCar extends Component {
       spaces: [],
       parkingspace_id: 0
     };
+
+    if (!this.state.get) {
+      this.props.getOpenSpacesAction(this.props.chosenVehicle);
+    }
+
+    this.props.setNavTitleAction("Park a Car", () =>
+      this.props.history.goBack()
+    );
+
     console.log(this.state);
     this.handleButtonClick = this.handleButtonClick.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
   }
   componentWillReceiveProps(nextProps) {
-    const spaces = nextProps.openSpaces.map(space => {
-      return {
-        text: `${space.location1} ${space.location2} ${space.location3}`,
-        value: `${space.id}`
-      };
-    });
-    const parkingspace_id = spaces.length ? spaces[0].value : 0;
+    console.log(nextProps);
+    if (nextProps.openSpaces) {
+      const spaces = nextProps.openSpaces.map(space => {
+        return {
+          text: `${space.location1} ${space.location2} ${space.location3} ${space.location4} ${space.location5} `,
+          value: `${space.id}`
+        };
+      });
 
-    this.setState({
-      spaces,
-      selectedSpace: parkingspace_id
-    });
+      if (nextProps.chosenVehicle.location1) {
+        console.log("location there");
+        spaces.unshift({
+          text: `${nextProps.chosenVehicle.location1} ${nextProps.chosenVehicle
+            .location2} ${nextProps.chosenVehicle.location3} ${nextProps
+            .chosenVehicle.location4} ${nextProps.chosenVehicle.location5} `,
+          value: `${nextProps.chosenVehicle.parkingspace_id}`
+        });
+      }
+
+      const parkingspace_id = spaces.length ? spaces[0].value : 0;
+
+      this.setState({
+        spaces,
+        selectedSpace: parkingspace_id
+      });
+    }
   }
 
   handleButtonClick() {
@@ -137,6 +155,9 @@ class ParkCar extends Component {
             <p className="carText">
               <b>Color:</b> {this.props.chosenVehicle.color}
             </p>
+            <p className="carText">
+              <b>License Plate:</b> {this.props.chosenVehicle.licenseplate}
+            </p>
           </Grid.Column>
           <Grid.Row centered columns={2}>
             <Grid.Column
@@ -149,15 +170,15 @@ class ParkCar extends Component {
                 Parking Space
               </Header>
               {this.state.get && (
-                <h3>{this.props.chosenVehicle.parkingspace_id}</h3>
+                <h3>{`${this.props.chosenVehicle.location1} ${this.props
+                  .chosenVehicle.location2} ${this.props.chosenVehicle
+                  .location3} ${this.props.chosenVehicle.location4} ${this.props
+                  .chosenVehicle.location5} `}</h3>
               )}
               {!this.state.get && (
                 <Dropdown
                   selectOnBlur={true}
-                  value={
-                    this.props.chosenVehicle.parkingspace_id ||
-                    this.state.selectedSpace
-                  }
+                  value={this.state.selectedSpace}
                   onChange={this.handleSelect}
                   fluid
                   selection
