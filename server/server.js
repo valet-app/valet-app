@@ -47,6 +47,7 @@ const companyCtrl = require ('./routes/companyCtrl')
 
 // User Endpoints
 app.get('/api/user', userCtrl.getUser)
+app.post('/api/user',userCtrl.postUser)
 
 // Employee Endpoints
 app.get('/api/empl', emplCtrl.getEmpl)

@@ -16,6 +16,7 @@ class ChooseValet extends Component {
     };
     this.handleChooseValet = this.handleChooseValet.bind(this);
   }
+  
 
   handleChooseValet(valet) {
     this.props.chooseValetAction(valet);
