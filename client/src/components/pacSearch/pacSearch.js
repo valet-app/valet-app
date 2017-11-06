@@ -96,6 +96,7 @@ class PacSearch extends Component {
               Add a New Car
             </Button></Link>
           </Grid.Row>
+          :null}
           {this.props.chosenVehicle && (
             <Grid.Row>
               <Grid.Column width={12} verticalAlign="middle">
