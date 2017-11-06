@@ -5,11 +5,8 @@ import { Grid, Form, Header, Select, TextArea } from "semantic-ui-react";
 import NavBar from "../navBar/navBar";
 
 import { connect } from "react-redux";
-import { setNavTitleAction } from "../../reducers";
-const options = [
-  { key: '1', text: 'Regular', value: '1' },
-  { key: '2', text: 'Compact', value: '2' },
-]
+import { setNavTitleAction, chooseVehicleAction } from "../../reducers";
+
 
 
 class AddCar extends Component {
@@ -31,15 +28,21 @@ class AddCar extends Component {
       valettag: "",
       notes: "",
       user_id: "",
-      car_id: ""
+      car_id: "",
+      spaceType: []
     };
     this.handleSignup = this.handleSignup.bind(this);
   }
-  getSpaceTypes(){
-    axios.get(`/api/parkingspottype`).then(res => {
-      console.log(res)
-      })
-  }
+  componentDidMount() {
+      axios.get(`/api/parkingspottype`).then(res => {
+        console.log(res, 'space')
+        this.setState({spaceType: res.data.map(space => ({ key: space.type, text: space.type, value: space.id }))})
+        console.log(this.state)
+        })
+   }
+
+
+
   handleSignup() {
     axios
           .post(`/api/user`, { firstname: this.state.firstname, lastname: this.state.lastname, phone: this.state.phone, email: this.state.email })
@@ -47,15 +50,27 @@ class AddCar extends Component {
             this.setState({ user_id: result.data[0].id });
             console.log('user id:',this.state.user_id)
             //After company has been added, add the employee
-            const { user_id, make, model, parkingspacetype_id, color,licenseplate, valettag} = this.state;
+            const { user_id, make, model, parkingspacetype_id, color,licenseplate, valettag, notes} = this.state;
             axios
               .post(`/api/cars`, {
-                user_id, parkingspacetype_id,make, model,licenseplate, valettag,color
+                parkingspacetype_id,make, model,licenseplate, valettag,color
               })
               .then(result => {
                 this.setState({car_id: result.data[0].id});
-                console.log('car id:',this.state.car_id)
+                console.log('car id:',this.state.car_id);
+                const {car_id} = this.state;
+                axios.post(`/api/usercar`, {user_id, car_id})
+                .then (result =>
+                  {axios.post(`api/carnotes`,{car_id,notes});
+                })
+              }).then( res =>{
+                axios.get(`/api/cars?id=${this.state.car_id}`).then( result => {
+                  console.log(result)
+                  this.props.chooseVehicleAction(result.data)
+                  // this.props.history.push("/park/start");
+                })
               })
+
               // .then(result => {
               //   this.props.history.push("/login");
               // });
@@ -64,6 +79,7 @@ class AddCar extends Component {
         }
 
   render() {
+    const space = this.state.spaceType;
     return (
       <div>
         <NavBar />
@@ -91,7 +107,8 @@ class AddCar extends Component {
           </Form.Group>
           <Form.Group inline>
             <Form.Input icon='tag'iconposition='left' placeholder="Valet Tag # (if applicable)" onChange={e => this.setState({ valettag: e.target.value })} />
-            <Form.Field control={Select} options={options} placeholder="Parking Space Type"   value={options.value} onChange={(data) => {this.setState({ parkingspacetype_id: data.value})}} />
+            <Form.Field control={Select} options={space} placeholder="Parking Space Type"  onChange={(e,data) => {console.log(
+              data); {this.setState({ parkingspacetype_id: data.value})}}} />
           </Form.Group>
           <Form.Field label="Add Any Notes About the Car" onChange={e => this.setState({ notes: e.target.value })} control={TextArea}/>
           <Form.Button color="yellow" onClick={this.handleSignup}>Submit</Form.Button>
@@ -105,5 +122,5 @@ class AddCar extends Component {
 }
 const mapStateToProps = state => state;
 export default connect(mapStateToProps, {
-  setNavTitleAction
+  setNavTitleAction, chooseVehicleAction
 })(AddCar);
