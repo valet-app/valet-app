@@ -1,9 +1,9 @@
-import React, { Component, Dropdown } from "react";
-import { Tab, Divider, Grid, Accordion, Icon } from "semantic-ui-react";
+import React, { Component } from "react";
+import { Grid, Accordion, Icon } from "semantic-ui-react";
 import { getLotStatusAction, setNavTitleAction } from "../../reducers";
 import { connect } from "react-redux";
 import NavBar from "../navBar/navBar";
-import _ from "lodash";
+
 
 class LotStatus extends Component {
   constructor(props) {
@@ -38,7 +38,6 @@ class LotStatus extends Component {
     const { activeIndex } = this.state;
 
     let spacesJsx = [];
-    let i = 0;
     for (var key in spaces) {
       let locationJsx = spaces[key]
         .sort(
@@ -74,7 +73,6 @@ class LotStatus extends Component {
           </Accordion.Content>
         </div>
       );
-      i++;
     }
 
     return (

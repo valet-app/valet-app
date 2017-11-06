@@ -14,7 +14,6 @@ import {
   Image,
   Sidebar,
   Icon,
-  Segment,
   Menu
 } from "semantic-ui-react";
 

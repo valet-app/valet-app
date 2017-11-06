@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import NavBar from "../navBar/navBar";
-import { chooseValetAction, setNavTitleAction } from "../../reducers";
+import { setNavTitleAction } from "../../reducers";
 import {
   Grid,
   Header,
@@ -23,8 +22,6 @@ class ValetSignIn extends Component {
     };
     this.handleValetClick = this.handleValetClick.bind(this);
   }
-  state = { visible: false }
-  toggleVisibility = () => this.setState({ visible: !this.state.visible })
 
   handleValetClick(valet) {
     this.props.chooseValetAction(valet);
@@ -36,25 +33,7 @@ class ValetSignIn extends Component {
       .put(`/api/empl?id=${valet.id}`, { isactive: data.checked })
       .then(response => console.log(response));
   }
-  showValets(valet) {
-    const { visible } = this.state
-    return (
-      <div>
-      <Grid.Row>
-        <Grid.Row>
-          <h3 className="valetList">
-            <div>{valet.name}</div>
-            <Radio
-              toggle
-              defaultChecked={valet.isactive}
-              onChange={(e, data) => this.toggle(valet, data)}
-            />
-          </h3>
-        </Grid.Row>
-      </Grid.Row>
-      </div>
-    );
-  }
+  
 
   render() {
     const valets = this.props.employees.filter(employee =>
@@ -79,7 +58,20 @@ class ValetSignIn extends Component {
           </Grid.Row>
 
           <Grid.Column width={12}>
-            {valets.map(valet => this.showValets(valet))}
+            {valets.map(valet => (<div>
+      <Grid.Row>
+        <Grid.Row>
+          <h3 className="valetList">
+            <div>{valet.name}</div>
+            <Radio
+              toggle
+              defaultChecked={valet.isactive}
+              onChange={(e, data) => this.toggle(valet, data)}
+            />
+          </h3>
+        </Grid.Row>
+      </Grid.Row>
+      </div>))}
           </Grid.Column>
         </Grid>
       </div>

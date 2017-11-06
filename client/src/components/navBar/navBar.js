@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Grid, Divider, Menu, Icon, Modal, TextArea } from "semantic-ui-react";
+import { Grid, Icon} from "semantic-ui-react";
 class NavBar extends Component {
   render() {
     return (
