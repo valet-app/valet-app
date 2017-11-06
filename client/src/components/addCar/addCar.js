@@ -65,9 +65,9 @@ class AddCar extends Component {
                 })
               }).then( res =>{
                 axios.get(`/api/cars?id=${this.state.car_id}`).then( result => {
-                  console.log(result)
-                  this.props.chooseVehicleAction(result.data)
-                  // this.props.history.push("/park/start");
+                  console.log(result.data[0])
+                  this.props.chooseVehicleAction(result.data[0])
+                  this.props.history.push("/park/start");
                 })
               })
 
