@@ -25,15 +25,12 @@
 
 
 .menubutton{
-  position: absolute;
+  position: fixed;
   top: 10px;
   left: 40px;
   z-index: 1;
 }
 
-.relative{
-  position: relative;
-}
 .phonenumber {
   font-weight: 100;
   font-size: 1.25em;
@@ -55,6 +52,7 @@
   padding: 0.25em;
   color: #6b6b6b;
 }
+
 
 @keyframes App-logo-spin {
   from {

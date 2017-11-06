@@ -1,15 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import NavBar from "../navBar/navBar";
 import { chooseValetAction, setNavTitleAction } from "../../reducers";
 import {
   Grid,
   Header,
-  Segment,
   Button,
   Search,
-  Dropdown,
-  Radio
+  Radio,
+  Sidebar, 
+  Icon, 
+  Menu
 } from "semantic-ui-react";
 
 class ValetSignIn extends Component {
@@ -20,12 +22,16 @@ class ValetSignIn extends Component {
     };
     this.handleValetClick = this.handleValetClick.bind(this);
   }
+  state = { visible: false }
+  toggleVisibility = () => this.setState({ visible: !this.state.visible })
 
   handleValetClick(valet) {
     this.props.chooseValetAction(valet);
   }
   renderValet(valet) {
+    const { visible } = this.state
     return (
+      <div>
       <Grid.Row>
         <Grid.Row>
           <h2 className="valetList">
@@ -36,6 +42,7 @@ class ValetSignIn extends Component {
           </h2>
         </Grid.Row>
       </Grid.Row>
+      </div>
     );
   }
 
@@ -43,10 +50,13 @@ class ValetSignIn extends Component {
     console.log(this.props.employees);
     const valets = this.props.employees.map(valet => {
       return valet.name;
-    });
+    })
+  const { visible } = this.state
+    ;
 
     console.log("valets", valets);
     return (
+
       <Grid padded="vertically" centered>
         <Header as="h1" className="grey">
           {" "}
