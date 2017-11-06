@@ -88,13 +88,15 @@ class ParkCar extends Component {
       }
     }
 
-    let parkingspace_id = this.state.selectedSpace;
+    let parkingspace_id =
+      this.state.get && this.state.complete ? null : this.state.selectedSpace;
     console.log(
       newStatus,
       parkingspace_id,
       this.props.currentValet,
       this.props.chosenVehicle
     );
+    console.log(parkingspace_id);
     axios
       .put(`/api/cars?id=${this.props.chosenVehicle.car_id}`, {
         status_id: newStatus,
