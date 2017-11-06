@@ -8,7 +8,8 @@ const rootReducer = combineReducers({
   currentValet: chooseValetReducer,
   chosenVehicle: chooseVehicleReducer,
   openSpaces: getOpenSpacesReducer,
-  navTitle: setNavTitleReducer
+  navTitle: setNavTitleReducer,
+  lotStatus: getLotStatusReducer
 });
 export const LOGIN = "LOGIN";
 export const GET_VEHICLES = "GET_VEHICLES";
@@ -18,6 +19,7 @@ export const CHOOSE_VEHICLE = "CHOOSE_VEHICLE";
 export const GET_OPEN_SPACES = "GET_OPEN_SPACES";
 export const SET_NAV_TITLE = "SET_NAV_TITLE";
 export const GET_USER_SESSION = "GET_USER_SESSION";
+export const GET_LOT_STATUS = "GET_LOT_STATUS";
 
 const ROOT_URL = "";
 ///Action creator
@@ -81,11 +83,19 @@ export function getUserSessionAction() {
     payload: axios.get("/auth/me")
   };
 }
+export function getLotStatusAction(lotid) {
+  //the lotid and typeid are hardcoded but will need to be dynamic with vehicle info
+  return {
+    type: GET_LOT_STATUS,
+    payload: axios.get("/api/parkinglotstatus?lotid=1")
+  };
+}
 
 ///Reducer
 export function loginReducer(state = {}, action) {
   switch (action.type) {
     case LOGIN + "_FULFILLED":
+      console.log(action);
       return action.payload.data;
     case LOGIN + "_REJECTED":
       return {
@@ -164,6 +174,14 @@ export function setNavTitleReducer(state = "youcantseeme", action) {
 export function getUserSessionReducer(state = {}, action) {
   switch (action.type) {
     case GET_USER_SESSION + "_FULFILLED":
+      return action.payload.data;
+    default:
+      return state;
+  }
+}
+export function getLotStatusReducer(state = {}, action) {
+  switch (action.type) {
+    case GET_LOT_STATUS + "_FULFILLED":
       return action.payload.data;
     default:
       return state;
