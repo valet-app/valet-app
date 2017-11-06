@@ -101,9 +101,11 @@ class ValetOptions extends Component {
                     </Button>
                   </Link>
                   <br />
-                  <Button fluid color="yellow" size="massive">
-                    Lot Status
-                  </Button>
+                  <Link to="/status">
+                    <Button fluid color="yellow" size="massive">
+                      Lot Status
+                    </Button>
+                  </Link>
                   <br />
                 </Grid.Column>
               </Grid.Row>
