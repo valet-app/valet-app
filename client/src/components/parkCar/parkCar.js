@@ -11,9 +11,8 @@ import {
   Button,
   Header,
   Dropdown,
-  Form,
-  TextArea,
-  Modal
+  Icon,
+  TextArea
 } from "semantic-ui-react";
 import axios from "axios";
 
@@ -114,52 +113,25 @@ class ParkCar extends Component {
     });
   }
 
-  state = { open: false };
-
-  show = size => () => this.setState({ size, open: true });
-  close = () => this.setState({ open: false });
-
   render() {
-    const { open, size } = this.state;
+    let yellowFlag = 'off';
     return (
       <div>
         <NavBar />
+        < Icon
+            className="yellowFlag"
+            size="large"
+            name="flag"
+            color="yellow"
+            onClick={yellowFlag = 'on'}
+          />
         <Grid centered>
           <Grid.Column verticalAlign="middle" width={12}>
             <Header as="h1" color="grey">
               Vehicle {this.props.chosenVehicle.car_id}
             </Header>
             <p className="phonenumber">{this.props.chosenVehicle.phone}</p>
-          </Grid.Column>
-          <Grid.Row>
-            <Button color="yellow" onClick={this.show("small")}>
-              {" "}
-              Add a Red Flag
-            </Button>
-
-            <Modal size={size} open={open} onClose={this.close}>
-              <Modal.Header>Notes</Modal.Header>
-
-              <Modal.Actions>
-                <Form>
-                  <TextArea placeholder="Tell us more" />
-                </Form>
-              </Modal.Actions>
-            </Modal>
-          </Grid.Row>
-          <Grid.Column width={12} verticalAlign="middle">
-            <p className="carText">
-              <b>Make:</b> {this.props.chosenVehicle.make}
-            </p>
-            <p className="carText">
-              <b>Model:</b> {this.props.chosenVehicle.model}
-            </p>
-            <p className="carText">
-              <b>Color:</b> {this.props.chosenVehicle.color}
-            </p>
-            <p className="carText">
-              <b>License Plate:</b> {this.props.chosenVehicle.licenseplate}
-            </p>
+            {yellowFlag == 'on' ? <TextArea size='large' placeholder='Add a note'/>:null}
           </Grid.Column>
           <Grid.Row centered columns={2}>
             <Grid.Column
@@ -192,6 +164,23 @@ class ParkCar extends Component {
               <Grid.Row />
             </Grid.Column>
           </Grid.Row>
+          <Grid.Column width={12} verticalAlign="middle">
+               <Grid.Row>
+            <div className='carInfo'>
+              <div><h1>{this.props.chosenVehicle.make} {this.props.chosenVehicle.model} </h1></div>
+              <div className='flexColumn'>
+                <div className='colorBox' style={{'background-color':this.props.chosenVehicle.color}}>
+                  </div>
+                <div>
+                  <div className='license'>
+                    <small className='noMargin'>license plate</small>
+                    <h4 className='noMargin'>{this.props.chosenVehicle.licenseplate}</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Grid.Row>
+          </Grid.Column>
           <Grid.Row>
             <Button onClick={this.handleButtonClick} size="large" color="grey">
               {this.state.complete

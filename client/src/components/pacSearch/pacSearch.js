@@ -91,7 +91,7 @@ class PacSearch extends Component {
               );
             }}
           />
-          {addCar === '/park/search' ? <Grid.Row>
+          {addCar === '/park/search' && !this.props.chosenVehicle ? <Grid.Row>
             <Link to='/addCar'><Button size="large" color="grey">
               Add a New Car
             </Button></Link>
@@ -112,7 +112,7 @@ class PacSearch extends Component {
                 <p className="carText">
                   <b>License Plate:</b> {this.props.chosenVehicle.licenseplate}
                 </p>
-                <Button onClick={() => this.props.history.push("start")}>
+                <Button color='yellow' size='large' onClick={() => this.props.history.push("start")}>
                   Confirm
                 </Button>
               </Grid.Column>
