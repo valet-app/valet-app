@@ -68,6 +68,9 @@ class InProgress extends Component {
               </Grid.Column>
             </Grid.Row>
           ))}
+          {!this.state.carsInProgress.length && (
+            <p>No vehicles currently in progress.</p>
+          )}
         </Grid>
       </div>
     );
