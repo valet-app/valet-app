@@ -117,3 +117,55 @@ Sample Returned Data:
     }
 ]
 ```
+
+Parking Lot Status:
+#### `GET /api/parkinglotstatus?lotid=1 `
+- lotid = id from parkinglot table
+
+Sample Returned Data:
+```json
+[
+    {
+        "company_id": 1,
+        "companyname": "Amina Parking Company",
+        "parkinglot_id": 1,
+        "parkinglotname": "Garage 1",
+        "parkinglotaddress": "123 Main St",
+        "parkingspacetype_id": 2,
+        "parkingspacetype": "Compact",
+        "location1": "Floor 4",
+        "location2": "Section D",
+        "location3": "South Side",
+        "location4": "Over There",
+        "location5": "Space 016",
+        "make": "Hummer",
+        "model": "H3",
+        "licenseplate": "489ayqw",
+        "color": "Purple",
+        "lastchange": "2017-11-04T02:53:42.025Z",
+        "parkingstatus": "Incoming",
+        "parkedby": "James"
+    },
+    {
+        "company_id": 1,
+        "companyname": "Amina Parking Company",
+        "parkinglot_id": 1,
+        "parkinglotname": "Garage 1",
+        "parkinglotaddress": "123 Main St",
+        "parkingspacetype_id": 1,
+        "parkingspacetype": "Regular",
+        "location1": "Floor 3",
+        "location2": "Section D",
+        "location3": "North Side",
+        "location4": "Under That",
+        "location5": "Space 011",
+        "make": null,
+        "model": null,
+        "licenseplate": null,
+        "color": null,
+        "lastchange": null,
+        "parkingstatus": null,
+        "parkedby": null
+    }
+]
+```

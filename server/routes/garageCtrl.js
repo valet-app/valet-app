@@ -26,6 +26,17 @@ module.exports = {
         res.status(200).json(response);
       })
       .catch(() => res.status(500).send());
+  },
+
+  getParkingLotStatus: (req, res, next) => {
+    const db = req.app.get("db");
+    console.log("Getting parking lot status");
+    db
+      .getParkingLotStatus(req.query.lotid)
+      .then(response => {
+        res.status(200).json(response);
+      })
+      .catch(() => res.status(500).send());
   }
 
   // postUser: (req,res,next) => {
