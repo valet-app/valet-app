@@ -85,6 +85,7 @@ export function getUserSessionAction() {
 }
 export function getLotStatusAction(lotid) {
   //the lotid and typeid are hardcoded but will need to be dynamic with vehicle info
+  console.log("LotAction")
   return {
     type: GET_LOT_STATUS,
     payload: axios.get("/api/parkinglotstatus?lotid=1")
@@ -179,7 +180,7 @@ export function getUserSessionReducer(state = {}, action) {
       return state;
   }
 }
-export function getLotStatusReducer(state = {}, action) {
+export function getLotStatusReducer(state = [], action) {
   switch (action.type) {
     case GET_LOT_STATUS + "_FULFILLED":
       return action.payload.data;
