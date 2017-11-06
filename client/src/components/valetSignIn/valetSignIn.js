@@ -7,16 +7,21 @@ import {
   Header,
   Segment,
   Button,
-  Search,
+  Input,
   Dropdown,
   Radio
 } from "semantic-ui-react";
+import axios from "axios";
 
 class ValetSignIn extends Component {
   constructor(props) {
     super(props);
+    this.props.setNavTitleAction("Dashboard", () =>
+      this.props.history.push("/home")
+    );
+    console.log(this.props.employees);
     this.state = {
-      chosenValet: ""
+      searchValue: ""
     };
     this.handleValetClick = this.handleValetClick.bind(this);
   }
@@ -24,15 +29,24 @@ class ValetSignIn extends Component {
   handleValetClick(valet) {
     this.props.chooseValetAction(valet);
   }
+
+  toggle(valet, data) {
+    console.log(valet);
+    axios
+      .put(`/api/empl?id=${valet.id}`, { isactive: data.checked })
+      .then(response => console.log(response));
+  }
   renderValet(valet) {
     return (
       <Grid.Row>
         <Grid.Row>
           <h2 className="valetList">
-            <div>{valet}</div>
-            {/* <div> */}
-            <Radio toggle />
-            {/* </div> */}
+            <div>{valet.name}</div>
+            <Radio
+              toggle
+              defaultChecked={valet.isactive}
+              onChange={(e, data) => this.toggle(valet, data)}
+            />
           </h2>
         </Grid.Row>
       </Grid.Row>
@@ -40,29 +54,33 @@ class ValetSignIn extends Component {
   }
 
   render() {
-    console.log(this.props.employees);
-    const valets = this.props.employees.map(valet => {
-      return valet.name;
-    });
-
-    console.log("valets", valets);
+    const valets = this.props.employees.filter(employee =>
+      RegExp(this.state.searchValue, "i").test(employee.name)
+    );
     return (
-      <Grid padded="vertically" centered>
-        <Header as="h1" className="grey">
-          {" "}
-          Valet Sign-In{" "}
-        </Header>
-        <Grid.Row>
-          <Search placeholder="Search " />
-        </Grid.Row>
+      <div>
+        <NavBar />
+        <Grid padded="vertically" centered>
+          <Header as="h1" className="grey">
+            {" "}
+            Valet Sign-In{" "}
+          </Header>
+          <Grid.Row>
+            <Input
+              value={this.state.searchValue}
+              onChange={e => this.setState({ searchValue: e.target.value })}
+              placeholder="Search "
+            />
+          </Grid.Row>
 
-        <Grid.Column width={12}>
-          {valets.map(valet => this.renderValet(valet))}
-        </Grid.Column>
-      </Grid>
+          <Grid.Column width={12}>
+            {valets.map(valet => this.renderValet(valet))}
+          </Grid.Column>
+        </Grid>
+      </div>
     );
   }
 }
 
 const mapStateToProps = state => state;
-export default connect(mapStateToProps)(ValetSignIn);
+export default connect(mapStateToProps, { setNavTitleAction })(ValetSignIn);
