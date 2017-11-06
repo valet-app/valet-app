@@ -67,6 +67,7 @@ app.post("/api/carnotes", carsCtrl.postCarNotes);
 // Garage & parking Spot Endpoints
 app.get("/api/parkingspot", garageCtrl.getParkingSpot);
 app.get("/api/parkingspottype", garageCtrl.getParkingSpotType);
+app.get("/api/parkinglotstatus", garageCtrl.getParkingLotStatus);
 
 // Company Endpoints
 app.post("/api/company", companyCtrl.postCompany);
