@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import NavBar from "../navBar/navBar";
 import { chooseValetAction, setNavTitleAction } from "../../reducers";
 
-import { Grid, Header, Segment,Button, Radio } from "semantic-ui-react";
+import { Grid, Header, Segment,Button } from "semantic-ui-react";
 
 class ChooseValet extends Component {
   constructor(props) {

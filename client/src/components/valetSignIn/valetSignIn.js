@@ -6,8 +6,6 @@ import { chooseValetAction, setNavTitleAction } from "../../reducers";
 import {
   Grid,
   Header,
-  Button,
-  Search,
   Radio,
   Input, 
 } from "semantic-ui-react";
@@ -44,14 +42,14 @@ class ValetSignIn extends Component {
       <div>
       <Grid.Row>
         <Grid.Row>
-          <h2 className="valetList">
+          <h3 className="valetList">
             <div>{valet.name}</div>
             <Radio
               toggle
               defaultChecked={valet.isactive}
               onChange={(e, data) => this.toggle(valet, data)}
             />
-          </h2>
+          </h3>
         </Grid.Row>
       </Grid.Row>
       </div>
@@ -68,11 +66,12 @@ class ValetSignIn extends Component {
         <br/>
         <Grid padded="vertically" centered>
           <Header as="h1" className="grey">
-            {" "}
-            Valet Sign-In{" "}
+            Valet Sign-In
           </Header>
           <Grid.Row>
             <Input
+            icon='search'
+            iconPosition='left'
               value={this.state.searchValue}
               onChange={e => this.setState({ searchValue: e.target.value })}
               placeholder="Search "

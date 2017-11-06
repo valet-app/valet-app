@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import { Grid, Form, Header, Select, TextArea } from "semantic-ui-react";
 import NavBar from "../navBar/navBar";
@@ -37,7 +36,6 @@ class AddCar extends Component {
       axios.get(`/api/parkingspottype`).then(res => {
         console.log(res, 'space')
         this.setState({spaceType: res.data.map(space => ({ key: space.type, text: space.type, value: space.id }))})
-        console.log(this.state)
         })
    }
 
@@ -48,7 +46,6 @@ class AddCar extends Component {
           .post(`/api/user`, { firstname: this.state.firstname, lastname: this.state.lastname, phone: this.state.phone, email: this.state.email })
           .then(result => {
             this.setState({ user_id: result.data[0].id });
-            console.log('user id:',this.state.user_id)
             //After company has been added, add the employee
             const { user_id, make, model, parkingspacetype_id, color,licenseplate, valettag, notes} = this.state;
             axios
@@ -57,7 +54,6 @@ class AddCar extends Component {
               })
               .then(result => {
                 this.setState({car_id: result.data[0].id});
-                console.log('car id:',this.state.car_id);
                 const {car_id} = this.state;
                 axios.post(`/api/usercar`, {user_id, car_id})
                 .then (result =>
@@ -65,7 +61,6 @@ class AddCar extends Component {
                 })
               }).then( res =>{
                 axios.get(`/api/cars?id=${this.state.car_id}`).then( result => {
-                  console.log(result.data[0])
                   this.props.chooseVehicleAction(result.data[0])
                   this.props.history.push("/park/start");
                 })
@@ -75,7 +70,6 @@ class AddCar extends Component {
               //   this.props.history.push("/login");
               // });
           });
-          console.log(this.state)
         }
 
   render() {
@@ -107,8 +101,7 @@ class AddCar extends Component {
           </Form.Group>
           <Form.Group inline>
             <Form.Input icon='tag'iconposition='left' placeholder="Valet Tag # (if applicable)" onChange={e => this.setState({ valettag: e.target.value })} />
-            <Form.Field control={Select} options={space} placeholder="Parking Space Type"  onChange={(e,data) => {console.log(
-              data); {this.setState({ parkingspacetype_id: data.value})}}} />
+            <Form.Field control={Select} options={space} placeholder="Parking Space Type"  onChange={(e,data) => {this.setState({ parkingspacetype_id: data.value})}} />
           </Form.Group>
           <Form.Field label="Add Any Notes About the Car" onChange={e => this.setState({ notes: e.target.value })} control={TextArea}/>
           <Form.Button color="yellow" onClick={this.handleSignup}>Submit</Form.Button>

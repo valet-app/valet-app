@@ -35,7 +35,7 @@ class ParkCar extends Component {
       this.props.getOpenSpacesAction(this.props.chosenVehicle);
     }
 
-    this.props.setNavTitleAction("Park a Car", () =>
+    this.props.setNavTitleAction("Back", () =>
       this.props.history.goBack()
     );
 
