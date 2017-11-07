@@ -17,6 +17,7 @@ import AddCar from "./components/addCar/addCar";
 import ValetSignIn from "./components/valetSignIn/valetSignIn";
 import Analytics from "./components/analytics/analytics";
 import LotStatus from "./components/lotStatus/lotStatus";
+import GarageSignUp from "./components/garageSignUp/garageSignup";
 
 class App extends Component {
   componentWillMount() {
@@ -31,6 +32,7 @@ class App extends Component {
       <BrowserRouter>
         {this.props.login.username || this.props.session.username ? (
           <Switch>
+            <Route path="/garageSignUp" component={GarageSignUp} />            
             <Route path="/lotStatus" component={LotStatus} />
             <Route path="/valetSignIn" component={ValetSignIn} />
             <Route path="/addCar" component={AddCar} />
