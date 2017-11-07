@@ -1,5 +1,7 @@
 import { combineReducers } from "redux";
 import axios from "axios";
+import _ from "lodash";
+
 const rootReducer = combineReducers({
   login: loginReducer,
   session: getUserSessionReducer,
@@ -62,6 +64,7 @@ export function chooseVehicleAction(vehicle) {
 export function getOpenSpacesAction(vehicle) {
   //the lotid and typeid are hardcoded but will need to be dynamic with vehicle info
   console.log(vehicle);
+  if (!vehicle) vehicle = { parkingspacetype_id: 1, car_id: 0 };
   return {
     type: GET_OPEN_SPACES,
     payload: axios.get(
@@ -85,7 +88,7 @@ export function getUserSessionAction() {
 }
 export function getLotStatusAction(lotid) {
   //the lotid and typeid are hardcoded but will need to be dynamic with vehicle info
-  console.log("LotAction")
+  console.log("LotAction");
   return {
     type: GET_LOT_STATUS,
     payload: axios.get("/api/parkinglotstatus?lotid=1")
@@ -159,7 +162,32 @@ export function getOpenSpacesReducer(state = [], action) {
   switch (action.type) {
     case GET_OPEN_SPACES + "_FULFILLED":
       console.log(action);
-      return action.payload.data;
+      // let location1 = _.groupBy(action.payload.data, space => space.location1);
+      // _.transform(action.payload.data, function(accumulator, element) {
+      //   (accumulator[element.location1] || (accumulator[element.location1] = [])).push();
+      // }, {})
+      let spaces = {};
+      action.payload.data.forEach(space => {
+        if (!spaces[space.location1]) spaces[space.location1] = {};
+        if (!spaces[space.location1][space.location2])
+          spaces[space.location1][space.location2] = {};
+        if (!spaces[space.location1][space.location2][space.location3])
+          spaces[space.location1][space.location2][space.location3] = {};
+        if (
+          !spaces[space.location1][space.location2][space.location3][
+            space.location4
+          ]
+        )
+          spaces[space.location1][space.location2][space.location3][
+            space.location4
+          ] = [];
+
+        spaces[space.location1][space.location2][space.location3][
+          space.location4
+        ].push(space.location5);
+      });
+      console.log(spaces);
+      return spaces;
     default:
       return state;
   }
