@@ -10,11 +10,8 @@ import { chooseVehicleAction, setNavTitleAction } from "../../reducers";
 class PacSearch extends Component {
   constructor(props) {
     super(props);
-
-    this.props.setNavTitleAction("Park a Car", () =>
-      this.props.history.goBack()
-    );
-
+   
+  
     ///Parking lot id will need to be dynamic instead of hard coded
     // if (this.props.history)
 
@@ -22,13 +19,16 @@ class PacSearch extends Component {
       const parkedVehicles = this.props.vehicles.filter(
         vehicle => vehicle.parkinglot_id === 1
       );
-      this.state = { value: "", get: true, vehicles: parkedVehicles };
+      this.state = { value: "", get: true, vehicles: parkedVehicles};
     } else {
       const unparkedVehicles = this.props.vehicles.filter(
         vehicle => !vehicle.parkinglot_id
       );
-      this.state = { value: "", get: false, vehicles: unparkedVehicles };
+      this.state = { value: "", get: false, vehicles: unparkedVehicles};
     }
+    this.props.setNavTitleAction('Choose a Valet', () =>
+    this.props.history.goBack()
+  );
   }
 
   componentDidMount() {
@@ -60,6 +60,7 @@ class PacSearch extends Component {
   };
 
   render() {
+    const addCar = this.props.history.location.pathname;
     const { isLoading, value, results } = this.state;
     return (
       <div>
@@ -90,13 +91,12 @@ class PacSearch extends Component {
               );
             }}
           />
-          <Grid.Row>
-            <Link to="/addCar">
-              <Button size="large" color="grey">
-                Add a New Car
-              </Button>
-            </Link>
+          {addCar === '/park/search' && !this.props.chosenVehicle ? <Grid.Row>
+            <Link to='/addCar'><Button size="large" color="grey">
+              Add a New Car
+            </Button></Link>
           </Grid.Row>
+          :null}
           {this.props.chosenVehicle && (
             <Grid.Row>
               <Grid.Column width={12} verticalAlign="middle">
@@ -112,7 +112,7 @@ class PacSearch extends Component {
                 <p className="carText">
                   <b>License Plate:</b> {this.props.chosenVehicle.licenseplate}
                 </p>
-                <Button onClick={() => this.props.history.push("start")}>
+                <Button color='yellow' size='large' onClick={() => this.props.history.push("start")}>
                   Confirm
                 </Button>
               </Grid.Column>

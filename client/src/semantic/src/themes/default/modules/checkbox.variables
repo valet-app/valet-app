@@ -179,11 +179,11 @@
 @toggleOffHandleBoxShadow: none;
 
 @toggleOnLabelColor: @selectedTextColor;
-@toggleOnLaneColor: @primaryColor;
+@toggleOnLaneColor: @green;
 
 @toggleOnHandleBoxShadow: none;
 
-@toggleOnFocusLaneColor: @primaryColorFocus;
+@toggleOnFocusLaneColor: @greenFocus;
 @toggleOnFocusLabelColor: @toggleOnLabelColor;
 
 

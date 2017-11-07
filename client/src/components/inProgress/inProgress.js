@@ -10,7 +10,7 @@ class InProgress extends Component {
   OUTGOING = 4;
   constructor(props) {
     super(props);
-    this.props.setNavTitleAction("In Progress", () =>
+    this.props.setNavTitleAction("Home", () =>
       this.props.history.goBack()
     );
 
@@ -69,7 +69,7 @@ class InProgress extends Component {
             </Grid.Row>
           ))}
           {!this.state.carsInProgress.length && (
-            <p>No vehicles currently in progress.</p>
+            <p className='carText'>No vehicles currently in progress.</p>
           )}
         </Grid>
       </div>

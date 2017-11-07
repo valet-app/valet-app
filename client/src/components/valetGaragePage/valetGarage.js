@@ -14,7 +14,6 @@ import {
   Image,
   Sidebar,
   Icon,
-  Segment,
   Menu
 } from "semantic-ui-react";
 
@@ -47,6 +46,7 @@ class ValetOptions extends Component {
             width="thin"
             visible={visible}
             icon="labeled"
+            direction='right'
             vertical
             stretched
           >
@@ -65,7 +65,7 @@ class ValetOptions extends Component {
                 Valet Sign-In/Out
               </Menu.Item>
             </Link>
-            <Link to="/login">
+            <Link to="/auth/logout">
               <Menu.Item onClick={this.toggleVisibility} name="Garage Log Out">
                 <Icon color="yellow" name="external" />
                 Garage Log Out

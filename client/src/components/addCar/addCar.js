@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { Grid, Icon, Form, Header } from "semantic-ui-react";
+import axios from "axios";
+import { Grid, Form, Header, Select, TextArea } from "semantic-ui-react";
 import NavBar from "../navBar/navBar";
 
 import { connect } from "react-redux";
-import { setNavTitleAction } from "../../reducers";
+import { setNavTitleAction, chooseVehicleAction } from "../../reducers";
+
+
 
 class AddCar extends Component {
   constructor(props) {
@@ -12,8 +14,66 @@ class AddCar extends Component {
     this.props.setNavTitleAction("Add a Car", () =>
       this.props.history.goBack()
     );
+    this.state = {
+      firstname: "",
+      lastname: "",
+      phone: "",
+      email: "",
+      make: "",
+      model: "",
+      parkingspacetype_id: "",
+      color: "",
+      licenseplate: "",
+      valettag: "",
+      notes: "",
+      user_id: "",
+      car_id: "",
+      spaceType: []
+    };
+    this.handleSignup = this.handleSignup.bind(this);
   }
+  componentDidMount() {
+      axios.get(`/api/parkingspottype`).then(res => {
+        console.log(res, 'space')
+        this.setState({spaceType: res.data.map(space => ({ key: space.type, text: space.type, value: space.id }))})
+        })
+   }
+
+
+
+  handleSignup() {
+    axios
+          .post(`/api/user`, { firstname: this.state.firstname, lastname: this.state.lastname, phone: this.state.phone, email: this.state.email })
+          .then(result => {
+            this.setState({ user_id: result.data[0].id });
+            //After company has been added, add the employee
+            const { user_id, make, model, parkingspacetype_id, color,licenseplate, valettag, notes} = this.state;
+            axios
+              .post(`/api/cars`, {
+                parkingspacetype_id,make, model,licenseplate, valettag,color
+              })
+              .then(result => {
+                this.setState({car_id: result.data[0].id});
+                const {car_id} = this.state;
+                axios.post(`/api/usercar`, {user_id, car_id})
+                .then (result =>
+                  {axios.post(`api/carnotes`,{car_id,notes});
+                })
+              }).then( res =>{
+                axios.get(`/api/cars?id=${this.state.car_id}`).then( result => {
+                  this.props.chooseVehicleAction(result.data[0])
+                  this.props.history.push("/park/start");
+                })
+              })
+
+              // .then(result => {
+              //   this.props.history.push("/login");
+              // });
+          });
+        }
+
   render() {
+    const space = this.state.spaceType;
     return (
       <div>
         <NavBar />
@@ -24,22 +84,27 @@ class AddCar extends Component {
         <Form>
           <Header color="grey">Owner Information</Header>
           <Form.Group inline>
-            <Form.Input icon='user'iconPosition='left' placeholder="First Name" />
-            <Form.Input icon='user circle'iconPosition='left' placeholder="Last Name" />
+            <Form.Input icon='user'iconposition='left' placeholder="First Name" onChange={e => this.setState({ firstname: e.target.value })} />
+            <Form.Input icon='user circle'iconposition='left' placeholder="Last Name" onChange={e => this.setState({ lastname: e.target.value })} />
           </Form.Group>
-          <Form.Input icon='mail'iconPosition='left' placeholder="Email" />
-          <Form.Input icon='phone'iconPosition='left' placeholder="Phone Number" required/>
+          <Form.Input type='email' icon='mail'iconposition='left' placeholder="Email" onChange={e => this.setState({ email: e.target.value })} />
+          <Form.Input type='tel'pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" onChange={e => this.setState({ phone: e.target.value })} icon='phone'iconposition='left' placeholder="Phone Number" required/>
           <br />
           <Header color="grey">Car Information</Header>
           <Form.Group inline>
-            <Form.Input icon='car'iconPosition='left' placeholder="Make" required />
-            <Form.Input icon='car'iconPosition='left' placeholder="Model" required />
+            <Form.Input  onChange={e => this.setState({ make: e.target.value })} icon='car'iconposition='left' placeholder="Make" required />
+            <Form.Input  onChange={e => this.setState({ model: e.target.value })}icon='car'iconposition='left' placeholder="Model" required />
           </Form.Group>
           <Form.Group inline>
-            <Form.Input icon='calendar'iconPosition='left' placeholder="Year" />
-            <Form.Input icon='eyedropper' iconPosition='left' placeholder="Color" />
+            <Form.Input icon='eyedropper' iconposition='left' placeholder="Color" onChange={e => this.setState({ color: e.target.value })} />
+            <Form.Input icon='drivers license' iconposition='left' placeholder="License Plate" onChange={e => this.setState({ licenseplate: e.target.value })} />
           </Form.Group>
-          <Form.Button color="yellow">Submit</Form.Button>
+          <Form.Group inline>
+            <Form.Input icon='tag'iconposition='left' placeholder="Valet Tag # (if applicable)" onChange={e => this.setState({ valettag: e.target.value })} />
+            <Form.Field control={Select} options={space} placeholder="Parking Space Type"  onChange={(e,data) => {this.setState({ parkingspacetype_id: data.value})}} />
+          </Form.Group>
+          <Form.Field label="Add Any Notes About the Car" onChange={e => this.setState({ notes: e.target.value })} control={TextArea}/>
+          <Form.Button color="yellow" onClick={this.handleSignup}>Submit</Form.Button>
         </Form>
         </Grid.Row>
         </Grid>
@@ -50,5 +115,5 @@ class AddCar extends Component {
 }
 const mapStateToProps = state => state;
 export default connect(mapStateToProps, {
-  setNavTitleAction
+  setNavTitleAction, chooseVehicleAction
 })(AddCar);

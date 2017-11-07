@@ -9,6 +9,11 @@ module.exports = {
     },
 
     postUser: (req,res,next) => {
+        const db = req.app.get('db')
+        console.log(req.body);
+        db.postUser(req.body.firstname, req.body.lastname,req.body.email, req.body.phone)
+        .then(response => {res.status(200).json(response);})
+        .catch(  () => res.status(500).send() );
     },
 
     putUser: (req,res,next) => {

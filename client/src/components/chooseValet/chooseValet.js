@@ -3,12 +3,12 @@ import { connect } from "react-redux";
 import NavBar from "../navBar/navBar";
 import { chooseValetAction, setNavTitleAction } from "../../reducers";
 
-import { Grid, Header, Segment,Button, Radio } from "semantic-ui-react";
+import { Grid, Header, Segment,Button } from "semantic-ui-react";
 
 class ChooseValet extends Component {
   constructor(props) {
     super(props);
-    this.props.setNavTitleAction("Park a Car", () =>
+    this.props.setNavTitleAction("Home", () =>
       this.props.history.goBack()
     );
     this.state = {
@@ -16,12 +16,15 @@ class ChooseValet extends Component {
     };
     this.handleChooseValet = this.handleChooseValet.bind(this);
   }
+  
 
   handleChooseValet(valet) {
     this.props.chooseValetAction(valet);
     this.props.history.push("search");
   }
   render() {
+    console.log('path',this.props.history.location.pathname);
+    const verb = this.props.history.location.pathname
     const valet = this.state.chosenValet;
     console.log(this.props.employees);
     const valetList = this.props.employees.filter((employee) => employee.isactive === true)
@@ -39,7 +42,7 @@ class ChooseValet extends Component {
         <Grid padded="vertically" centered>
           <Grid.Row>
             <Header as="h3" color="grey">
-              Who is Parking this Car?
+              Who is {verb === '/park/chooseValet'? <span>Parking</span> :<span>Retrieving</span>} this Car?
             </Header>
           </Grid.Row>
           <Grid.Column width={12}>

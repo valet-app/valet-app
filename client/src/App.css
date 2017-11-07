@@ -22,12 +22,55 @@
   font-size: 1em;
   color: #6b6b6b;
 }
-
-.menubutton {
+.carInfo {
+  border-radius: 25px;
+  color: #6b6b6b;
+  padding: 10px;
+}
+.makeModel{
+  text-shadow: 0 3px 3px;
+}
+.menubutton{
   position: fixed;
-  top: 2px;
-  right: 20px;
-  z-index: 3;
+  top: 10px;
+  left: 40px;
+  z-index: 1;
+}
+.license{
+  display: flex;
+  padding: 10px;
+  flex-direction: column;
+  border-radius: 10px;
+}
+.height{
+  min-height: 60px;
+  margin-bottom: 10px;
+}
+.colorBox{
+  box-shadow: #b4b4b4 0 2px 3px;
+  border-radius: 10px;
+  min-width: 70px;
+  min-height: 30px;
+}
+.yellowFlag{
+  position: fixed;
+  right: 30px;
+  top: 10px;
+}
+.backArrow{
+  position: fixed;
+  left: 30px;
+  top: 10px;
+}
+
+.noMargin{
+  margin: 0
+}
+.flexColumn{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 .phonenumber {
   font-weight: 100;
@@ -50,6 +93,7 @@
   padding: 0.25em;
   color: #6b6b6b;
 }
+
 
 @keyframes App-logo-spin {
   from {

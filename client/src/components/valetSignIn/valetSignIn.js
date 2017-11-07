@@ -1,15 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import NavBar from "../navBar/navBar";
-import { chooseValetAction, setNavTitleAction } from "../../reducers";
+import { setNavTitleAction } from "../../reducers";
 import {
   Grid,
   Header,
-  Segment,
-  Button,
-  Input,
-  Dropdown,
-  Radio
+  Radio,
+  Input, 
 } from "semantic-ui-react";
 import axios from "axios";
 
@@ -36,22 +33,7 @@ class ValetSignIn extends Component {
       .put(`/api/empl?id=${valet.id}`, { isactive: data.checked })
       .then(response => console.log(response));
   }
-  renderValet(valet) {
-    return (
-      <Grid.Row>
-        <Grid.Row>
-          <h2 className="valetList">
-            <div>{valet.name}</div>
-            <Radio
-              toggle
-              defaultChecked={valet.isactive}
-              onChange={(e, data) => this.toggle(valet, data)}
-            />
-          </h2>
-        </Grid.Row>
-      </Grid.Row>
-    );
-  }
+  
 
   render() {
     const valets = this.props.employees.filter(employee =>
@@ -60,13 +42,15 @@ class ValetSignIn extends Component {
     return (
       <div>
         <NavBar />
+        <br/>
         <Grid padded="vertically" centered>
           <Header as="h1" className="grey">
-            {" "}
-            Valet Sign-In{" "}
+            Valet Sign-In
           </Header>
           <Grid.Row>
             <Input
+            icon='search'
+            iconPosition='left'
               value={this.state.searchValue}
               onChange={e => this.setState({ searchValue: e.target.value })}
               placeholder="Search "
@@ -74,7 +58,20 @@ class ValetSignIn extends Component {
           </Grid.Row>
 
           <Grid.Column width={12}>
-            {valets.map(valet => this.renderValet(valet))}
+            {valets.map(valet => (<div>
+      <Grid.Row>
+        <Grid.Row>
+          <h3 className="valetList">
+            <div>{valet.name}</div>
+            <Radio
+              toggle
+              defaultChecked={valet.isactive}
+              onChange={(e, data) => this.toggle(valet, data)}
+            />
+          </h3>
+        </Grid.Row>
+      </Grid.Row>
+      </div>))}
           </Grid.Column>
         </Grid>
       </div>
