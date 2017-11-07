@@ -92,6 +92,10 @@ app.get("/auth/logout", (req, res) => {
   res.redirect("/");
 });
 
+// garage signup 
+app.post("/api/garage", garageCtrl.garageSignup);
+app.post("/api/garageinfo", garageCtrl.garageInfo);
+
 // listen on port
 app.listen(process.env.PORT, () => {
   console.log(`LISTENING ON PORT: ${process.env.PORT}`);

@@ -37,7 +37,28 @@ module.exports = {
         res.status(200).json(response);
       })
       .catch(() => res.status(500).send());
+  },
+  garageSignup: (req, res , next ) => {
+    console.log(req.body);
+    const db = req.app.get("db");
+    db
+    .garageSignup(req.body.name,req.body.address)
+    .then(response => {
+      res.status(200).json(response);
+    })
+    .catch(() => res.status(500).send());
+  },
+  garageInfo: (req, res , next ) => {
+    console.log(req.body);
+    const db = req.app.get("db");
+    db
+    .garageInfo(req.body.location1, req.body.location2, req.body.location3, req.body.location4, req.body.location5, req.body.parkinglot_id)
+    .then(response => {
+      res.status(200).json(response);
+    })
+    .catch(() => res.status(500).send());
   }
+
 
   // postUser: (req,res,next) => {
   // },
