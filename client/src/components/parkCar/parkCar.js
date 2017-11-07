@@ -12,10 +12,12 @@ import {
   Header,
   Dropdown,
   Icon,
-  TextArea
+  TextArea,
+  Form,
+  Message
 } from "semantic-ui-react";
 import axios from "axios";
-import _ from "lodash";
+import CarInfo from "../carInfo/carInfo";
 
 class ParkCar extends Component {
   constructor(props) {
@@ -27,8 +29,11 @@ class ParkCar extends Component {
     this.state = {
       get,
       complete,
-      spaces: { Loading: true },
-      parkingspace_id: 0
+      spaces: [],
+      parkingspace_id: 0,
+      yellowFlag: false,
+      notes: "",
+      noteConfirm: false
     };
 
     if (!this.state.get) {
@@ -40,6 +45,7 @@ class ParkCar extends Component {
     console.log(this.state);
     this.handleButtonClick = this.handleButtonClick.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
+    this.handleNotesButton = this.handleNotesButton.bind(this);
   }
   componentWillReceiveProps(nextProps) {
     // console.log(nextProps);
@@ -65,6 +71,19 @@ class ParkCar extends Component {
     //     selectedSpace: parkingspace_id
     //   });
     // }
+  }
+  handleNotesButton() {
+    axios
+      .post(`/api/carnotes`, {
+        car_id: this.props.chosenVehicle.car_id,
+        notes: this.state.notes
+      })
+      .then(result =>
+        this.setState({
+          noteConfirm: !this.state.noteConfirm,
+          yellowFlag: !this.state.yellowFlag
+        })
+      );
   }
 
   handleButtonClick() {
@@ -110,7 +129,6 @@ class ParkCar extends Component {
   }
 
   render() {
-    let yellowFlag = "off";
     return (
       <div>
         <NavBar />
@@ -119,7 +137,11 @@ class ParkCar extends Component {
           size="large"
           name="flag"
           color="yellow"
-          onClick={(yellowFlag = "on")}
+          onClick={e =>
+            this.setState({
+              yellowFlag: !this.state.yellowFlag,
+              noteConfirm: false
+            })}
         />
         <Grid centered>
           <Grid.Column verticalAlign="middle" width={12}>
@@ -127,9 +149,19 @@ class ParkCar extends Component {
               Vehicle {this.props.chosenVehicle.car_id}
             </Header>
             <p className="phonenumber">{this.props.chosenVehicle.phone}</p>
-            {yellowFlag == "on" ? (
-              <TextArea size="large" placeholder="Add a note" />
-            ) : null}
+            {this.state.yellowFlag && (
+              <Form>
+                <TextArea
+                  size="large"
+                  placeholder="Add a note"
+                  onChange={e => this.setState({ notes: e.target.value })}
+                />
+                <Button color="yellow" onClick={this.handleNotesButton}>
+                  Add Note
+                </Button>
+              </Form>
+            )}
+            {this.state.noteConfirm && <Message success>Note Added</Message>}
           </Grid.Column>
           <Grid.Row centered columns={2}>
             <Grid.Column
@@ -177,30 +209,7 @@ class ParkCar extends Component {
           </Grid.Row>
           <Grid.Column width={12} verticalAlign="middle">
             <Grid.Row>
-              <div className="carInfo">
-                <div>
-                  <h1>
-                    {this.props.chosenVehicle.make}{" "}
-                    {this.props.chosenVehicle.model}{" "}
-                  </h1>
-                </div>
-                <div className="flexColumn">
-                  <div
-                    className="colorBox"
-                    style={{
-                      "background-color": this.props.chosenVehicle.color
-                    }}
-                  />
-                  <div>
-                    <div className="license">
-                      <small className="noMargin">license plate</small>
-                      <h4 className="noMargin">
-                        {this.props.chosenVehicle.licenseplate}
-                      </h4>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <CarInfo vehicle={this.props.chosenVehicle} />
             </Grid.Row>
           </Grid.Column>
           <Grid.Row>

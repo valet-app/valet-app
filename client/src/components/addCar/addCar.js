@@ -57,7 +57,7 @@ class AddCar extends Component {
                 const {car_id} = this.state;
                 axios.post(`/api/usercar`, {user_id, car_id})
                 .then (result =>
-                  {axios.post(`api/carnotes`,{car_id,notes});
+                  {axios.post(`/api/carnotes`,{car_id,notes});
                 })
               }).then( res =>{
                 axios.get(`/api/cars?id=${this.state.car_id}`).then( result => {
