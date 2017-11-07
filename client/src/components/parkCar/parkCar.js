@@ -17,7 +17,7 @@ import {
   Message
 } from "semantic-ui-react";
 import axios from "axios";
-import CarInfo from '../carInfo/carInfo';
+import CarInfo from "../carInfo/carInfo";
 
 class ParkCar extends Component {
   constructor(props) {
@@ -40,9 +40,7 @@ class ParkCar extends Component {
       this.props.getOpenSpacesAction(this.props.chosenVehicle);
     }
 
-    this.props.setNavTitleAction("Back", () =>
-      this.props.history.goBack()
-    );
+    this.props.setNavTitleAction("Back", () => this.props.history.goBack());
 
     console.log(this.state);
     this.handleButtonClick = this.handleButtonClick.bind(this);
@@ -77,9 +75,19 @@ class ParkCar extends Component {
       });
     }
   }
-handleNotesButton(){
-  axios.post(`/api/carnotes`,{car_id: this.props.chosenVehicle.car_id,notes: this.state.notes}).then(result =>
-  this.setState({noteConfirm: !this.state.noteConfirm, yellowFlag: !this.state.yellowFlag}))}
+  handleNotesButton() {
+    axios
+      .post(`/api/carnotes`, {
+        car_id: this.props.chosenVehicle.car_id,
+        notes: this.state.notes
+      })
+      .then(result =>
+        this.setState({
+          noteConfirm: !this.state.noteConfirm,
+          yellowFlag: !this.state.yellowFlag
+        })
+      );
+  }
 
   handleButtonClick() {
     let newStatus;
@@ -127,23 +135,38 @@ handleNotesButton(){
     return (
       <div>
         <NavBar />
-        < Icon
-            className="yellowFlag"
-            size="large"
-            name="flag"
-            color="yellow"
-            onClick={ e => this.setState({yellowFlag: !this.state.yellowFlag,noteConfirm: false})}
-          />
+        <Icon
+          className="yellowFlag"
+          size="large"
+          name="flag"
+          color="yellow"
+          onClick={e =>
+            this.setState({
+              yellowFlag: !this.state.yellowFlag,
+              noteConfirm: false
+            })}
+        />
         <Grid centered>
           <Grid.Column verticalAlign="middle" width={12}>
             <Header as="h1" color="grey">
               Vehicle {this.props.chosenVehicle.car_id}
             </Header>
             <p className="phonenumber">{this.props.chosenVehicle.phone}</p>
-            {this.state.yellowFlag && <Form>
-              <TextArea size='large' placeholder='Add a note' onChange={e => this.setState({ notes: e.target.value })} />
-              <Button  color='yellow' onClick={this.handleNotesButton}>Add Note</Button>
-            </Form>}
+            {this.state.yellowFlag && (
+              <Form>
+                <TextArea
+                  size="large"
+                  placeholder="Add a note"
+                  onChange={e => this.setState({ notes: e.target.value })}
+                />
+                <Form.Field>
+                <br />
+                <Button color="yellow" onClick={this.handleNotesButton}>
+                  Add Note
+                </Button>
+                </Form.Field>
+              </Form>
+            )}
             {this.state.noteConfirm && <Message success>Note Added</Message>}
           </Grid.Column>
           <Grid.Row centered columns={2}>
@@ -178,9 +201,9 @@ handleNotesButton(){
             </Grid.Column>
           </Grid.Row>
           <Grid.Column width={12} verticalAlign="middle">
-               <Grid.Row>
-            <CarInfo vehicle={this.props.chosenVehicle}/>
-          </Grid.Row>
+            <Grid.Row>
+              <CarInfo vehicle={this.props.chosenVehicle} />
+            </Grid.Row>
           </Grid.Column>
           <Grid.Row>
             <Button onClick={this.handleButtonClick} size="large" color="grey">

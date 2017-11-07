@@ -183,7 +183,28 @@ export function getUserSessionReducer(state = {}, action) {
 export function getLotStatusReducer(state = [], action) {
   switch (action.type) {
     case GET_LOT_STATUS + "_FULFILLED":
-      return action.payload.data;
+    let spaces = {};
+    action.payload.data.forEach(space => {
+      if (!spaces[space.location1]) spaces[space.location1] = {};
+      if (!spaces[space.location1][space.location2])
+        spaces[space.location1][space.location2] = {};
+      if (!spaces[space.location1][space.location2][space.location3])
+        spaces[space.location1][space.location2][space.location3] = {};
+      if (
+        !spaces[space.location1][space.location2][space.location3][
+          space.location4
+        ]
+      )
+        spaces[space.location1][space.location2][space.location3][
+          space.location4
+        ] = [];
+
+      spaces[space.location1][space.location2][space.location3][
+        space.location4
+      ].push(space.location5);
+    });
+    console.log(spaces);
+    return spaces;
     default:
       return state;
   }
