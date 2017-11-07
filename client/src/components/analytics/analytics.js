@@ -6,13 +6,8 @@ import { Doughnut, Line, Scatter, Bar } from "react-chartjs-2";
 
 import {
   Header,
-  Button,
   Grid,
   Image,
-  Form,
-  Checkbox,
-  Input,
-  Message,
   Divider
 } from "semantic-ui-react";
 
