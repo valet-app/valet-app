@@ -96,7 +96,7 @@ class AddCar extends Component {
             <Form.Input  onChange={e => this.setState({ model: e.target.value })}icon='car'iconposition='left' placeholder="Model" required />
           </Form.Group>
           <Form.Group inline>
-            <Form.Input icon='eyedropper' iconposition='left' placeholder="Color" onChange={e => this.setState({ color: e.target.value })} />
+            <Form.Input icon='eyedropper' iconposition='left' placeholder="Color" onChange={e => this.setState({ color: (e.target.value.split(' ').join('')) })} />
             <Form.Input icon='drivers license' iconposition='left' placeholder="License Plate" onChange={e => this.setState({ licenseplate: e.target.value })} />
           </Form.Group>
           <Form.Group inline>
