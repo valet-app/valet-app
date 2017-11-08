@@ -5,7 +5,22 @@ import logo from "../../valet-logo.png";
 import { Doughnut, Line, Scatter, Bar } from "react-chartjs-2";
 import { getLotStatusAction } from "../../reducers";
 
+
 import { Header, Button, Grid, Image, Input } from "semantic-ui-react";
+
+
+
+const dataDoughnut = {
+  labels: ["Red", "Green", "Yellow"],
+  datasets: [
+    {
+      data: [300, 50, 100],
+      backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+      hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"]
+    }
+  ]
+};
+
 
 const lotStatusDoughnut = {
   labels: [],

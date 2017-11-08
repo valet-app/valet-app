@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import NavBar from "../navBar/navBar";
+import CarInfo from '../carInfo/carInfo';
 import { Search, Grid, Button, Segment, Header } from "semantic-ui-react";
 
 import _ from "lodash";
@@ -100,18 +101,7 @@ class PacSearch extends Component {
           {this.props.chosenVehicle && (
             <Grid.Row>
               <Grid.Column width={12} verticalAlign="middle">
-                <p className="carText">
-                  <b>Make:</b> {this.props.chosenVehicle.make}
-                </p>
-                <p className="carText">
-                  <b>Model:</b> {this.props.chosenVehicle.model}
-                </p>
-                <p className="carText">
-                  <b>Color:</b> {this.props.chosenVehicle.color}
-                </p>
-                <p className="carText">
-                  <b>License Plate:</b> {this.props.chosenVehicle.licenseplate}
-                </p>
+              <CarInfo vehicle={this.props.chosenVehicle}/>
                 <Button color='yellow' size='large' onClick={() => this.props.history.push("start")}>
                   Confirm
                 </Button>
