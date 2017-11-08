@@ -39,10 +39,30 @@ class ValetSignIn extends Component {
     const valets = this.props.employees.filter(employee =>
       RegExp(this.state.searchValue, "i").test(employee.name)
     );
+     const active = this.props.employees.filter(employee => employee.isactive === true);
+     const nonactive = this.props.employees.filter(employee => employee.isactive === false);
+     
+     console.log(active)
+    const buildList =  valet => (<div>
+      <Grid.Row>
+        <Grid.Row>
+          <h3 className="valetList">
+            <div>{valet.name}</div>
+            <Radio
+              toggle
+              defaultChecked={valet.isactive}
+              onChange={(e, data) => this.toggle(valet, data)}
+            />
+          </h3>
+        </Grid.Row>
+      </Grid.Row>
+      </div>)
+
     return (
       <div>
         <NavBar />
         <br/>
+
         <Grid padded="vertically" centered>
           <Header as="h1" className="grey">
             Valet Sign-In
@@ -57,22 +77,30 @@ class ValetSignIn extends Component {
             />
           </Grid.Row>
 
+
+
+
           <Grid.Column width={12}>
-            {valets.map(valet => (<div>
-      <Grid.Row>
-        <Grid.Row>
-          <h3 className="valetList">
-            <div>{valet.name}</div>
-            <Radio
-              toggle
-              defaultChecked={valet.isactive}
-              onChange={(e, data) => this.toggle(valet, data)}
-            />
-          </h3>
-        </Grid.Row>
-      </Grid.Row>
-      </div>))}
+          <Grid.Row>
+          <h1> active </h1>
+          {active.map(buildList)}
+          </Grid.Row>
           </Grid.Column>
+
+
+
+
+
+          <Grid.Column width={12}>
+          <Grid.Row> 
+          <h1> non active </h1>
+          {nonactive.map(buildList)}
+          </Grid.Row>
+          </Grid.Column>
+      
+
+
+          
         </Grid>
       </div>
     );

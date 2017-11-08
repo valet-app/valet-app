@@ -27,6 +27,7 @@ class ValetOptions extends Component {
 
   toggleVisibility = () => this.setState({ visible: !this.state.visible });
   render() {
+    console.log(this.props);
     const { visible } = this.state;
     return (
       <div>
@@ -76,7 +77,8 @@ class ValetOptions extends Component {
               <Grid.Row centered>
                 <Image src={logo} style={{ width: "75px", height: "75px" }} />
                 <Header size="huge" color="grey">
-                  Garage Name
+
+                  {this.props.login.lotname || this.props.session.lotname}
                 </Header>
               </Grid.Row>
               <Grid.Row columns={2} stretched centered>
