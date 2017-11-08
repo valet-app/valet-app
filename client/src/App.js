@@ -16,6 +16,7 @@ import ValetSignIn from "./components/valetSignIn/valetSignIn";
 import Analytics from "./components/analytics/analytics";
 import LotStatus from "./components/lotStatus/lotStatus";
 import GarageSignUp from "./components/garageSignUp/garageSignup";
+import CompanyPage from "./components/companyPage/companyPage";
 
 class App extends Component {
   componentWillMount() {
@@ -45,6 +46,7 @@ class App extends Component {
             <Route path="/home" component={ValetOptions} />
             <Route path="/signupCompany" component={SignupCompany} />
             <Route path="/inProgress" component={InProgress} />
+            <Route path="/companyPage" component={CompanyPage} />
             <Route path="/analytics" component={Analytics} />
             <Route path="/status" component={LotStatus} />
             <Route path="/" component={ValetOptions} />
