@@ -8,7 +8,7 @@ import Login from "./components/login/login";
 import ValetOptions from "./components/valetGaragePage/valetGarage";
 import PacSearch from "./components/pacSearch/pacSearch";
 import ChooseValet from "./components/chooseValet/chooseValet";
-import ParkCar from "./components/parkCar/parkCar";
+import ParkCar from './components/parkCar/parkCar';
 import SignupCompany from "./components/signupCompany/signupCompany";
 import InProgress from "./components/inProgress/inProgress";
 import AddCar from "./components/addCar/addCar";
