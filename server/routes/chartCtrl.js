@@ -1,6 +1,6 @@
 module.exports = {
   getHourlyParks: (req, res, next) => {
-    console.log("adding new company ", req.body.name);
+    console.log("getting number parked per hour on ", req.query.chartdate);
     const db = req.app.get("db");
     db
       .getHourlyParks(req.query.chartdate)

@@ -2,21 +2,21 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
 import logo from "../../valet-logo.png";
-import { Doughnut, Line, Scatter, Bar } from "react-chartjs-2";
+import { Doughnut, Bar } from "react-chartjs-2";
 import { getLotStatusAction } from "../../reducers";
 
-import { Header, Button, Grid, Image, Input } from "semantic-ui-react";
+import { Header, Grid, Image, Input } from "semantic-ui-react";
 
-const dataDoughnut = {
-  labels: ["Red", "Green", "Yellow"],
-  datasets: [
-    {
-      data: [300, 50, 100],
-      backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
-      hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"]
-    }
-  ]
-};
+// const dataDoughnut = {
+//   labels: ["Red", "Green", "Yellow"],
+//   datasets: [
+//     {
+//       data: [300, 50, 100],
+//       backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+//       hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"]
+//     }
+//   ]
+// };
 
 const lotStatusDoughnut = {
   labels: [],
@@ -33,7 +33,12 @@ class Analytics extends Component {
     super(props);
     this.props.getLotStatusAction();
     this.state = {
-      carsParkedDate: "2017-11-07",
+      //carsParkedDate: "2017-11-07",
+      options: {
+        legend: {
+          display: true
+        }
+      },
       numCarsParkedByHourData: {
         labels: [
           "01 AM",
@@ -63,8 +68,8 @@ class Analytics extends Component {
         ],
         datasets: [
           {
-            label: " ",
-            backgroundColor: "rgba(255,99,132,0.2)",
+            label: "Parked",
+            backgroundColor: "rgba(255,99,132,1)",
             borderColor: "rgba(255,99,132,1)",
             borderWidth: 1,
             hoverBackgroundColor: "rgba(255,99,132,0.4)",
@@ -95,6 +100,40 @@ class Analytics extends Component {
               0,
               0
             ]
+          },
+          {
+            label: "Retrieved",
+            backgroundColor: "#36A2EB",
+            borderColor: "#36A2EB",
+            borderWidth: 1,
+            hoverBackgroundColor: "rgba(255,99,132,0.4)",
+            hoverBorderColor: "rgba(255,99,132,1)",
+            data: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              5,
+              5,
+              5,
+              5,
+              5,
+              5,
+              5,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
           }
         ]
       }
@@ -102,32 +141,36 @@ class Analytics extends Component {
     this.handleGetData = this.handleGetData.bind(this);
   }
 
-  handleGetData() {
-    console.log(this.state.carsParkedDate);
-    axios
-      .get(`/api/chartHourlyParks/?chartdate=` + this.state.carsParkedDate)
-      .then(result => {
-        console.log(result.data);
-        console.log(this.state.numCarsParkedByHourData);
+  handleGetData(chartDate) {
+    // console.log(chartDate);
+    //reset every hour slot to zero before adding new data
+    let changes = this.state.numCarsParkedByHourData;
+    for (let i = 0; i < changes.datasets[0].data.length; i++) {
+      changes.datasets[0].data[i] = 0;
+    }
+    axios.get(`/api/chartHourlyParks/?chartdate=` + chartDate).then(result => {
+      // console.log(result.data);
+      // console.log(this.state.numCarsParkedByHourData);
+      // console.log(this.state.numCarsParkedByHourData.datasets[0].data);
 
-        let changes = this.state.numCarsParkedByHourData;
+      for (let i = 0; i < result.data.length; i++) {
+        // console.log(
+        //   result.data[i].hourofday,
+        //   " there are this many cars ",
+        //   result.data[i].numparked
+        // );
 
-        console.log(this.state.numCarsParkedByHourData.datasets[0].data);
+        // determine where in chart array the value goes
+        var x = this.state.numCarsParkedByHourData.labels.indexOf(
+          result.data[i].hourofday
+        );
+        // and then put the numbers of cars in that spot
+        changes.datasets[0].data[x] = result.data[i].numparked;
+      }
 
-        for (let i = 0; i < result.data.length; i++) {
-          console.log(result.data[i].hourofday);
-          console.log(result.data[i].numparked);
-
-          // determine where in array the value goes
-          var x = this.state.numCarsParkedByHourData.labels.indexOf(
-            result.data[i].hourofday
-          );
-
-          changes.datasets[0].data[x] = 10;
-          console.log(x);
-        }
-        this.setState({ numCarsParkedByHour: changes });
-      });
+      // after the changes have all been made, set State
+      this.setState({ numCarsParkedByHour: changes });
+    });
   }
 
   render() {
@@ -145,12 +188,15 @@ class Analytics extends Component {
         case "Open":
           lotStatusDoughnut.datasets[0].backgroundColor[i] = "#00E600";
           break;
-        case "Incoming":
+        default:
           lotStatusDoughnut.datasets[0].backgroundColor[i] = "#FFCE56";
           break;
-        case "Outgoing":
-          lotStatusDoughnut.datasets[0].backgroundColor[i] = "#FFCE56";
-          break;
+        // case "Incoming":
+        //   lotStatusDoughnut.datasets[0].backgroundColor[i] = "#FFCE56";
+        //   break;
+        // case "Outgoing":
+        //   lotStatusDoughnut.datasets[0].backgroundColor[i] = "#FFCE56";
+        //   break;
       }
 
       for (var j = 0; j < this.props.lotStatus.length; j++) {
@@ -177,29 +223,21 @@ class Analytics extends Component {
             <Doughnut data={lotStatusDoughnut} />
           </Grid.Row>
 
+          <h2>Number of Cars Parked per Hour</h2>
           <Input
             placeholder="Date"
-            iconPosition="left"
-            icon="calendar"
-            onChange={e => this.setState({ carsParkedDate: e.target.value })}
+            type="date"
+            onChange={e => this.handleGetData(e.target.value)}
           />
-          <Button
-            type="submit"
-            onClick={this.handleGetData}
-            //fluid
-            className="yellow"
-          >
-            Get Data{" "}
-          </Button>
 
           <Grid.Column width={16} verticalAlign="middle" stretched>
             <div>
-              <h2>Number of Cars Parked per Hour</h2>
               <Bar
                 data={this.state.numCarsParkedByHourData}
                 width={100}
                 height={50}
-                options={{ maintainAspectRatio: true }}
+                options={this.state.options}
+                //options={{ maintainAspectRatio: true }, }
                 redraw
               />
             </div>
