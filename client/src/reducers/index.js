@@ -11,7 +11,8 @@ const rootReducer = combineReducers({
   chosenVehicle: chooseVehicleReducer,
   openSpaces: getOpenSpacesReducer,
   navTitle: setNavTitleReducer,
-  lotStatus: getLotStatusReducer
+  lotStatus: getLotStatusReducer,
+  chosenSpace: chooseSpaceReducer
 });
 export const LOGIN = "LOGIN";
 export const GET_VEHICLES = "GET_VEHICLES";
@@ -22,6 +23,7 @@ export const GET_OPEN_SPACES = "GET_OPEN_SPACES";
 export const SET_NAV_TITLE = "SET_NAV_TITLE";
 export const GET_USER_SESSION = "GET_USER_SESSION";
 export const GET_LOT_STATUS = "GET_LOT_STATUS";
+export const CHOOSE_SPACE = "CHOOSE_SPACE";
 
 const ROOT_URL = "";
 ///Action creator
@@ -94,6 +96,14 @@ export function getLotStatusAction(lotid) {
     payload: axios.get("/api/parkinglotstatus?lotid=1")
   };
 }
+export function chooseSpaceAction(spaceId) {
+  //the lotid and typeid are hardcoded but will need to be dynamic with vehicle info
+  console.log("LotAction");
+  return {
+    type: CHOOSE_SPACE,
+    payload: spaceId
+  };
+}
 
 ///Reducer
 export function loginReducer(state = {}, action) {
@@ -150,7 +160,10 @@ export function chooseValetReducer(state = "", action) {
       return state;
   }
 }
-export function chooseVehicleReducer(state = null, action) {
+export function chooseVehicleReducer(
+  state = { car_id: 0, phone: "0", parkingspacetype_id: 1 },
+  action
+) {
   switch (action.type) {
     case CHOOSE_VEHICLE:
       return action.payload;
@@ -158,7 +171,7 @@ export function chooseVehicleReducer(state = null, action) {
       return state;
   }
 }
-export function getOpenSpacesReducer(state = [], action) {
+export function getOpenSpacesReducer(state = null, action) {
   switch (action.type) {
     case GET_OPEN_SPACES + "_FULFILLED":
       console.log(action);
@@ -184,10 +197,10 @@ export function getOpenSpacesReducer(state = [], action) {
 
         spaces[space.location1][space.location2][space.location3][
           space.location4
-        ].push(space.location5);
+        ].push({ text: space.location5, id: space.id });
       });
-      console.log(spaces);
-      return spaces;
+      // console.log(spaces);
+      return action.payload.data;
     default:
       return state;
   }
@@ -212,6 +225,14 @@ export function getLotStatusReducer(state = [], action) {
   switch (action.type) {
     case GET_LOT_STATUS + "_FULFILLED":
       return action.payload.data;
+    default:
+      return state;
+  }
+}
+export function chooseSpaceReducer(state = null, action) {
+  switch (action.type) {
+    case CHOOSE_SPACE:
+      return action.payload;
     default:
       return state;
   }

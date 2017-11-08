@@ -18,6 +18,7 @@ import {
 } from "semantic-ui-react";
 import axios from "axios";
 import CarInfo from "../carInfo/carInfo";
+import SelectSpaces from "./selectSpaces/selectSpaces.js";
 
 class ParkCar extends Component {
   constructor(props) {
@@ -29,49 +30,21 @@ class ParkCar extends Component {
     this.state = {
       get,
       complete,
-      spaces: [],
+      openSpaces: this.props.openSpaces,
       parkingspace_id: 0,
       yellowFlag: false,
       notes: "",
       noteConfirm: false
     };
 
-    if (!this.state.get) {
-      this.props.getOpenSpacesAction(this.props.chosenVehicle);
-    }
-
     this.props.setNavTitleAction("Back", () => this.props.history.goBack());
+    this.props.getOpenSpacesAction(this.props.chosenVehicle);
 
-    console.log(this.state);
     this.handleButtonClick = this.handleButtonClick.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
     this.handleNotesButton = this.handleNotesButton.bind(this);
   }
-  componentWillReceiveProps(nextProps) {
-    // console.log(nextProps);
-    // if (nextProps.openSpaces) {
-    //   const spaces = nextProps.openSpaces.map(space => {
-    //     return {
-    //       text: `${space.location1} ${space.location2} ${space.location3} ${space.location4} ${space.location5} `,
-    //       value: `${space.id}`
-    //     };
-    //   });
-    //   if (nextProps.chosenVehicle.location1) {
-    //     console.log("location there");
-    //     spaces.unshift({
-    //       text: `${nextProps.chosenVehicle.location1} ${nextProps.chosenVehicle
-    //         .location2} ${nextProps.chosenVehicle.location3} ${nextProps
-    //         .chosenVehicle.location4} ${nextProps.chosenVehicle.location5} `,
-    //       value: `${nextProps.chosenVehicle.parkingspace_id}`
-    //     });
-    //   }
-    //   const parkingspace_id = spaces.length ? spaces[0].value : 0;
-    //   this.setState({
-    //     spaces,
-    //     selectedSpace: parkingspace_id
-    //   });
-    // }
-  }
+
   handleNotesButton() {
     axios
       .post(`/api/carnotes`, {
@@ -103,14 +76,7 @@ class ParkCar extends Component {
     }
 
     let parkingspace_id =
-      this.state.get && this.state.complete ? null : this.state.selectedSpace;
-    console.log(
-      newStatus,
-      parkingspace_id,
-      this.props.currentValet,
-      this.props.chosenVehicle
-    );
-    console.log(parkingspace_id);
+      this.state.get && this.state.complete ? null : this.props.chosenSpace;
     axios
       .put(`/api/cars?id=${this.props.chosenVehicle.car_id}`, {
         status_id: newStatus,
@@ -128,7 +94,12 @@ class ParkCar extends Component {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({ openSpaces: nextProps.openSpaces });
+  }
+
   render() {
+    console.log(this.state);
     return (
       <div>
         <NavBar />
@@ -179,30 +150,14 @@ class ParkCar extends Component {
                   .location3} ${this.props.chosenVehicle.location4} ${this.props
                   .chosenVehicle.location5} `}</h3>
               )}
-              {!this.state.get && (
-                <div>
-                  <Dropdown
-                    options={Object.keys(this.props.openSpaces)
-                      .sort()
-                      .map(key => {
-                        return { text: key, value: key };
-                      })}
+              {!this.state.get &&
+                this.props.openSpaces && (
+                  <SelectSpaces
+                    chosenVehicle={this.props.chosenVehicle}
+                    openSpaces={this.props.openSpaces}
+                    updateParent={this.updateParent}
                   />
-                  <span>Location2</span>
-                  <span>Location3</span>
-                  <span>Location4</span>
-                  <span>Location5</span>
-                </div>
-                /* <Dropdown
-                  selectOnBlur={true}
-                  value={this.state.selectedSpace}
-                  onChange={this.handleSelect}
-                  fluid
-                  selection
-                  className="link item active"
-                  options={this.state.spaces}
-                /> */
-              )}
+                )}
 
               <Grid.Row />
             </Grid.Column>
