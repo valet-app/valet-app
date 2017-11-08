@@ -11,6 +11,7 @@ import { chooseVehicleAction, setNavTitleAction } from "../../reducers";
 class PacSearch extends Component {
   constructor(props) {
     super(props);
+    this.handleClearClick = this.handleClearClick.bind(this);
    
   
     ///Parking lot id will need to be dynamic instead of hard coded
@@ -60,6 +61,11 @@ class PacSearch extends Component {
     });
   };
 
+  handleClearClick(event, data){
+    console.log("fired off")
+    this.props.chooseVehicleAction(null);
+  }
+
   render() {
     const addCar = this.props.history.location.pathname;
     const { isLoading, value, results } = this.state;
@@ -104,6 +110,9 @@ class PacSearch extends Component {
               <CarInfo vehicle={this.props.chosenVehicle}/>
                 <Button color='yellow' size='large' onClick={() => this.props.history.push("start")}>
                   Confirm
+                </Button>
+                <Button color='yellow' size='large' onClick={this.handleClearClick}>
+                  Reset
                 </Button>
               </Grid.Column>
             </Grid.Row>

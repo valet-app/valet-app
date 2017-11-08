@@ -2,12 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import NavBar from "../navBar/navBar";
 import { setNavTitleAction } from "../../reducers";
-import {
-  Grid,
-  Header,
-  Radio,
-  Input, 
-} from "semantic-ui-react";
+import { Grid, Header, Radio, Input } from "semantic-ui-react";
 import axios from "axios";
 
 class ValetSignIn extends Component {
@@ -33,35 +28,45 @@ class ValetSignIn extends Component {
       .put(`/api/empl?id=${valet.id}`, { isactive: data.checked })
       .then(response => console.log(response));
   }
-  
 
   render() {
-    const valets = this.props.employees.filter(employee =>
+    
+    const companyValets = this.props.employees.filter(
+      employee => employee.company_id === this.props.session.company_id
+    );
+    const valets = companyValets.filter(employee =>
       RegExp(this.state.searchValue, "i").test(employee.name)
     );
-     const active = this.props.employees.filter(employee => employee.isactive === true);
-     const nonactive = this.props.employees.filter(employee => employee.isactive === false);
-     
-     console.log(active)
-    const buildList =  valet => (<div>
-      <Grid.Row>
+    const active = companyValets.filter(
+      employee => employee.isactive === true
+    );
+    const nonactive = companyValets.filter(
+      employee => employee.isactive === false
+    );
+   
+
+    console.log(active);
+    const buildList = valet => (
+      <div>
         <Grid.Row>
-          <h3 className="valetList">
-            <div>{valet.name}</div>
-            <Radio
-              toggle
-              defaultChecked={valet.isactive}
-              onChange={(e, data) => this.toggle(valet, data)}
-            />
-          </h3>
+          <Grid.Row>
+            <h3 className="valetList">
+              <div>{valet.name}</div>
+              <Radio
+                toggle
+                defaultChecked={valet.isactive}
+                onChange={(e, data) => this.toggle(valet, data)}
+              />
+            </h3>
+          </Grid.Row>
         </Grid.Row>
-      </Grid.Row>
-      </div>)
+      </div>
+    );
 
     return (
       <div>
         <NavBar />
-        <br/>
+        <br />
 
         <Grid padded="vertically" centered>
           <Header as="h1" className="grey">
@@ -69,38 +74,27 @@ class ValetSignIn extends Component {
           </Header>
           <Grid.Row>
             <Input
-            icon='search'
-            iconPosition='left'
+              icon="search"
+              iconPosition="left"
               value={this.state.searchValue}
               onChange={e => this.setState({ searchValue: e.target.value })}
               placeholder="Search "
             />
           </Grid.Row>
 
-
-
-
           <Grid.Column width={12}>
-          <Grid.Row>
-          <h1> active </h1>
-          {active.map(buildList)}
-          </Grid.Row>
+            <Grid.Row>
+              <h1> active </h1>
+              {active.map(buildList)}
+            </Grid.Row>
           </Grid.Column>
 
-
-
-
-
           <Grid.Column width={12}>
-          <Grid.Row> 
-          <h1> non active </h1>
-          {nonactive.map(buildList)}
-          </Grid.Row>
+            <Grid.Row>
+              <h1> non active </h1>
+              {nonactive.map(buildList)}
+            </Grid.Row>
           </Grid.Column>
-      
-
-
-          
         </Grid>
       </div>
     );
