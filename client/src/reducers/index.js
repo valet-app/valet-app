@@ -85,7 +85,7 @@ export function getUserSessionAction() {
 }
 export function getLotStatusAction(lotid) {
   //the lotid and typeid are hardcoded but will need to be dynamic with vehicle info
-  console.log("LotAction")
+  console.log("LotAction");
   return {
     type: GET_LOT_STATUS,
     payload: axios.get("/api/parkinglotstatus?lotid=1")
@@ -183,28 +183,7 @@ export function getUserSessionReducer(state = {}, action) {
 export function getLotStatusReducer(state = [], action) {
   switch (action.type) {
     case GET_LOT_STATUS + "_FULFILLED":
-    let spaces = {};
-    action.payload.data.forEach(space => {
-      if (!spaces[space.location1]) spaces[space.location1] = {};
-      if (!spaces[space.location1][space.location2])
-        spaces[space.location1][space.location2] = {};
-      if (!spaces[space.location1][space.location2][space.location3])
-        spaces[space.location1][space.location2][space.location3] = {};
-      if (
-        !spaces[space.location1][space.location2][space.location3][
-          space.location4
-        ]
-      )
-        spaces[space.location1][space.location2][space.location3][
-          space.location4
-        ] = [];
-
-      spaces[space.location1][space.location2][space.location3][
-        space.location4
-      ].push(space.location5);
-    });
-    console.log(spaces);
-    return spaces;
+      return action.payload.data;
     default:
       return state;
   }
