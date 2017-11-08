@@ -48,7 +48,6 @@ class ValetOptions extends Component {
             icon="labeled"
             direction='right'
             vertical
-            stretched
           >
             <Link to="/home">
               <Menu.Item onClick={this.toggleVisibility} name="Home">
@@ -72,7 +71,7 @@ class ValetOptions extends Component {
               </Menu.Item>
             </Link>
           </Sidebar>
-          <Sidebar.Pusher style={{ "min-height": "100vh" }}>
+          <Sidebar.Pusher style={{ "minHeight": "100vh" }}>
             <Grid centered stretched verticalAlign="middle">
               <Grid.Row centered>
                 <Image src={logo} style={{ width: "75px", height: "75px" }} />

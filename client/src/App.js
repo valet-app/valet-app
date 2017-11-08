@@ -8,7 +8,7 @@ import Login from "./components/login/login";
 import ValetOptions from "./components/valetGaragePage/valetGarage";
 import PacSearch from "./components/pacSearch/pacSearch";
 import ChooseValet from "./components/chooseValet/chooseValet";
-import ParkCar from "./components/parkCar/parkCar";
+import ParkCar from './components/parkCar/parkCar';
 import SignupCompany from "./components/signupCompany/signupCompany";
 import InProgress from "./components/inProgress/inProgress";
 import AddCar from "./components/addCar/addCar";
@@ -45,6 +45,7 @@ class App extends Component {
             <Route path="/home" component={ValetOptions} />
             <Route path="/signupCompany" component={SignupCompany} />
             <Route path="/inProgress" component={InProgress} />
+            <Route path="/analytics" component={Analytics} />
             <Route path="/status" component={LotStatus} />
             <Route path="/" component={ValetOptions} />
             <Route path="/login" component={Login} />
@@ -52,7 +53,6 @@ class App extends Component {
         ) : (
           <Switch>
             <Route path="/signupCompany" component={SignupCompany} />
-            <Route path="/analytics" component={Analytics} />
             <Route path="/" component={Login} />
           </Switch>
         )}

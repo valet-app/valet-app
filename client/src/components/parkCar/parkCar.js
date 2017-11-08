@@ -127,9 +127,12 @@ class ParkCar extends Component {
                   placeholder="Add a note"
                   onChange={e => this.setState({ notes: e.target.value })}
                 />
-                <Button color="yellow" onClick={this.handleNotesButton}>
-                  Add Note
-                </Button>
+                <Form.Field>
+                  <br />
+                  <Button color="yellow" onClick={this.handleNotesButton}>
+                    Add Note
+                  </Button>
+                </Form.Field>
               </Form>
             )}
             {this.state.noteConfirm && <Message success>Note Added</Message>}

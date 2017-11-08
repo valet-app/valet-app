@@ -19,23 +19,47 @@ class GarageSignUp extends Component {
     super(props);
     this.state = {};
     this.state = {
-        newCompanyName: "",
-        company_id: "",
-        username: "",
-        name: "",
-        admin: true,
-        password: "",
-        confirmpassword: "",
-        matchpass: true,
-        error: "",
-        accept: false
-      };
-      this.handleGarageSignup = this.handleGarageSignup.bind(this);
+      name: "",
+      address: "",
+      location1: "",
+      location2: "",
+      location3: "",
+      location4: "",
+      location5: ""
+    };
+    this.handleGarageSignup = this.handleGarageSignup.bind(this);
   }
-    //hanlde function for new garage info 
-  handleGarageSignup(){
+  //hanlde function for new garage info
 
+  handleGarageSignup() {
+    axios
+      .post("/api/garage", {
+        name: this.state.name,
+        address: this.state.adress
+      })
+      .then(res => {
+        console.log(res, "space");
+        this.setState({ parkinglot_id: res.data[0].id });
+
+        const {
+          parkinglot_id,
+          location1,
+          location2,
+          location3,
+          location4,
+          location5
+        } = this.state;
+        axios.post("/api/garageinfo", {
+          parkinglot_id,
+          location1,
+          location2,
+          location3,
+          location4,
+          location5
+        });
+      });
   }
+
   render() {
     return (
       <div className="ui grid centered">
@@ -49,19 +73,16 @@ class GarageSignUp extends Component {
           </Grid.Row>
 
           <Grid.Row columns={2} stretched centered>
-            <p className="defaultText">
-              Add your Garage Information
-            </p>
+            <p className="defaultText">Add your Garage Information</p>
 
-          <Grid.Column width={12} verticalAlign="middle" stretched>
-            <Form />
-            <Form.Field>
+            <Grid.Column width={12} verticalAlign="middle" stretched>
+              <Form>
+                <Form.Field>
                   <Input
                     placeholder="Garage Name"
                     iconPosition="left"
                     icon="cube"
-                    onChange={e =>
-                      this.setState({ newCompanyName: e.target.value })}
+                    onChange={e => this.setState({ name: e.target.value })}
                   />
                 </Form.Field>
 
@@ -70,82 +91,68 @@ class GarageSignUp extends Component {
                     placeholder="Adress"
                     iconPosition="left"
                     icon="point"
-                    onChange={e => this.setState({ username: e.target.value })}
+                    onChange={e => this.setState({ address: e.target.value })}
                   />
                 </Form.Field>
 
                 <Form.Field>
                   <Input
                     placeholder="Enter Floor"
-                    type="password"
                     iconPosition="left"
                     icon="block layout"
-                    onChange={e =>
-                      this.setState({
-                        password: e.target.value,
-                        matchpass: true
-                      })}
+                    onChange={e => this.setState({ location1: e.target.value })}
                   />
                 </Form.Field>
 
                 <Form.Field>
                   <Input
                     placeholder="Enter Section"
-                    type="password"
                     iconPosition="left"
                     icon="grid layout"
-                    onChange={e =>
-                      this.setState({
-                        confirmpassword: e.target.value,
-                        matchpass: true
-                      })}
+                    onChange={e => this.setState({ location2: e.target.value })}
                   />
                 </Form.Field>
-
 
                 <Form.Field>
                   <Input
                     placeholder="Enter Direction"
-                    type="password"
                     iconPosition="left"
                     icon="compass"
-                    onChange={e =>
-                      this.setState({
-                        confirmpassword: e.target.value,
-                        matchpass: true
-                      })}
+                    onChange={e => this.setState({ location3: e.target.value })}
                   />
                 </Form.Field>
-
+                <Form.Field>
+                  <Input
+                    placeholder="Enter location"
+                    iconPosition="left"
+                    icon="compass"
+                    onChange={e => this.setState({ location4: e.target.value })}
+                  />
+                </Form.Field>
                 <Form.Field>
                   <Input
                     placeholder="Enter Space Number"
-                    type="password"
                     iconPosition="left"
                     icon="hashtag"
-                    onChange={e =>
-                      this.setState({
-                        confirmpassword: e.target.value,
-                        matchpass: true
-                      })}
+                    onChange={e => this.setState({ location5: e.target.value })}
                   />
                 </Form.Field>
 
                 <Button
                   type="submit"
-                  onClick={this.handleSignup}
+                  onClick={this.handleGarageSignup}
                   fluid
                   className="yellow"
                 >
                   Signup{" "}
                 </Button>
-
-
-          </Grid.Column>
+              </Form>
+            </Grid.Column>
           </Grid.Row>
         </Grid>
       </div>
     );
   }
 }
+const mapStateToProps = state => state;
 export default GarageSignUp;

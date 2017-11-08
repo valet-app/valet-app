@@ -5,7 +5,7 @@ function CarInfo(props){
         <div className='carInfo'>
         <div><h1>{props.vehicle.make} {props.vehicle.model} </h1></div>
         <div className='flexColumn'>
-          <div className='colorBox' style={{'background-color':props.vehicle.color}}>
+          <div className='colorBox' style={{'backgroundColor':props.vehicle.color}}>
             </div>
           <div>
             <div className='license'>

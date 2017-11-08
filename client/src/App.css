@@ -72,6 +72,27 @@
   justify-content: center;
   align-items: center;
 }
+.lotStatus{
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+ 
+}
+.locations{
+  padding: 20px;
+  margin-right: 30px;
+  margin-left: 30px;
+  
+}
+
+.locationBox{
+  padding: 20px;
+  border: 1px black solid;
+  font-size: 1em;
+  color: #6b6b6b;
+  background-color: white;
+}
+
 .phonenumber {
   font-weight: 100;
   font-size: 1.25em;
