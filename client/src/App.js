@@ -45,6 +45,7 @@ class App extends Component {
             <Route path="/home" component={ValetOptions} />
             <Route path="/signupCompany" component={SignupCompany} />
             <Route path="/inProgress" component={InProgress} />
+            <Route path="/analytics" component={Analytics} />
             <Route path="/status" component={LotStatus} />
             <Route path="/" component={ValetOptions} />
             <Route path="/login" component={Login} />
@@ -52,7 +53,6 @@ class App extends Component {
         ) : (
           <Switch>
             <Route path="/signupCompany" component={SignupCompany} />
-            <Route path="/analytics" component={Analytics} />
             <Route path="/" component={Login} />
           </Switch>
         )}
