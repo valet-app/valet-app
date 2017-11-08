@@ -47,10 +47,11 @@ const emplCtrl = require("./routes/emplCtrl");
 const carsCtrl = require("./routes/carsCtrl");
 const garageCtrl = require("./routes/garageCtrl");
 const companyCtrl = require("./routes/companyCtrl");
+const chartCtrl = require("./routes/chartCtrl");
 
 // User Endpoints
-app.get('/api/user', userCtrl.getUser)
-app.post('/api/user',userCtrl.postUser)
+app.get("/api/user", userCtrl.getUser);
+app.post("/api/user", userCtrl.postUser);
 
 // Employee Endpoints
 app.get("/api/empl", emplCtrl.getEmpl);
@@ -72,6 +73,9 @@ app.get("/api/parkinglotstatus", garageCtrl.getParkingLotStatus);
 
 // Company Endpoints
 app.post("/api/company", companyCtrl.postCompany);
+
+// Chart Endpoints
+app.get("/api/chartHourlyParks", chartCtrl.getHourlyParks);
 
 // Authentication
 app.post("/auth/login", passport.authenticate("local"), (req, res) => {

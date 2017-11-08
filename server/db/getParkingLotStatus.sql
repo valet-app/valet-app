@@ -15,7 +15,7 @@ SELECT c.id as company_id,
     car.licenseplate,
     car.color,
     car.lastchange,
-    s.status AS parkingstatus,
+    coalesce(s.status,'Open') AS parkingstatus,
     e.name AS parkedby
 
 FROM parkinglot pl
