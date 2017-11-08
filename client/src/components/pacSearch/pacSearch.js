@@ -79,12 +79,13 @@ class PacSearch extends Component {
             results={results}
             loading={isLoading}
             value={value}
-            resultRenderer={({ make, licenseplate, model, car_id, phone, firstname,lastname }) => {
+            resultRenderer={({ make, licenseplate, model, car_id, phone, firstname,lastname, valettag}) => {
               return (
                 <div className='searchResult' key={car_id}>
                 <div className='searchCar'>
                   <div><p className='noMargin searchText'>{make} {model}</p></div>
                   <div><small>{licenseplate}</small></div>
+                  {valettag && <div><small>Tag: {valettag}</small></div>}
                 </div>
                 <div className='searchUser'>
                 <div><p className='noMargin searchText'>{phone}</p></div>
