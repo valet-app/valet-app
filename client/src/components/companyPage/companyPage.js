@@ -1,15 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
 import logo from "../../valet-logo.png";
 import {
   Header,
   Button,
   Grid,
   Image,
-  Sidebar,
-  Icon,
-  Menu
 } from "semantic-ui-react";
 
 class CompanyPage extends Component {

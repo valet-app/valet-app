@@ -8,10 +8,7 @@ import {
   Grid,
   Image,
   Form,
-  Checkbox,
-  Input,
-  Message,
-  Divider
+  Input
 } from "semantic-ui-react";
 
 class GarageSignUp extends Component {
