@@ -78,7 +78,7 @@ class ValetOptions extends Component {
             <br />
             <Grid centered stretched verticalAlign="middle">
               <Grid.Row centered>
-                <Image src={logo} style={{ width: "75px", height: "75px" }} />
+                <Image src={logo} style={{ width: "75px", height: "75px", padding: '5px' }} />
                 <Header size="huge" color="grey">
 
                   {this.props.login.lotname || this.props.session.lotname}

@@ -34,7 +34,8 @@ class ParkCar extends Component {
       parkingspace_id: 0,
       yellowFlag: false,
       notes: "",
-      noteConfirm: false
+      noteConfirm: false,
+      newNote: []
     };
 
     this.props.setNavTitleAction("Back", () => this.props.history.goBack());
@@ -52,10 +53,12 @@ class ParkCar extends Component {
         notes: this.state.notes
       })
       .then(result =>
+        { console.log('result', result.data)
         this.setState({
           noteConfirm: !this.state.noteConfirm,
-          yellowFlag: !this.state.yellowFlag
-        })
+          yellowFlag: !this.state.yellowFlag,
+          newNote: result.data
+        })}
       );
   }
 
@@ -136,8 +139,11 @@ class ParkCar extends Component {
             {this.state.noteConfirm && <Message success>Note Added</Message>}
           </Grid.Column>
           <Grid.Row centered columns={2}>
+            <Header as="h1" color="grey">
+              Confirmation
+            </Header>
             <Grid.Column
-              className="white"
+              className="parkingbox"
               computer={6}
               mobile={12}
               verticalAlign="middle"
@@ -162,7 +168,7 @@ class ParkCar extends Component {
           </Grid.Row>
           <Grid.Column width={12} verticalAlign="middle">
             <Grid.Row>
-              <CarInfo vehicle={this.props.chosenVehicle} />
+              <CarInfo vehicle={this.props.chosenVehicle} notes={this.state.newNote} />
             </Grid.Row>
           </Grid.Column>
           <Grid.Row>

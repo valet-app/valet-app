@@ -84,14 +84,14 @@ class ValetSignIn extends Component {
 
           <Grid.Column width={12}>
             <Grid.Row>
-              <h1> active </h1>
+              <Header as='h1'  className='grey'> Active Valets </Header>
               {active.map(buildList)}
             </Grid.Row>
           </Grid.Column>
 
           <Grid.Column width={12}>
             <Grid.Row>
-              <h1> non active </h1>
+              <Header as='h1' className='grey'> Inactive Valets </Header>
               {nonactive.map(buildList)}
             </Grid.Row>
           </Grid.Column>

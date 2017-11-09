@@ -165,7 +165,7 @@ class SelectSpaces extends Component {
       <div>
         {location5 ? (
           <div>
-            <Header as="h2">
+            <Header color='yellow' as="h2">
               {location1[selectedLocation1].text} -{" "}
               {location5[selectedLocation5].text}
             </Header>

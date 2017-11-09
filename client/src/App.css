@@ -19,6 +19,13 @@
   padding: 20px;
   box-shadow: #b4b4b4 0 2px 3px;
 }
+.parkingbox{
+  background: rgba(255, 255, 255, 0.712);
+  padding: 20px;
+  box-shadow: #b4b4b4 0 2px 3px;
+  color: #6b6b6b;
+}
+
 .inprogress {
   background: white;
   margin: 0 20px;
@@ -49,6 +56,11 @@
   flex-direction: column;
   border-radius: 10px;
 }
+
+.notes{
+  text-align: left;
+}
+
 .height {
   min-height: 60px;
   margin-bottom: 10px;
