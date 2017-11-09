@@ -1,7 +1,19 @@
 .blur {
   filter: blur(1.5px);
 }
-
+.menu-icon {
+  float: left;
+  padding: 10px;
+}
+.nav-bar {
+  background-color: #767676;
+  padding: 10px 0 10px 0;
+  color: white;
+}
+.nav-icon {
+  padding-left: 10px;
+  padding-right: 20px;
+}
 .white {
   background: white;
   padding: 20px;
@@ -27,65 +39,58 @@
   color: #6b6b6b;
   padding: 10px;
 }
-.makeModel{
+.makeModel {
   text-shadow: 0 3px 3px;
 }
-.menubutton{
-  position: fixed;
-  top: 10px;
-  left: 40px;
-  z-index: 1;
-}
-.license{
+
+.license {
   display: flex;
   padding: 10px;
   flex-direction: column;
   border-radius: 10px;
 }
-.height{
+.height {
   min-height: 60px;
   margin-bottom: 10px;
 }
-.colorBox{
+.colorBox {
   box-shadow: #b4b4b4 0 2px 3px;
   border-radius: 10px;
   min-width: 70px;
   min-height: 30px;
 }
-.yellowFlag{
+.yellowFlag {
   position: fixed;
   right: 30px;
   top: 10px;
 }
-.backArrow{
+.backArrow {
   position: fixed;
   left: 30px;
   top: 10px;
 }
 
-.noMargin{
-  margin: 0
+.noMargin {
+  margin: 0;
 }
-.flexColumn{
+.flexColumn {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
-.lotStatus{
+.lotStatus {
   margin-top: 20px;
   display: flex;
   flex-direction: row;
- 
 }
-.locations{
+.locations {
   padding: 20px;
   margin-right: 30px;
   margin-left: 30px;
-  
 }
 
-.locationBox{
+.locationBox {
   padding: 20px;
   border: 1px black solid;
   font-size: 1em;
@@ -116,11 +121,36 @@
 }
 
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.searchResult{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  text-align: center;
+
 }
+
+.searchCar{
+  display: flex;
+  flex-direction: column;
+  border-right: 1px #6b6b6b solid;
+  float: right;
+  margin: 0;
+  padding: 0 5px 0 0;
+  justify-content: center;
+  width: 120px;
+}
+.searchUser{
+  display: flex;
+  flex-direction: column;
+  float: left;
+  margin: 0;
+  padding: 0 0 0 5px;
+  justify-content: center;
+  width: 100px;
+}
+.searchText {
+  font-weight: 700;
+  font-size: 1em;
+  color: #6b6b6b;
+}
+
