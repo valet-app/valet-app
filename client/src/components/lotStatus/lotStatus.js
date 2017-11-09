@@ -1,69 +1,97 @@
 import React, { Component } from "react";
-import { Grid } from "semantic-ui-react";
+import { Grid, Segment, Table, Menu, Dropdown, Icon } from "semantic-ui-react";
 import { getLotStatusAction, setNavTitleAction } from "../../reducers";
 import { connect } from "react-redux";
 import NavBar from "../navBar/navBar";
+import _ from "lodash";
 
 class LotStatus extends Component {
   constructor(props) {
     super(props);
     this.props.getLotStatusAction();
-    this.state = { activeIndex: 0 };
+    this.state = { selected: "", lotStatus: [] };
     this.props.setNavTitleAction("Dashboard", () =>
       this.props.history.push("/home")
     );
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({ lotStatus: nextProps.lotStatus });
+  componentWillReceiveProps({ lotStatus }) {
+    let selected;
+    if (lotStatus.length) {
+      selected = _.sortBy(lotStatus, "location1")[0].location1;
+      this.setState({
+        lotStatus,
+        selected
+      });
+    }
   }
 
-  handleClick = (e, titleProps) => {
-    const { index } = titleProps;
-    const { activeIndex } = this.state;
-    const newIndex = activeIndex === index ? -1 : index;
-    console.log(index, activeIndex, newIndex);
-    this.setState({ activeIndex: newIndex });
-  };
   render() {
     const spaces = {};
+    const { lotStatus } = this.state;
+    console.log(lotStatus);
+    const open = lotStatus.filter(space => space.parkingstatus === "Open")
+      .length;
+    const options = _.sortBy(
+      _.uniqBy(lotStatus, "location1"),
+      "location1"
+    ).map(({ location1 }) => {
+      return { text: location1, value: location1 };
+    });
+
+    const colors = {
+      Open: "red",
+      Incoming: "blue",
+      Parked: "green",
+      Outgoing: "orange"
+    };
     return (
       <div>
         <NavBar />
         <Grid centered>
           <Grid.Row>
-        <h1>Lot Status</h1>
-        </Grid.Row>
-        <p>10/30 Spaces Available</p>
+            <h1>Lot Status</h1>
+          </Grid.Row>
+          <p>
+            {open}/{lotStatus.length} Spaces Available
+          </p>
+          <br />
         </Grid>
-        <div className='lotStatus'>
-          <div className='locations'>
-            <div className='locationBox'>Floor 1</div>
-            <div className='locationBox'>Floor 2</div>
+        <Grid centered>
+          <Grid.Row>
+            <Dropdown
+              selection
+              options={options}
+              value={this.state.selected}
+              onChange={(e, data) => {
+                this.setState({
+                  selected: data.value
+                });
+              }}
+            />
+          </Grid.Row>
+        </Grid>
+
+        {_.sortBy(_.filter(lotStatus, { location1: this.state.selected }), [
+          "location2",
+          "location3",
+          "location4",
+          "location5"
+        ]).map(space => (
+          <div className="lot-status-row">
+            <div>
+              {space.location2}, {space.location3}, {space.location5}
+            </div>
+            <div>
+              {space.parkingstatus}{" "}
+              <Icon
+                name="circle"
+                className="blur"
+                color={colors[space.parkingstatus]}
+              />
+            </div>
           </div>
-          <div>
-            <p>Section A Over Yonder Space 34</p>
-            <p>Section A Over Yonder Space 34</p>
-            <p>Section A Over Yonder Space 34</p>
-            <p>Section A Over Yonder Space 34</p>
-            <p>Section A Over Yonder Space 34</p>
-            <p>Section A Over Yonder Space 34</p>
-            <p>Section A Over Yonder Space 34</p>
-            <p>Section A Over Yonder Space 34</p>
-            <p>Section A Over Yonder Space 34</p>
-            <p>Section A Over Yonder Space 34</p>
-            <p>Section A Over Yonder Space 34</p>
-            <p>Section A Over Yonder Space 34</p>
-            <p>Section A Over Yonder Space 34</p>
-            <p>Section A Over Yonder Space 34</p>
-            <p>Section A Over Yonder Space 34</p>
-            <p>Section A Over Yonder Space 34</p>
-            <p>Section A Over Yonder Space 34</p>
-            <p>Section A Over Yonder Space 34</p>
-            <p>Section A Over Yonder Space 34</p>
-            <p>Section A Over Yonder Space 34</p>
-          </div>
-        </div>
+        ))}
       </div>
     );
   }

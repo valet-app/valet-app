@@ -6,16 +6,7 @@ import {
   setNavTitleAction,
   getVehiclesAction
 } from "../../reducers";
-import {
-  Grid,
-  Button,
-  Header,
-  Dropdown,
-  Icon,
-  TextArea,
-  Form,
-  Message
-} from "semantic-ui-react";
+import { Grid, Button, Icon, TextArea, Form, Message } from "semantic-ui-react";
 import axios from "axios";
 import CarInfo from "../carInfo/carInfo";
 import SelectSpaces from "./selectSpaces/selectSpaces.js";
