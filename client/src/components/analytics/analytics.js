@@ -234,30 +234,31 @@ class Analytics extends Component {
           this.props.login.company_id
       )
       .then(result => {
-        console.log(result.data);
         let barData = this.state.numCarsParkedByEmployeeData;
+        //make sure starting with an empty array each time
+        barData.datasets[0].data = [];
+        barData.datasets[1].data = [];
+
+        //preload data array with zero, to make sure there's an entry to match every label
+        for (let i = 0; i < result.data.length; i++) {
+          barData.datasets[0].data.push(0);
+          barData.datasets[1].data.push(0);
+        }
 
         // Fill in the labels with unique names in the returned dataset:
         barData.labels = [...new Set(result.data.map(item => item.name))];
-        console.log("Labels");
-        console.log(barData.labels);
-        console.log("Cars Parked");
-        console.log(barData.datasets[0].data);
-        console.log("Cars Retreived");
-        console.log(barData.datasets[1].data);
 
         for (let i = 0; i < result.data.length; i++) {
           // determine where in chart array the value goes
           var x = barData.labels.indexOf(result.data[i].name);
-          console.log(result.data[i].name, " is in position ", x);
-          result.data[i].status_id === 2
-            ? (barData.datasets[0].data[x] = result.data[i].numparked)
-            : (barData.datasets[1].data[x] = result.data[i].numparked);
 
-          //and then put the numbers of cars in that spot
-          //   changes.datasets[0].data[x] = result.data[i].numparked;
+          // if status is parking, put in dataset[0], otherwise put in retrieving
+          if (result.data[i].status_id === 2) {
+            barData.datasets[0].data[x] = result.data[i].numparked;
+          } else {
+            barData.datasets[1].data[x] = result.data[i].numparked;
+          }
         }
-
         this.setState({ numCarsParkedByEmployeeData: barData });
       });
   }
@@ -266,7 +267,7 @@ class Analytics extends Component {
     lotStatusDoughnut.labels = [
       ...new Set(this.props.lotStatus.map(item => item.parkingstatus))
     ];
-
+    console.log(lotStatusDoughnut);
     for (var i = 0; i < lotStatusDoughnut.labels.length; i++) {
       lotStatusDoughnut.datasets[0].data[i] = 0;
 
@@ -276,6 +277,9 @@ class Analytics extends Component {
           break;
         case "Open":
           lotStatusDoughnut.datasets[0].backgroundColor[i] = "#00E600";
+          break;
+        case "Outgoing":
+          lotStatusDoughnut.datasets[0].backgroundColor[i] = "#f2a4a4";
           break;
         default:
           lotStatusDoughnut.datasets[0].backgroundColor[i] = "#FFCE56";
@@ -323,6 +327,8 @@ class Analytics extends Component {
                 redraw
               />
             </div>
+          </Grid.Column>
+          <Grid.Column width={14} verticalAlign="middle" stretched>
             <div>
               <h2>Cars Per Employee</h2>
               <HorizontalBar
