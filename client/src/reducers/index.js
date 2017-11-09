@@ -12,6 +12,7 @@ const rootReducer = combineReducers({
   lotStatus: getLotStatusReducer
 });
 export const LOGIN = "LOGIN";
+export const LOGOUT = "LOGOUT";
 export const GET_VEHICLES = "GET_VEHICLES";
 export const GET_EMPLOYEES = "GET_EMPLOYEES";
 export const CHOOSE_VALET = "CHOOSE_VALET";
@@ -30,6 +31,13 @@ export function loginAction(user, cb) {
   });
   return {
     type: LOGIN,
+    payload: request
+  };
+}
+export function logoutAction() {
+  const request = axios.get(`${ROOT_URL}/auth/logout`);
+  return {
+    type: LOGOUT,
     payload: request
   };
 }
@@ -104,6 +112,10 @@ export function loginReducer(state = {}, action) {
       };
     case LOGIN + "_PENDING":
       return { username: "", loading: true };
+    case GET_USER_SESSION + "_FULFILLED":
+      return action.payload.data;
+    case LOGOUT + "_FULFILLED":
+      return {};
     default:
       return state;
   }
