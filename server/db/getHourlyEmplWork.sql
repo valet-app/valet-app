@@ -3,6 +3,7 @@ SELECT count(al.id) as NumParked,
     al.status_id,
     e.name
 
+
 FROM activitylog al
     JOIN parkingspace ps on al.parkingspace_id = ps.id
     JOIN employee e ON al.employee_id = e.id

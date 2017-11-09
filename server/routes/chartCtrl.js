@@ -15,7 +15,7 @@ module.exports = {
   },
   getHourlyRetrievals: (req, res, next) => {
     console.log(
-      "getting number retrieved per hour on ",
+      "getting number retrieved per hour on",
       req.query.chartdate,
       req.query.company_id
     );

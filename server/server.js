@@ -74,7 +74,7 @@ app.get("/api/parkinglotstatus", garageCtrl.getParkingLotStatus);
 // Company Endpoints
 app.post("/api/company", companyCtrl.postCompany);
 
-// Chart Endpoints
+// Chart Endpoints c
 app.get("/api/chartHourlyParks", chartCtrl.getHourlyParks);
 app.get("/api/chartHourlyRetrievals", chartCtrl.getHourlyRetrievals);
 app.get("/api/chartHourlyEmplWork", chartCtrl.getHourlyEmplWork);

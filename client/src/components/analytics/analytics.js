@@ -75,7 +75,7 @@ class Analytics extends Component {
           }
         ]
       },
-
+      //data for each chart
       numCarsParkedByHourData: {
         labels: [
           "01 AM",

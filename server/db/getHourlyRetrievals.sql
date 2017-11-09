@@ -2,6 +2,7 @@ SELECT count(al.id) as NumParked,
     to_char(al.tstamp- INTERVAL '6'
 hour, 'HH12 PM') as HourOfDay
         
+        
 FROM 	activitylog al
 		JOIN parkingspace ps on al.parkingspace_id = ps.id
         JOIN parkinglot pl on ps.parkinglot_id = pl.id
