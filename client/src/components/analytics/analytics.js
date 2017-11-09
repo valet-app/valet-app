@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
 import logo from "../../valet-logo.png";
-import { Doughnut, Bar } from "react-chartjs-2";
+import { Doughnut, Bar, HorizontalBar } from "react-chartjs-2";
 import { getLotStatusAction } from "../../reducers";
 
 import { Header, Grid, Image, Input } from "semantic-ui-react";
@@ -27,6 +27,55 @@ class Analytics extends Component {
           display: true
         }
       },
+
+      horizBarOptions: {
+        title: {
+          display: false,
+          text: "Chart.js Bar Chart - Stacked"
+        },
+        tooltips: {
+          mode: "index",
+          intersect: false
+        },
+        responsive: true,
+        scales: {
+          xAxes: [
+            {
+              stacked: true
+            }
+          ],
+          yAxes: [
+            {
+              stacked: true
+            }
+          ]
+        }
+      },
+
+      numCarsParkedByEmployeeData: {
+        labels: [],
+        datasets: [
+          {
+            label: "Cars Parked",
+            backgroundColor: "rgba(255,99,132,1)",
+            borderColor: "rgba(255,99,132,1)",
+            borderWidth: 1,
+            hoverBackgroundColor: "rgba(255,99,132,1)",
+            hoverBorderColor: "rgba(255,99,132,1)",
+            data: []
+          },
+          {
+            label: "Cars Retrieved",
+            backgroundColor: "#36A2EB",
+            borderColor: "#36A2EB",
+            borderWidth: 1,
+            hoverBackgroundColor: "#36A2EB",
+            hoverBorderColor: "#36A2EB",
+            data: []
+          }
+        ]
+      },
+
       numCarsParkedByHourData: {
         labels: [
           "01 AM",
@@ -138,7 +187,12 @@ class Analytics extends Component {
       changes.datasets[1].data[i] = 0;
     }
     axios
-      .get(`/api/chartHourlyParks/?chartdate=` + chartDate)
+      .get(
+        `/api/chartHourlyParks/?chartdate=` +
+          chartDate +
+          `&company_id=` +
+          this.props.login.company_id
+      )
       .then(result => {
         for (let i = 0; i < result.data.length; i++) {
           // determine where in chart array the value goes
@@ -152,7 +206,12 @@ class Analytics extends Component {
       .then(
         // get cars retrieved per hour
         axios
-          .get(`/api/chartHourlyRetrievals/?chartdate=` + chartDate)
+          .get(
+            `/api/chartHourlyRetrievals/?chartdate=` +
+              chartDate +
+              `&company_id=` +
+              this.props.login.company_id
+          )
           .then(result => {
             for (let i = 0; i < result.data.length; i++) {
               // determine where in chart array the value goes
@@ -166,6 +225,41 @@ class Analytics extends Component {
             this.setState({ numCarsParkedByHour: changes });
           })
       );
+
+    axios
+      .get(
+        `/api/chartHourlyEmplWork/?chartdate=` +
+          chartDate +
+          `&company_id=` +
+          this.props.login.company_id
+      )
+      .then(result => {
+        console.log(result.data);
+        let barData = this.state.numCarsParkedByEmployeeData;
+
+        // Fill in the labels with unique names in the returned dataset:
+        barData.labels = [...new Set(result.data.map(item => item.name))];
+        console.log("Labels");
+        console.log(barData.labels);
+        console.log("Cars Parked");
+        console.log(barData.datasets[0].data);
+        console.log("Cars Retreived");
+        console.log(barData.datasets[1].data);
+
+        for (let i = 0; i < result.data.length; i++) {
+          // determine where in chart array the value goes
+          var x = barData.labels.indexOf(result.data[i].name);
+          console.log(result.data[i].name, " is in position ", x);
+          result.data[i].status_id === 2
+            ? (barData.datasets[0].data[x] = result.data[i].numparked)
+            : (barData.datasets[1].data[x] = result.data[i].numparked);
+
+          //and then put the numbers of cars in that spot
+          //   changes.datasets[0].data[x] = result.data[i].numparked;
+        }
+
+        this.setState({ numCarsParkedByEmployeeData: barData });
+      });
   }
 
   render() {
@@ -227,6 +321,13 @@ class Analytics extends Component {
                 height={50}
                 options={this.state.options}
                 redraw
+              />
+            </div>
+            <div>
+              <h2>Cars Per Employee</h2>
+              <HorizontalBar
+                data={this.state.numCarsParkedByEmployeeData}
+                options={this.state.horizBarOptions}
               />
             </div>
           </Grid.Column>

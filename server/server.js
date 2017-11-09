@@ -77,6 +77,7 @@ app.post("/api/company", companyCtrl.postCompany);
 // Chart Endpoints
 app.get("/api/chartHourlyParks", chartCtrl.getHourlyParks);
 app.get("/api/chartHourlyRetrievals", chartCtrl.getHourlyRetrievals);
+app.get("/api/chartHourlyEmplWork", chartCtrl.getHourlyEmplWork);
 
 // Authentication
 app.post("/auth/login", passport.authenticate("local"), (req, res) => {
