@@ -1,5 +1,7 @@
 import { combineReducers } from "redux";
 import axios from "axios";
+import _ from "lodash";
+
 const rootReducer = combineReducers({
   login: loginReducer,
   session: getUserSessionReducer,
@@ -9,7 +11,8 @@ const rootReducer = combineReducers({
   chosenVehicle: chooseVehicleReducer,
   openSpaces: getOpenSpacesReducer,
   navTitle: setNavTitleReducer,
-  lotStatus: getLotStatusReducer
+  lotStatus: getLotStatusReducer,
+  chosenSpace: chooseSpaceReducer
 });
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
@@ -21,6 +24,7 @@ export const GET_OPEN_SPACES = "GET_OPEN_SPACES";
 export const SET_NAV_TITLE = "SET_NAV_TITLE";
 export const GET_USER_SESSION = "GET_USER_SESSION";
 export const GET_LOT_STATUS = "GET_LOT_STATUS";
+export const CHOOSE_SPACE = "CHOOSE_SPACE";
 
 const ROOT_URL = "";
 ///Action creator
@@ -70,6 +74,7 @@ export function chooseVehicleAction(vehicle) {
 export function getOpenSpacesAction(vehicle) {
   //the lotid and typeid are hardcoded but will need to be dynamic with vehicle info
   console.log(vehicle);
+  if (!vehicle) vehicle = { parkingspacetype_id: 1, car_id: 0 };
   return {
     type: GET_OPEN_SPACES,
     payload: axios.get(
@@ -99,6 +104,14 @@ export function getLotStatusAction(lotid) {
     payload: axios.get("/api/parkinglotstatus?lotid=1")
   };
 }
+export function chooseSpaceAction(spaceId) {
+  //the lotid and typeid are hardcoded but will need to be dynamic with vehicle info
+  console.log("LotAction");
+  return {
+    type: CHOOSE_SPACE,
+    payload: spaceId
+  };
+}
 
 ///Reducer
 export function loginReducer(state = {}, action) {
@@ -123,7 +136,7 @@ export function loginReducer(state = {}, action) {
 export function vehiclesReducer(state = [], action) {
   switch (action.type) {
     case GET_VEHICLES + "_FULFILLED":
-      console.log(action);
+      console.log('ACTION', action);
       return action.payload.data;
     case GET_VEHICLES + "_REJECTED":
       return {
@@ -159,7 +172,10 @@ export function chooseValetReducer(state = "", action) {
       return state;
   }
 }
-export function chooseVehicleReducer(state = null, action) {
+export function chooseVehicleReducer(
+  state = { car_id: 0, phone: "0", parkingspacetype_id: 1 },
+  action
+) {
   switch (action.type) {
     case CHOOSE_VEHICLE:
       return action.payload;
@@ -167,10 +183,35 @@ export function chooseVehicleReducer(state = null, action) {
       return state;
   }
 }
-export function getOpenSpacesReducer(state = [], action) {
+export function getOpenSpacesReducer(state = null, action) {
   switch (action.type) {
     case GET_OPEN_SPACES + "_FULFILLED":
       console.log(action);
+      // let location1 = _.groupBy(action.payload.data, space => space.location1);
+      // _.transform(action.payload.data, function(accumulator, element) {
+      //   (accumulator[element.location1] || (accumulator[element.location1] = [])).push();
+      // }, {})
+      let spaces = {};
+      action.payload.data.forEach(space => {
+        if (!spaces[space.location1]) spaces[space.location1] = {};
+        if (!spaces[space.location1][space.location2])
+          spaces[space.location1][space.location2] = {};
+        if (!spaces[space.location1][space.location2][space.location3])
+          spaces[space.location1][space.location2][space.location3] = {};
+        if (
+          !spaces[space.location1][space.location2][space.location3][
+            space.location4
+          ]
+        )
+          spaces[space.location1][space.location2][space.location3][
+            space.location4
+          ] = [];
+
+        spaces[space.location1][space.location2][space.location3][
+          space.location4
+        ].push({ text: space.location5, id: space.id });
+      });
+      // console.log(spaces);
       return action.payload.data;
     default:
       return state;
@@ -196,6 +237,14 @@ export function getLotStatusReducer(state = [], action) {
   switch (action.type) {
     case GET_LOT_STATUS + "_FULFILLED":
       return action.payload.data;
+    default:
+      return state;
+  }
+}
+export function chooseSpaceReducer(state = null, action) {
+  switch (action.type) {
+    case CHOOSE_SPACE:
+      return action.payload;
     default:
       return state;
   }

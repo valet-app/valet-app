@@ -82,6 +82,7 @@ app.get("/api/chartHourlyRetrievals", chartCtrl.getHourlyRetrievals);
 app.post("/auth/login", passport.authenticate("local"), (req, res) => {
   //{ successRedirect: '/' }
   console.log("res status", res.status);
+  console.log(req.user);
   res.status(200).json(req.user);
 });
 

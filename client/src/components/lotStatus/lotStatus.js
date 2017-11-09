@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Grid, Accordion, Icon } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 import { getLotStatusAction, setNavTitleAction } from "../../reducers";
 import { connect } from "react-redux";
 import NavBar from "../navBar/navBar";

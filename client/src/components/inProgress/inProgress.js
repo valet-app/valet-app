@@ -47,7 +47,7 @@ class InProgress extends Component {
             >
               <Grid.Column width={4}>
                 <p className="progressText">
-                  {car.firstname} {car.lastname}
+                  {car.location1} {car.location5}
                 </p>
               </Grid.Column>
               <Grid.Column width={6}>
@@ -59,7 +59,7 @@ class InProgress extends Component {
                 <span className="progressText">
                   <Icon
                     name="circle"
-                    color={car.status_id === 2 ? "orange" : "red"}
+                    color={car.status_id === 2 ? "blue" : "orange"}
                     className="blur"
                   />
                   {/* Status IDs are magic numbers...where can we save them so it's easier to update? */}

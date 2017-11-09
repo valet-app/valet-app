@@ -36,28 +36,23 @@ class ValetOptions extends Component {
 
   toggleVisibility = () => this.setState({ visible: !this.state.visible });
   render() {
+    console.log(this.props);
     const { visible } = this.state;
     return (
       <div>
-        <Grid.Row centered onClick={this.toggleVisibility}>
-          <Icon
-            color="grey"
-            size="large"
-            name="sidebar"
-            className="menubutton"
-          />
-        </Grid.Row>
-        <br />
-        <Sidebar.Pushable as={Grid}>
+        <Sidebar.Pushable>
           <Sidebar
             as={Menu}
             animation="overlay"
             width="thin"
             visible={visible}
             icon="labeled"
-            direction="right"
+            direction="left"
             vertical
           >
+            <div className="menu-icon">
+              <Icon color="grey" size="large" name="close" />
+            </div>
             <Link to="/home">
               <Menu.Item onClick={this.toggleVisibility} name="Home">
                 <Icon color="yellow" name="home" />
@@ -82,11 +77,21 @@ class ValetOptions extends Component {
             </Link>
           </Sidebar>
           <Sidebar.Pusher style={{ minHeight: "100vh" }}>
+            <Grid.Row centered onClick={this.toggleVisibility}>
+              <Icon
+                color="grey"
+                size="large"
+                name="sidebar"
+                className="menu-icon"
+              />
+            </Grid.Row>
+            <br />
             <Grid centered stretched verticalAlign="middle">
               <Grid.Row centered>
                 <Image src={logo} style={{ width: "75px", height: "75px" }} />
                 <Header size="huge" color="grey">
-                  Garage Name
+
+                  {this.props.login.lotname || this.props.session.lotname}
                 </Header>
               </Grid.Row>
               <Grid.Row columns={2} stretched centered>
