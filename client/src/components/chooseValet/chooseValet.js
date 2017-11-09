@@ -61,7 +61,7 @@ class ChooseValet extends Component {
           </Grid.Column>
           <Grid.Row>
             {valet ? (
-              <Header as="h2" color="black">
+              <Header as="h2" color="grey">
                 {this.state.valetName}
               </Header>
             ) : null}

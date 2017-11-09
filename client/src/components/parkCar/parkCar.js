@@ -120,8 +120,11 @@ class ParkCar extends Component {
             })}
         />
         <Grid centered padded="vertically">
-          <Grid.Column verticalAlign="middle" width={12}>
-            {this.state.yellowFlag && (
+          <br/>
+        <Header as="h1" color="grey">
+              Confirmation
+            </Header>
+            {this.state.yellowFlag && (<Grid.Column verticalAlign="middle" width={12}>
               <Form>
                 <TextArea
                   size="large"
@@ -135,13 +138,9 @@ class ParkCar extends Component {
                   </Button>
                 </Form.Field>
               </Form>
-            )}
-            {this.state.noteConfirm && <Message success>Note Added</Message>}
-          </Grid.Column>
+            </Grid.Column>)}
+            {this.state.noteConfirm && <Grid.Row><Message success>Note Added</Message></Grid.Row>}
           <Grid.Row centered columns={2}>
-            <Header as="h1" color="grey">
-              Confirmation
-            </Header>
             <Grid.Column
               className="parkingbox"
               computer={6}
