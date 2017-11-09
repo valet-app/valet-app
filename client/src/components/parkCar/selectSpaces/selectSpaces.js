@@ -7,6 +7,7 @@ import { chooseSpaceAction } from "../../../reducers";
 class SelectSpaces extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       selectedLocation1: 0,
       selectedLocation2: 0,
@@ -28,6 +29,15 @@ class SelectSpaces extends Component {
     const { openSpaces, chosenVehicle } = this.props;
     let location1, location2, location3, location4, location5;
     if (openSpaces.length) {
+      let priority;
+      if (chosenVehicle.ranking === 1) {
+        priority = 0;
+      } else if (chosenVehicle.ranking === 2) {
+        priority = Math.floor(openSpaces.length / 2);
+      } else {
+        priority = openSpaces.length - 1;
+      }
+
       if (chosenVehicle.parkingspace_id && this.state.changed) {
         openSpaces.push({
           location1: chosenVehicle.location1,
@@ -39,15 +49,19 @@ class SelectSpaces extends Component {
         });
       }
 
+      const suggested = _.sortBy(openSpaces, "priority")[priority];
+
       location1 = _.sortBy(
         _.uniqBy(openSpaces, "location1"),
         "location1"
       ).map((space, index) => {
         return Object.assign({}, space, {
           text: space.location1,
-          value: index
+          value: index,
+          id: space.id
         });
       });
+
       location2 = _.sortBy(
         _.uniqBy(
           openSpaces.filter(
@@ -122,6 +136,34 @@ class SelectSpaces extends Component {
         });
       });
 
+      if (!chosenVehicle.parkingspace_id && !this.state.changed) {
+        location1.unshift({
+          text: suggested.location1,
+          value: 0,
+          id: suggested.id
+        });
+        location2.unshift({
+          text: suggested.location2,
+          value: 0,
+          id: suggested.id
+        });
+        location3.unshift({
+          text: suggested.location3,
+          value: 0,
+          id: suggested.id
+        });
+        location4.unshift({
+          text: suggested.location4,
+          value: 0,
+          id: suggested.id
+        });
+        location5.unshift({
+          text: suggested.location5,
+          value: 0,
+          id: suggested.id
+        });
+      }
+
       if (chosenVehicle.parkingspace_id && !this.state.changed) {
         location1.unshift(
           Object.assign({}, this.props.chosenVehicle, {
@@ -159,13 +201,17 @@ class SelectSpaces extends Component {
           })
         );
       }
-      this.props.chooseSpaceAction(location5[selectedLocation5].id);
+      console.log(suggested);
+      console.log("selected5:", selectedLocation5);
+      console.log("location5 array", location5);
+      console.log("selected space", location5[selectedLocation5]);
+      this.props.chooseSpaceAction(location5[selectedLocation5].id || null);
     }
     return (
       <div>
         {location5 ? (
           <div>
-            <Header color='yellow' as="h2">
+            <Header color="yellow" as="h2">
               {location1[selectedLocation1].text} -{" "}
               {location5[selectedLocation5].text}
             </Header>
