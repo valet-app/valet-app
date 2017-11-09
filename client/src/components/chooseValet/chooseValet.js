@@ -24,8 +24,9 @@ class ChooseValet extends Component {
     const verb = this.props.history.location.pathname;
     const valet = this.state.chosenValet;
     console.log(this.props.employees);
+    console.log(valetList)
     const valetList = this.props.employees
-      .filter(employee => employee.isactive === true)
+      .filter(employee => employee.isactive === true && employee.company_id === this.props.login.company_id)
       .map(employee => (
         <Segment
           onClick={(e, data) =>
@@ -37,6 +38,8 @@ class ChooseValet extends Component {
           {employee.name}
         </Segment>
       ));
+      
+  
     return (
       <div>
         <NavBar />

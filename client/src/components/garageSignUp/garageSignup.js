@@ -11,6 +11,7 @@ import {
   Input
 } from "semantic-ui-react";
 
+
 class GarageSignUp extends Component {
   constructor(props) {
     super(props);
@@ -32,7 +33,8 @@ class GarageSignUp extends Component {
     axios
       .post("/api/garage", {
         name: this.state.name,
-        address: this.state.address
+        address: this.state.address,
+        company_id: this.props.login.company_id
       })
       .then(res => {
         console.log(res, "space");
@@ -60,6 +62,7 @@ class GarageSignUp extends Component {
   }
 
   render() {
+    console.log(this.props)
     return (
       <div className="ui grid centered">
         <br />
@@ -110,4 +113,4 @@ class GarageSignUp extends Component {
   }
 }
 const mapStateToProps = state => state;
-export default GarageSignUp;
+export default connect(mapStateToProps)(GarageSignUp);
