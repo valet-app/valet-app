@@ -8,7 +8,7 @@ import Login from "./components/login/login";
 import ValetOptions from "./components/valetGaragePage/valetGarage";
 import PacSearch from "./components/pacSearch/pacSearch";
 import ChooseValet from "./components/chooseValet/chooseValet";
-import ParkCar from './components/parkCar/parkCar';
+import ParkCar from "./components/parkCar/parkCar";
 import SignupCompany from "./components/signupCompany/signupCompany";
 import InProgress from "./components/inProgress/inProgress";
 import AddCar from "./components/addCar/addCar";
@@ -29,9 +29,9 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        {this.props.login.username || this.props.session.username ? (
+        {this.props.login.username ? (
           <Switch>
-            <Route path="/garageSignUp" component={GarageSignUp} />            
+            <Route path="/garageSignUp" component={GarageSignUp} />
             <Route path="/lotStatus" component={LotStatus} />
             <Route path="/valetSignIn" component={ValetSignIn} />
             <Route path="/addCar" component={AddCar} />

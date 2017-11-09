@@ -4,7 +4,6 @@ import _ from "lodash";
 
 const rootReducer = combineReducers({
   login: loginReducer,
-  session: getUserSessionReducer,
   vehicles: vehiclesReducer,
   employees: employeesReducer,
   currentValet: chooseValetReducer,
@@ -15,6 +14,7 @@ const rootReducer = combineReducers({
   chosenSpace: chooseSpaceReducer
 });
 export const LOGIN = "LOGIN";
+export const LOGOUT = "LOGOUT";
 export const GET_VEHICLES = "GET_VEHICLES";
 export const GET_EMPLOYEES = "GET_EMPLOYEES";
 export const CHOOSE_VALET = "CHOOSE_VALET";
@@ -34,6 +34,13 @@ export function loginAction(user, cb) {
   });
   return {
     type: LOGIN,
+    payload: request
+  };
+}
+export function logoutAction() {
+  const request = axios.get(`${ROOT_URL}/auth/logout`);
+  return {
+    type: LOGOUT,
     payload: request
   };
 }
@@ -117,6 +124,11 @@ export function loginReducer(state = {}, action) {
       };
     case LOGIN + "_PENDING":
       return { username: "", loading: true };
+    case GET_USER_SESSION + "_FULFILLED":
+      return action.payload.data;
+
+    case LOGOUT + "_FULFILLED":
+      return {};
     default:
       return state;
   }
@@ -124,7 +136,7 @@ export function loginReducer(state = {}, action) {
 export function vehiclesReducer(state = [], action) {
   switch (action.type) {
     case GET_VEHICLES + "_FULFILLED":
-      console.log('ACTION', action);
+      console.log("ACTION", action);
       return action.payload.data;
     case GET_VEHICLES + "_REJECTED":
       return {
@@ -213,14 +225,7 @@ export function setNavTitleReducer(state = "youcantseeme", action) {
       return state;
   }
 }
-export function getUserSessionReducer(state = {}, action) {
-  switch (action.type) {
-    case GET_USER_SESSION + "_FULFILLED":
-      return action.payload.data;
-    default:
-      return state;
-  }
-}
+
 export function getLotStatusReducer(state = [], action) {
   switch (action.type) {
     case GET_LOT_STATUS + "_FULFILLED":

@@ -1,6 +1,6 @@
 module.exports = {
   getCars: (req, res, next) => {
-    console.log("returning car id# ", req.query.id);
+    console.log("Getting all cars, or car ID# ", req.query.id);
     const db = req.app.get("db");
     db
       .getCars(req.query.id)

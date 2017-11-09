@@ -7,17 +7,6 @@ import { getLotStatusAction } from "../../reducers";
 
 import { Header, Grid, Image, Input } from "semantic-ui-react";
 
-// const dataDoughnut = {
-//   labels: ["Red", "Green", "Yellow"],
-//   datasets: [
-//     {
-//       data: [300, 50, 100],
-//       backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
-//       hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"]
-//     }
-//   ]
-// };
-
 const lotStatusDoughnut = {
   labels: [],
   datasets: [
@@ -33,7 +22,6 @@ class Analytics extends Component {
     super(props);
     this.props.getLotStatusAction();
     this.state = {
-      //carsParkedDate: "2017-11-07",
       options: {
         legend: {
           display: true
@@ -116,13 +104,13 @@ class Analytics extends Component {
               0,
               0,
               0,
-              5,
-              5,
-              5,
-              5,
-              5,
-              5,
-              5,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
               0,
               0,
               0,
@@ -142,35 +130,42 @@ class Analytics extends Component {
   }
 
   handleGetData(chartDate) {
-    // console.log(chartDate);
     //reset every hour slot to zero before adding new data
     let changes = this.state.numCarsParkedByHourData;
     for (let i = 0; i < changes.datasets[0].data.length; i++) {
+      // [0] is cars parked, [1] is cars retrieved
       changes.datasets[0].data[i] = 0;
+      changes.datasets[1].data[i] = 0;
     }
-    axios.get(`/api/chartHourlyParks/?chartdate=` + chartDate).then(result => {
-      // console.log(result.data);
-      // console.log(this.state.numCarsParkedByHourData);
-      // console.log(this.state.numCarsParkedByHourData.datasets[0].data);
-
-      for (let i = 0; i < result.data.length; i++) {
-        // console.log(
-        //   result.data[i].hourofday,
-        //   " there are this many cars ",
-        //   result.data[i].numparked
-        // );
-
-        // determine where in chart array the value goes
-        var x = this.state.numCarsParkedByHourData.labels.indexOf(
-          result.data[i].hourofday
-        );
-        // and then put the numbers of cars in that spot
-        changes.datasets[0].data[x] = result.data[i].numparked;
-      }
-
-      // after the changes have all been made, set State
-      this.setState({ numCarsParkedByHour: changes });
-    });
+    axios
+      .get(`/api/chartHourlyParks/?chartdate=` + chartDate)
+      .then(result => {
+        for (let i = 0; i < result.data.length; i++) {
+          // determine where in chart array the value goes
+          var x = this.state.numCarsParkedByHourData.labels.indexOf(
+            result.data[i].hourofday
+          );
+          // and then put the numbers of cars in that spot
+          changes.datasets[0].data[x] = result.data[i].numparked;
+        }
+      })
+      .then(
+        // get cars retrieved per hour
+        axios
+          .get(`/api/chartHourlyRetrievals/?chartdate=` + chartDate)
+          .then(result => {
+            for (let i = 0; i < result.data.length; i++) {
+              // determine where in chart array the value goes
+              var x = this.state.numCarsParkedByHourData.labels.indexOf(
+                result.data[i].hourofday
+              );
+              // and then put the numbers of cars in that spot
+              changes.datasets[1].data[x] = result.data[i].numparked;
+            }
+            // after the changes have all been made, set State
+            this.setState({ numCarsParkedByHour: changes });
+          })
+      );
   }
 
   render() {
@@ -191,12 +186,6 @@ class Analytics extends Component {
         default:
           lotStatusDoughnut.datasets[0].backgroundColor[i] = "#FFCE56";
           break;
-        // case "Incoming":
-        //   lotStatusDoughnut.datasets[0].backgroundColor[i] = "#FFCE56";
-        //   break;
-        // case "Outgoing":
-        //   lotStatusDoughnut.datasets[0].backgroundColor[i] = "#FFCE56";
-        //   break;
       }
 
       for (var j = 0; j < this.props.lotStatus.length; j++) {
@@ -237,7 +226,6 @@ class Analytics extends Component {
                 width={100}
                 height={50}
                 options={this.state.options}
-                //options={{ maintainAspectRatio: true }, }
                 redraw
               />
             </div>
@@ -247,9 +235,6 @@ class Analytics extends Component {
     );
   }
 }
-
-// const mapStateToProps = state => state;
-// export default connect(mapStateToProps, {})(Analytics);
 
 const mapStateToProps = state => state;
 export default connect(mapStateToProps, {

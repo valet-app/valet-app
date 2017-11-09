@@ -42,7 +42,7 @@ module.exports = {
     console.log(req.body);
     const db = req.app.get("db");
     db
-    .garageSignup(req.body.name,req.body.address)
+    .garageSignup(req.body.name,req.body.address, req.body.company_id)
     .then(response => {
       res.status(200).json(response);
     })
