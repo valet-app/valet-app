@@ -1,6 +1,5 @@
 import { combineReducers } from "redux";
 import axios from "axios";
-import _ from "lodash";
 
 const rootReducer = combineReducers({
   login: loginReducer,
