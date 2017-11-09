@@ -10,6 +10,17 @@ module.exports = {
       .catch(() => res.status(500).send());
   },
 
+  getCarNotes: (req, res, next) => {
+    console.log("returning car id# ", req.query.id);
+    const db = req.app.get("db");
+    db
+      .getCarNotes(req.query.id)
+      .then(response => {
+        res.status(200).json(response);
+      })
+      .catch(() => res.status(500).send());
+  },
+  
   postUserCar: (req, res, next) => {
     console.log("adding new car for user ", req.body);
     const db = req.app.get("db");

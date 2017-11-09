@@ -61,6 +61,7 @@ app.post("/api/empl", emplCtrl.postEmpl);
 
 // Car Endpoints
 app.get("/api/cars", carsCtrl.getCars);
+app.get("/api/carnotes", carsCtrl.getCarNotes);
 app.put("/api/cars", carsCtrl.updateCarsSpace);
 app.post("/api/cars", carsCtrl.postCars);
 app.post("/api/usercar", carsCtrl.postUserCar);

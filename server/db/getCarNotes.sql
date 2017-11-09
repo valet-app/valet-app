@@ -1,0 +1,1 @@
+SELECT * FROM carnotes WHERE car_id=$1
