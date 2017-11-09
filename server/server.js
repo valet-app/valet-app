@@ -81,6 +81,7 @@ app.get("/api/chartHourlyParks", chartCtrl.getHourlyParks);
 app.post("/auth/login", passport.authenticate("local"), (req, res) => {
   //{ successRedirect: '/' }
   console.log("res status", res.status);
+  console.log(req.user);
   res.status(200).json(req.user);
 });
 
@@ -96,7 +97,7 @@ app.get("/auth/logout", (req, res) => {
   res.redirect("/");
 });
 
-// garage signup 
+// garage signup
 app.post("/api/garage", garageCtrl.garageSignup);
 app.post("/api/garageinfo", garageCtrl.garageInfo);
 

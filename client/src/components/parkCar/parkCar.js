@@ -76,7 +76,9 @@ class ParkCar extends Component {
     }
 
     let parkingspace_id =
-      this.state.get && this.state.complete ? null : this.props.chosenSpace || this.props.chosenVehicle.parkingspace_id;
+      this.state.get && this.state.complete
+        ? null
+        : this.props.chosenSpace || this.props.chosenVehicle.parkingspace_id;
     axios
       .put(`/api/cars?id=${this.props.chosenVehicle.car_id}`, {
         status_id: newStatus,
@@ -99,7 +101,7 @@ class ParkCar extends Component {
   }
 
   render() {
-    console.log('STATE', this.state);
+    console.log("STATE", this.state);
     return (
       <div>
         <NavBar />
@@ -114,12 +116,8 @@ class ParkCar extends Component {
               noteConfirm: false
             })}
         />
-        <Grid centered>
+        <Grid centered padded="vertically">
           <Grid.Column verticalAlign="middle" width={12}>
-            <Header as="h1" color="grey">
-              Vehicle {this.props.chosenVehicle.car_id}
-            </Header>
-            <p className="phonenumber">{this.props.chosenVehicle.phone}</p>
             {this.state.yellowFlag && (
               <Form>
                 <TextArea
@@ -144,7 +142,6 @@ class ParkCar extends Component {
               mobile={12}
               verticalAlign="middle"
             >
-  
               {this.state.get && (
                 <h3>{`${this.props.chosenVehicle.location1} ${this.props
                   .chosenVehicle.location2} ${this.props.chosenVehicle
