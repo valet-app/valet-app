@@ -83,27 +83,29 @@ class AddCar extends Component {
         <Grid.Row>
         <Form>
           <Header color="grey">Owner Information</Header>
-          <Form.Group inline>
+          <Form.Group inline className='addCar'>
             <Form.Input icon='user'iconposition='left' placeholder="First Name" onChange={e => this.setState({ firstname: e.target.value })} />
             <Form.Input icon='user circle'iconposition='left' placeholder="Last Name" onChange={e => this.setState({ lastname: e.target.value })} />
           </Form.Group>
+          <Form.Group  inline className='addCar'>
           <Form.Input type='email' icon='mail'iconposition='left' placeholder="Email" onChange={e => this.setState({ email: e.target.value })} />
           <Form.Input type='tel'pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" onChange={e => this.setState({ phone: e.target.value })} icon='phone'iconposition='left' placeholder="Phone Number" required/>
+         </Form.Group>
           <br />
           <Header color="grey">Car Information</Header>
-          <Form.Group inline>
+          <Form.Group className='addCar' inline>
             <Form.Input  onChange={e => this.setState({ make: e.target.value })} icon='car'iconposition='left' placeholder="Make" required />
             <Form.Input  onChange={e => this.setState({ model: e.target.value })}icon='car'iconposition='left' placeholder="Model" required />
           </Form.Group>
-          <Form.Group inline>
+          <Form.Group className='addCar' inline>
             <Form.Input icon='eyedropper' iconposition='left' placeholder="Color" onChange={e => this.setState({ color: (e.target.value.split(' ').join('')) })} />
             <Form.Input icon='drivers license' iconposition='left' placeholder="License Plate" onChange={e => this.setState({ licenseplate: e.target.value })} />
           </Form.Group>
-          <Form.Group inline>
+          <Form.Group className='addCar' inline>
             <Form.Input icon='tag'iconposition='left' placeholder="Valet Tag # (if applicable)" onChange={e => this.setState({ valettag: e.target.value })} />
             <Form.Field control={Select} options={space} placeholder="Parking Space Type"  onChange={(e,data) => {this.setState({ parkingspacetype_id: data.value})}} />
           </Form.Group>
-          <Form.Field label="Add Any Notes About the Car" onChange={e => this.setState({ notes: e.target.value })} control={TextArea}/>
+          <Form.Field className='addCarTB' label="Add Any Notes About the Car" onChange={e => this.setState({ notes: e.target.value })} control={TextArea}/>
           <Form.Button color="yellow" onClick={this.handleSignup}>Submit</Form.Button>
         </Form>
         </Grid.Row>
