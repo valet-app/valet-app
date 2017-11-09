@@ -23,7 +23,6 @@ module.exports = {
     db
       .getHourlyRetrievals(req.query.chartdate, req.query.company_id)
       .then(response => {
-        console.log(response);
         res.status(200).json(response);
       })
       .catch(() => {
