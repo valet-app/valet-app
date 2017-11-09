@@ -53,28 +53,32 @@ class ValetOptions extends Component {
             <div className="menu-icon">
               <Icon color="grey" size="large" name="close" />
             </div>
-            <Link to="/home">
-              <Menu.Item onClick={this.toggleVisibility} name="Home">
-                <Icon color="yellow" name="home" />
-                Home
-              </Menu.Item>
-            </Link>
-            <Link to="/valetSignIn">
-              <Menu.Item
-                onClick={this.toggleVisibility}
-                name="Valet Sign-In/Out"
-              >
-                <Icon color="yellow" name="users" />
-                Valet Sign-In/Out
-              </Menu.Item>
-            </Link>
 
-            <Link to="/login">
-              <Menu.Item onClick={this.handleLogout} name="Garage Log Out">
-                <Icon color="yellow" name="external" />
-                Garage Log Out
-              </Menu.Item>
-            </Link>
+            <Menu.Item
+              onClick={() => {
+                this.toggleVisibility();
+                this.props.history.push("/home");
+              }}
+              name="Home"
+            >
+              <Icon color="yellow" name="home" />
+              Home
+            </Menu.Item>
+
+            <Menu.Item
+              onClick={() => {
+                this.toggleVisibility();
+                this.props.history.push("/valetSignIn");
+              }}
+              name="Valet Sign-In/Out"
+            >
+              <Icon color="yellow" name="users" />
+              Valet Sign-In/Out
+            </Menu.Item>
+            <Menu.Item onClick={this.handleLogout} name="Garage Log Out">
+              <Icon color="yellow" name="external" />
+              Garage Log Out
+            </Menu.Item>
           </Sidebar>
           <Sidebar.Pusher style={{ minHeight: "100vh" }}>
             <Grid.Row centered onClick={this.toggleVisibility}>
@@ -90,8 +94,7 @@ class ValetOptions extends Component {
               <Grid.Row centered>
                 <Image src={logo} style={{ width: "75px", height: "75px" }} />
                 <Header size="huge" color="grey">
-
-                  {this.props.login.lotname || this.props.session.lotname}
+                  {this.props.login.lotname}
                 </Header>
               </Grid.Row>
               <Grid.Row columns={2} stretched centered>

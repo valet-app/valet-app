@@ -4,7 +4,6 @@ import _ from "lodash";
 
 const rootReducer = combineReducers({
   login: loginReducer,
-  session: getUserSessionReducer,
   vehicles: vehiclesReducer,
   employees: employeesReducer,
   currentValet: chooseValetReducer,
@@ -127,6 +126,7 @@ export function loginReducer(state = {}, action) {
       return { username: "", loading: true };
     case GET_USER_SESSION + "_FULFILLED":
       return action.payload.data;
+
     case LOGOUT + "_FULFILLED":
       return {};
     default:
@@ -136,7 +136,7 @@ export function loginReducer(state = {}, action) {
 export function vehiclesReducer(state = [], action) {
   switch (action.type) {
     case GET_VEHICLES + "_FULFILLED":
-      console.log('ACTION', action);
+      console.log("ACTION", action);
       return action.payload.data;
     case GET_VEHICLES + "_REJECTED":
       return {
@@ -225,14 +225,7 @@ export function setNavTitleReducer(state = "youcantseeme", action) {
       return state;
   }
 }
-export function getUserSessionReducer(state = {}, action) {
-  switch (action.type) {
-    case GET_USER_SESSION + "_FULFILLED":
-      return action.payload.data;
-    default:
-      return state;
-  }
-}
+
 export function getLotStatusReducer(state = [], action) {
   switch (action.type) {
     case GET_LOT_STATUS + "_FULFILLED":
