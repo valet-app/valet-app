@@ -32,7 +32,7 @@ class GarageSignUp extends Component {
     axios
       .post("/api/garage", {
         name: this.state.name,
-        address: this.state.adress
+        address: this.state.address
       })
       .then(res => {
         console.log(res, "space");
@@ -40,6 +40,7 @@ class GarageSignUp extends Component {
 
         const {
           parkinglot_id,
+          address,
           location1,
           location2,
           location3,
@@ -48,6 +49,7 @@ class GarageSignUp extends Component {
         } = this.state;
         axios.post("/api/garageinfo", {
           parkinglot_id,
+          address,
           location1,
           location2,
           location3,
@@ -91,50 +93,6 @@ class GarageSignUp extends Component {
                     onChange={e => this.setState({ address: e.target.value })}
                   />
                 </Form.Field>
-
-                <Form.Field>
-                  <Input
-                    placeholder="Enter Floor"
-                    iconPosition="left"
-                    icon="block layout"
-                    onChange={e => this.setState({ location1: e.target.value })}
-                  />
-                </Form.Field>
-
-                <Form.Field>
-                  <Input
-                    placeholder="Enter Section"
-                    iconPosition="left"
-                    icon="grid layout"
-                    onChange={e => this.setState({ location2: e.target.value })}
-                  />
-                </Form.Field>
-
-                <Form.Field>
-                  <Input
-                    placeholder="Enter Direction"
-                    iconPosition="left"
-                    icon="compass"
-                    onChange={e => this.setState({ location3: e.target.value })}
-                  />
-                </Form.Field>
-                <Form.Field>
-                  <Input
-                    placeholder="Enter location"
-                    iconPosition="left"
-                    icon="compass"
-                    onChange={e => this.setState({ location4: e.target.value })}
-                  />
-                </Form.Field>
-                <Form.Field>
-                  <Input
-                    placeholder="Enter Space Number"
-                    iconPosition="left"
-                    icon="hashtag"
-                    onChange={e => this.setState({ location5: e.target.value })}
-                  />
-                </Form.Field>
-
                 <Button
                   type="submit"
                   onClick={this.handleGarageSignup}
