@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import NavBar from "../navBar/navBar";
 import CarInfo from '../carInfo/carInfo';
-import { Search, Grid, Button, Header } from "semantic-ui-react";
+import { Search, Grid, Button, Header, Icon } from "semantic-ui-react";
 
 import _ from "lodash";
 import { chooseVehicleAction, setNavTitleAction } from "../../reducers";
@@ -85,7 +85,7 @@ class PacSearch extends Component {
                 <div className='searchCar'>
                   <div><p className='noMargin searchText'>{make} {model}</p></div>
                   <div><small>{licenseplate}</small></div>
-                  {valettag && <div><small>Tag: {valettag}</small></div>}
+                  {valettag && <div><small><Icon name='tag' color='grey' />{valettag}</small></div>}
                 </div>
                 <div className='searchUser'>
                 <div><p className='noMargin searchText'>{phone}</p></div>
