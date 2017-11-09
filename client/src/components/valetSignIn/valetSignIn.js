@@ -30,20 +30,16 @@ class ValetSignIn extends Component {
   }
 
   render() {
-    
     const companyValets = this.props.employees.filter(
-      employee => employee.company_id === this.props.session.company_id
+      employee => employee.company_id === this.props.login.company_id
     );
     const valets = companyValets.filter(employee =>
       RegExp(this.state.searchValue, "i").test(employee.name)
     );
-    const active = companyValets.filter(
-      employee => employee.isactive === true
-    );
+    const active = companyValets.filter(employee => employee.isactive === true);
     const nonactive = companyValets.filter(
       employee => employee.isactive === false
     );
-   
 
     console.log(active);
     const buildList = valet => (
