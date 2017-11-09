@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import NavBar from "../navBar/navBar";
 import CarInfo from '../carInfo/carInfo';
-import { Search, Grid, Button, Segment, Header } from "semantic-ui-react";
+import { Search, Grid, Button, Header, Icon } from "semantic-ui-react";
 
 import _ from "lodash";
 import { chooseVehicleAction, setNavTitleAction } from "../../reducers";
@@ -79,16 +79,19 @@ class PacSearch extends Component {
             results={results}
             loading={isLoading}
             value={value}
-            resultRenderer={({ make, licenseplate, model, car_id, phone }) => {
+            resultRenderer={({ make, licenseplate, model, car_id, phone, firstname,lastname, valettag}) => {
               return (
-                <Segment.Group horizontal key={car_id}>
-                  <Segment>
-                    {make} {model}
-                    <br />
-                    <small>{licenseplate}</small>
-                  </Segment>
-                  <Segment>{phone}</Segment>
-                </Segment.Group>
+                <div className='searchResult' key={car_id}>
+                <div className='searchCar'>
+                  <div><p className='noMargin searchText'>{make} {model}</p></div>
+                  <div><small>{licenseplate}</small></div>
+                  {valettag && <div><small><Icon name='tag' color='grey' />{valettag}</small></div>}
+                </div>
+                <div className='searchUser'>
+                <div><p className='noMargin searchText'>{phone}</p></div>
+                <div><small>{firstname} {lastname}</small></div>
+              </div>
+              </div>
               );
             }}
           />
@@ -109,7 +112,17 @@ class PacSearch extends Component {
             </Grid.Row>
           )}
         </Grid>
-      </div>
+        {/* <div className='searchResult' horizontal>
+                  <div className='searchCar'>
+                    <div><p className='carText noMargin'>Honda Accord</p></div>
+                    <div>test</div>
+                  </div>
+                  <div className='searchUser'>
+                  <div><p className='carText noMargin'>Honda Accord</p></div>
+                  <div>test</div>
+                </div>
+                </div>*/}
+      </div> 
     );
   }
 }

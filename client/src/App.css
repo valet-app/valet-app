@@ -120,11 +120,37 @@
   color: #6b6b6b;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+.searchResult{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  text-align: center;
+
 }
+
+.searchCar{
+  display: flex;
+  flex-direction: column;
+  border-right: 1px #6b6b6b solid;
+  float: right;
+  margin: 0;
+  padding: 0 5px 0 0;
+  justify-content: center;
+  width: 120px;
+}
+.searchUser{
+  display: flex;
+  flex-direction: column;
+  float: left;
+  margin: 0;
+  padding: 0 0 0 5px;
+  justify-content: center;
+  width: 100px;
+}
+.searchText {
+  font-weight: 700;
+  font-size: 1em;
+  color: #6b6b6b;
+}
+
