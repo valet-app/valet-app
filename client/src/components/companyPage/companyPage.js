@@ -43,6 +43,12 @@ class CompanyPage extends Component {
                     </Button>
                   </Link>
                   <br />
+                  <Link to="/garageSignUp">
+                    <Button fluid color="yellow" size="massive">
+                      New Garage
+                    </Button>
+                  </Link>
+                  <br/>
                   <Link to="/companyPage">
                     <Button fluid color="grey" size="massive">
                       Log Out
