@@ -76,6 +76,7 @@ app.post("/api/company", companyCtrl.postCompany);
 
 // Chart Endpoints
 app.get("/api/chartHourlyParks", chartCtrl.getHourlyParks);
+app.get("/api/chartHourlyRetrievals", chartCtrl.getHourlyRetrievals);
 
 // Authentication
 app.post("/auth/login", passport.authenticate("local"), (req, res) => {
@@ -92,9 +93,10 @@ app.get("/auth/me", (req, res) => {
 });
 
 // remove user from session
-app.get("/auth/logout", (req, res) => {
+app.get("/auth/logout", (req, res, next) => {
+  console.log("Logging User Out");
   req.logout();
-  res.redirect("/");
+  return res.json({ success: true });
 });
 
 // garage signup
