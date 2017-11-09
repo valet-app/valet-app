@@ -5,7 +5,8 @@ import logo from "../../valet-logo.png";
 import {
   getVehiclesAction,
   getEmployeesAction,
-  chooseVehicleAction
+  chooseVehicleAction,
+  logoutAction
 } from "../../reducers";
 import {
   Header,
@@ -18,12 +19,20 @@ import {
 } from "semantic-ui-react";
 
 class ValetOptions extends Component {
+  constructor(props) {
+    super(props);
+    this.handleLogout = this.handleLogout.bind(this);
+  }
   componentDidMount() {
     this.props.getVehiclesAction();
     this.props.getEmployeesAction();
     this.props.chooseVehicleAction(null);
   }
   state = { visible: false };
+
+  handleLogout() {
+    this.props.logoutAction();
+  }
 
   toggleVisibility = () => this.setState({ visible: !this.state.visible });
   render() {
@@ -59,8 +68,9 @@ class ValetOptions extends Component {
                 Valet Sign-In/Out
               </Menu.Item>
             </Link>
-            <Link to="/auth/logout">
-              <Menu.Item onClick={this.toggleVisibility} name="Garage Log Out">
+
+            <Link to="/login">
+              <Menu.Item onClick={this.handleLogout} name="Garage Log Out">
                 <Icon color="yellow" name="external" />
                 Garage Log Out
               </Menu.Item>
@@ -124,5 +134,6 @@ const mapStateToProps = state => state;
 export default connect(mapStateToProps, {
   getVehiclesAction,
   getEmployeesAction,
-  chooseVehicleAction
+  chooseVehicleAction,
+  logoutAction
 })(ValetOptions);
