@@ -33,7 +33,10 @@ require("./passport")(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 
-const massiveConnection = massive(process.env.DATABASE_URL)
+const massiveConnection = massive({
+  scripts: "server/db",
+  connectionString: process.env.DATABASE_URL
+})
   .then(db => {
     console.log(db);
     app.set("db", db);
