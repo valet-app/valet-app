@@ -8,6 +8,7 @@ const bcrypt = require("bcrypt-nodejs");
 const dotenv = require("dotenv");
 const { Client } = require("pg");
 const path = require("path");
+const compression = require("compression");
 
 require("dotenv").load();
 
@@ -20,6 +21,7 @@ app.use(json());
 
 const folder = process.env.NODE_ENV === "production" ? "build" : "public";
 
+app.use(compression());
 app.use(express.static(`${__dirname}/../client/${folder}`));
 
 app.use(
