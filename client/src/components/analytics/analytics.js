@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
+import NavBar from "../navBar/navBar";
 import logo from "../../valet-logo.png";
 import { Doughnut, Bar, HorizontalBar } from "react-chartjs-2";
-import { getLotStatusAction } from "../../reducers";
+import { getLotStatusAction, setNavTitleAction} from "../../reducers";
 
 import { Header, Grid, Image, Input } from "semantic-ui-react";
 
@@ -20,6 +21,8 @@ const lotStatusDoughnut = {
 class Analytics extends Component {
   constructor(props) {
     super(props);
+    this.props.setNavTitleAction("Back", () =>
+    this.props.history.goBack())
     this.props.getLotStatusAction();
     this.state = {
       options: {
@@ -296,7 +299,8 @@ class Analytics extends Component {
     }
 
     return (
-      <div className="ui grid centered">
+      <div className="flexrow">
+      <NavBar/>
         <Grid centered padding="vertically" verticalAlign="middle">
           <Grid.Row centered>
             <Image src={logo} style={{ width: "75px", height: "75px" }} />
@@ -345,5 +349,5 @@ class Analytics extends Component {
 
 const mapStateToProps = state => state;
 export default connect(mapStateToProps, {
-  getLotStatusAction
+  getLotStatusAction, setNavTitleAction
 })(Analytics);
