@@ -38,7 +38,6 @@ const massiveConnection = massive({
   connectionString: process.env.DATABASE_URL
 })
   .then(db => {
-    console.log(db);
     app.set("db", db);
   })
   .catch(err => {
