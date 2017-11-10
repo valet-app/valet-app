@@ -21,8 +21,9 @@ module.exports = function(passport) {
         console.log("username is ", username);
         console.log("password is ", password);
         let user = {};
-
+        console.log(req);
         const db = req.app.get("db");
+        console.log(db);
 
         db
           .getEmployee(null, username)
