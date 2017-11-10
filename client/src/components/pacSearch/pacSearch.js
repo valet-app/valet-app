@@ -114,7 +114,7 @@ class PacSearch extends Component {
                 <Button color='yellow' size='large' onClick={() => this.props.history.push("start")}>
                   Confirm
                 </Button>
-                <Button color='yellow' size='large' onClick={this.handleClearClick}>
+                <Button color='grey' size='large' onClick={this.handleClearClick}>
                   Reset
                 </Button>
               </Grid.Column>

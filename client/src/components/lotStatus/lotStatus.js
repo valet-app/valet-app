@@ -80,7 +80,7 @@ class LotStatus extends Component {
         ]).map(space => (
           <div className="lot-status-row">
             <div>
-              {space.location2}, {space.location3}, {space.location5}
+              {space.location2} {space.location3} {space.location5}
             </div>
             <div>
               {space.parkingstatus}{" "}

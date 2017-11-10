@@ -70,7 +70,7 @@ class CarInfo extends React.Component {
             {this.state.notes.length >= 1 && (
               <span>
                 <Icon
-                  name="sticky note outline"
+                  name="sticky note"
                   size="tiny"
                   color="grey"
                   onClick={e => this.setState({ hidden: !this.state.hidden })}

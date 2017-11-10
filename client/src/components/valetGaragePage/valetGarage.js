@@ -64,7 +64,17 @@ class ValetOptions extends Component {
               <Icon color="yellow" name="home" />
               Home
             </Menu.Item>
-
+            {this.props.login.admin === true && 
+            <Menu.Item
+              onClick={() => {
+                this.toggleVisibility();
+                this.props.history.push("/companyPage");
+              }}
+              name="Admin"
+            >
+              <Icon color="yellow" name="archive" />
+              Admin
+            </Menu.Item>}
             <Menu.Item
               onClick={() => {
                 this.toggleVisibility();
