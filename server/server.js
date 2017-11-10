@@ -17,7 +17,9 @@ app.use("/api", router);
 
 app.use(json());
 
-app.use(express.static(`${__dirname}/../client/build`));
+const folder = process.env.NODE_ENV === "production" ? "build" : "public";
+
+app.use(express.static(`${__dirname}/../client/${folder}`));
 
 app.use(
   session({
@@ -33,7 +35,6 @@ require("./passport")(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 
-console.log(__dirname);
 const massiveConnection = massive(process.env.DATABASE_URL)
   .then(db => {
     app.set("db", db);
