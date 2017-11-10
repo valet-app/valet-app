@@ -7,6 +7,7 @@ const passport = require("passport");
 const bcrypt = require("bcrypt-nodejs");
 const dotenv = require("dotenv");
 const { Client } = require("pg");
+const path = require("path");
 
 require("dotenv").load();
 
@@ -17,7 +18,9 @@ app.use("/api", router);
 
 app.use(json());
 
-app.use(express.static(`${__dirname}/../client/public`));
+const folder = process.env.NODE_ENV === "production" ? "build" : "public";
+
+app.use(express.static(`${__dirname}/../client/${folder}`));
 
 app.use(
   session({
@@ -104,6 +107,10 @@ app.get("/auth/logout", (req, res, next) => {
 // garage signup
 app.post("/api/garage", garageCtrl.garageSignup);
 app.post("/api/garageinfo", garageCtrl.garageInfo);
+
+app.get("*", (req, res) =>
+  res.sendFile(path.resolve(__dirname, "../client/build", "index.html"))
+);
 
 // listen on port
 app.listen(process.env.PORT, () => {
