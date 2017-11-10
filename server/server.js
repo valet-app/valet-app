@@ -7,6 +7,7 @@ const passport = require("passport");
 const bcrypt = require("bcrypt-nodejs");
 const dotenv = require("dotenv");
 const { Client } = require("pg");
+const path = require("path");
 
 require("dotenv").load();
 
@@ -107,8 +108,9 @@ app.get("/auth/logout", (req, res, next) => {
 app.post("/api/garage", garageCtrl.garageSignup);
 app.post("/api/garageinfo", garageCtrl.garageInfo);
 
-app.get('*', (req, res)=>
-  res.sendFile('../client/build/index.html'));
+app.get("*", (req, res) =>
+  res.sendFile(path.resolve(__dirname, "../client/build", "index.html"))
+);
 
 // listen on port
 app.listen(process.env.PORT, () => {
