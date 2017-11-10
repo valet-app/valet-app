@@ -17,7 +17,7 @@ app.use("/api", router);
 
 app.use(json());
 
-app.use(express.static(`${__dirname}/../client/public`));
+app.use(express.static(`${__dirname}/../client/build`));
 
 app.use(
   session({
