@@ -9,8 +9,5 @@
     "start": "node server/server.js",
     "heroku-postbuild": "cd client/ && yarn install && yarn run build"
   },
-  "cacheDirectories": ["node_modules", "client/node_modules"],
-  "dependencies": {
-    "express": "^4.14.1"
-  }
+  "cacheDirectories": ["node_modules", "client/node_modules"]
 }
