@@ -107,6 +107,9 @@ app.get("/auth/logout", (req, res, next) => {
 app.post("/api/garage", garageCtrl.garageSignup);
 app.post("/api/garageinfo", garageCtrl.garageInfo);
 
+app.get('*', (req, res)=>
+  res.sendFile('../client/build/index.html'));
+
 // listen on port
 app.listen(process.env.PORT, () => {
   console.log(`LISTENING ON PORT: ${process.env.PORT}`);
