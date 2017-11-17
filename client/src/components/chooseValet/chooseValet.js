@@ -68,12 +68,19 @@ class ChooseValet extends Component {
           </Grid.Row>
 
           <Grid.Row>
+            {!this.state.chosenValet ?<Button
+            disabled
+              color="yellow"
+              onClick={() => this.handleChooseValet(this.state.chosenValet)}
+            >
+              Go
+            </Button>:
             <Button
               color="yellow"
               onClick={() => this.handleChooseValet(this.state.chosenValet)}
             >
               Go
-            </Button>
+            </Button>}
           </Grid.Row>
         </Grid>
       </div>
