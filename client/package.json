@@ -23,7 +23,7 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "semantic-ui": "^2.2.13"
+    "semantic-ui": "^2.5.0"
   },
   "proxy": "http://localhost:3001/"
 }
